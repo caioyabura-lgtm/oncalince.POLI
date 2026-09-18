@@ -95,9 +95,28 @@
     async current() { return window.productionAuth.current(); },
     async signOut(options) { await window.productionAuth.signOut(options); }
   };
-  const diaryService = collectionService(KEYS.diary, diaryRecord, {
+  const localDiaryService = collectionService(KEYS.diary, diaryRecord, {
     area: 'producao_executiva', sourceDepartment: null, relatedDocument: null, visibility: 'executive-private'
   }, { read: 'executivo.diario.read', write: 'executivo.diario.write' });
+  const realDiary = window.poliConfig?.executiveDiary?.mode === 'real-executive';
+  const fromReal = record => ({
+    id: record.diary_id, createdAt: record.criado_em, date: record.criado_em.slice(0, 10),
+    time: record.criado_em.slice(11, 16), title: record.titulo, body: record.registro,
+    type: record.tipo, status: record.status, tags: record.tags
+  });
+  const toReal = input => ({ titulo: input.title, registro: input.body, tipo: input.type,
+    status: input.status, tags: tags(input.tags) });
+  const diaryService = realDiary ? {
+    async list() { return (await execDiaryService.list()).map(fromReal); },
+    async create(data) { return fromReal(await execDiaryService.create(toReal(data))); },
+    async update(id, data) { return fromReal(await execDiaryService.update(id, toReal(data))); }
+  } : localDiaryService;
+  function canClearDemo() {
+    return !realDiary && window.poliConfig?.mode === 'hosted-demo'
+      && location.hostname === 'caioyabura-lgtm.github.io'
+      && location.pathname.startsWith('/oncalince.POLI/')
+      && window.poliService.isAreaAdmin('EXEC');
+  }
   // Registros legados de memória permanecem no armazenamento, sem publicação automática.
 
   const $ = selector => document.querySelector(selector);
@@ -110,6 +129,7 @@
   const sectorRoutes = Object.fromEntries(Object.entries(productionAreas.ids).map(([area, id]) => [id, productionAreas.definitions[area].href]));
   const sectorLabels = new Map([...document.querySelectorAll('[data-area-id]')].map(button => [button.dataset.areaId, button.textContent]));
   function updateSectors() {
+    $('#clear-demo-diary').hidden = !canClearDemo();
     const data = window.poliService.current();
     const nav = $('.production-sectors');
     nav.querySelectorAll('[data-poli-generated]').forEach(button => button.remove());
@@ -199,7 +219,8 @@
       await render();
       notify('Registro excluído.');
     }));
-    actions.append(edit, remove);
+    actions.append(edit);
+    if (!realDiary) actions.append(remove);
     article.append(actions);
     return article;
   }
@@ -215,6 +236,8 @@
       await window.authorizationService.require('executivo.access');
       if (route === 'executivo') {
         const records = await diaryService.list();
+        $('#executive-diary-mode').textContent = realDiary ? 'Diário Executivo conectado'
+          : window.poliConfig?.mode === 'hosted-demo' ? 'Demonstração hospedada' : 'Diário Executivo local';
         $('#executive-count').textContent = records.length + ' REGISTROS DO DIÁRIO';
         const inputs = await inputService.listForArea('producao_executiva');
         $('#executive-input-count').textContent = inputs.length + ' INPUTS RECEBIDOS';
@@ -320,6 +343,18 @@
   options($('#filter-status'), STATUSES);
 
   $('#new-diary').addEventListener('click', () => safely(() => openEditor('diary')));
+  $('#clear-demo-diary').addEventListener('click', () => safely(async () => {
+    if (!canClearDemo()) throw new Error('Limpeza disponível somente na demonstração hospedada.');
+    await window.authorizationService.require('executivo.diario.write');
+    if (!window.confirm('Remover os registros demonstrativos armazenados neste navegador?')) return;
+    if (!canClearDemo()) return;
+    localStorage.removeItem(KEYS.diary);
+    closeEditor();
+    $('#executive-count').textContent = '0 REGISTROS DO DIÁRIO';
+    $('#executive-recent').replaceChildren(element('h2', '', 'Atividade recente'));
+    await render();
+    notify('Dados demonstrativos removidos.');
+  }));
 
   ['diary'].forEach(kind => $('#cancel-' + kind).addEventListener('click', () => {
     if (window.confirm('Descartar as alterações deste formulário?')) { closeEditor(kind); $('#new-' + kind).focus(); }

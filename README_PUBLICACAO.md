@@ -1,5 +1,60 @@
 # POLI_PUBLICACAO — PRONTA PARA REVISÃO
 
+## Diário Executivo: demonstração e preparação real
+
+O Hosted Demo continua sendo autorização de interface, sem autoridade sobre dados reais.
+O Diário Executivo Local usa exclusivamente `localStorage['onca-lince.producao.v01.diary']`.
+Em Produção Executiva → Diário de Produção, a ação discreta **LIMPAR DADOS DEMONSTRATIVOS**
+aparece somente no hosted-demo permitido, com acesso ADMIN à interface EXEC e diário local.
+Ela pede “Remover os registros demonstrativos armazenados neste navegador?”, remove essa
+única chave inteira, fecha o editor e atualiza lista, atividade recente e contador para zero.
+Depois informa “Dados demonstrativos removidos.” Cancelar preserva os registros.
+Não remove nenhuma chave de sessionStorage, sessão, configuração, INPUT, memória ou diário
+de outro departamento. Não acessa backend nem Sheets. A ação afeta só o navegador atual;
+os registros existentes não foram apagados automaticamente por esta alteração.
+
+O Diário Executivo Real está preparado em `exec-diary-service.js`, com `list()`,
+`create(data)` e `update(id, data)`, usando o transporte separado de `poli-service.js`.
+Create/update enviam somente `titulo`, `registro`, `tipo`, `status`, `tags`; o alvo de update
+é enviado separadamente como `id` e precisa ser autorizado pelo backend. Campos de identidade
+e criação enviados no conteúdo são descartados. O backend define UUID, user_id e criado_em
+no create, preserva esses campos no update e filtra list pelo proprietário autorizado.
+O adapter real não lê armazenamento local e não migra registros demonstrativos.
+
+Em `poli-config.js`, `realExecutiveDiaryEnabled = false`, `executiveDiary.mode = 'local'`
+e `executiveDiary.apiUrl = null`. O modo de dados futuro é `real-executive`, separado do
+modo de autorização `remote`. Hosted-demo/local nunca habilitam transporte real, mesmo
+forçando a flag. Sem habilitação segura, a resposta é:
+“Diário Executivo real aguardando autenticação segura.” Não há fallback real→local.
+O dashboard identifica “Demonstração hospedada” para dados locais hospedados; a indicação
+“Diário Executivo conectado” depende de uma consulta real bem-sucedida.
+
+POLI_EXECUTIVO é privado e separado: usa somente DIARIO_EXECUTIVO, nunca POLI / 20_DIARIO.
+O esqueleto Apps Script e sua documentação ficam **fora desta pasta pública**, em
+`../POLI_EXECUTIVO_BACKEND_PREPARACAO/Code.gs` e `../POLI_EXECUTIVO_BACKEND_PREPARACAO/README.md`.
+**Não enviar esses dois arquivos ao GitHub Pages.** Nenhuma planilha ou implantação foi
+modificada. O backend tem flag false e verificador de identidade que sempre recusa.
+
+Ainda não existe autenticação server-side no projeto. A arquitetura futura exige login
+Google/OIDC validado no servidor, sessão HttpOnly, mapeamento privado de identidade para
+user_id, permissões executivas por operação, proteção CSRF e gateway autenticado para
+Apps Script. O transporte preparado requer API na mesma origem; GitHub Pages não oferece
+essa API, portanto não basta informar uma URL /exec ou mudar a flag. A implantação e a
+ponte autenticada permanecem pendentes. Não confiar em Session.getEffectiveUser como
+visitante nem presumir que Session.getActiveUser funciona em qualquer implantação:
+[documentação oficial](https://developers.google.com/apps-script/reference/base/session).
+
+Testes desta etapa: `python tests/test_exec_diary.py`, `python tests/test_hosted_demo.py`,
+`python tests/test_poli_access.py` e `python tests/test_area_workspaces.py`.
+Os testes backend usam Sheets em memória; não validam uma implantação Google real.
+
+Publicação manual cumulativa (inclui a correção hosted-demo anterior): reenviar exatamente
+`producao.html`, `producao.js`, `poli-config.js`, `poli-local.js`, `poli-service.js` e o novo
+`exec-diary-service.js`. Para manter a documentação do repositório atualizada, reenviar também
+este `README_PUBLICACAO.md`. Testes não são dependências do site: manter no repositório
+`tests/test_hosted_demo.py` e `tests/test_exec_diary.py`; este último requer a preparação
+backend irmã para executar sua parte de contrato. Nenhum git push foi executado nesta etapa.
+
 Data: 17/09/2026. POLI v0.1. Cópia estática autônoma em relação ao projeto original, com dependências externas declaradas. Nenhum comando Git ou publicação executado.
 
 ## Preservação e seleção

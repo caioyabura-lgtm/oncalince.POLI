@@ -10,6 +10,7 @@
   <script src="poli-config.js" defer></script>
   <script src="poli-local.js" defer></script>
   <script src="poli-service.js" defer></script>
+  <script src="exec-diary-service.js" defer></script>
   <script src="audit-service.js" defer></script>
   <script src="area-workspaces.js" defer></script>
   <script src="internal-services.js" defer></script>
@@ -89,12 +90,13 @@
         <div class="filters"><label>Buscar<input id="diary-search" type="search" placeholder="Título, conteúdo ou tags"></label><label>Tipo<select id="filter-type"><option value="">Todos os tipos</option></select></label><label>Status<select id="filter-status"><option value="">Todos os status</option></select></label></div>
         <p class="list-caption">Mais recentes primeiro <span id="diary-count"></span></p>
         <div id="diary-list"></div>
+        <button id="clear-demo-diary" type="button" hidden>LIMPAR DADOS DEMONSTRATIVOS</button>
       </section>
       <section data-view="executivo" hidden>
         <a class="view-return" href="#overview">← Dashboard Geral</a>
         <header class="section-heading"><p class="eyebrow">Área privada</p><h1 tabindex="-1">Produção Executiva</h1></header>
         <nav class="category-tabs" aria-label="Produção Executiva"><a href="#executivo">Dashboard</a><a href="#diary">Diário de Produção</a><a href="#executive-inputs">Inputs recebidos</a></nav>
-        <h2>Dashboard</h2><p id="executive-count"></p><p id="executive-input-count"></p><div id="executive-recent"></div>
+        <h2>Dashboard</h2><p id="executive-diary-mode" class="list-caption"></p><p id="executive-count"></p><p id="executive-input-count"></p><div id="executive-recent"></div>
       </section>
       <section data-view="executive-inputs" hidden>
         <a class="view-return" href="#overview">← Dashboard Geral</a>

@@ -10,5 +10,7 @@ window.poliConfig = Object.freeze({
   apiUrl: null, // Endpoint autenticado de bootstrap na mesma origem; ainda não fornecido.
   localScenario: 'A', // NONE (sem concessões), A, B ou C. Somente usuários sintéticos.
   timeoutMs: 10000,
+  realExecutiveDiaryEnabled: false,
+  executiveDiary: Object.freeze({ mode: 'local', apiUrl: null }),
   audit: Object.freeze({ mode: 'local', apiUrl: null, timeoutMs: 1500 })
 });

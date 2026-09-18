@@ -105,7 +105,35 @@ window.poliService = (() => {
     return pending;
   }
   window.addEventListener('storage', event => { if (event.key === null || event.key === window.productionAuth?.key) reset(); });
-  return Object.freeze({ getBootstrap, current, reset,
+  // Transporte futuro: uma sessão autenticada no servidor será obrigatória.
+  // Nenhum grant de UI nem identidade demonstrativa é enviado como credencial.
+  async function requestExecutiveDiary(operation, data, id) {
+    const config = window.poliConfig;
+    if (config?.mode !== 'remote' || config.realExecutiveDiaryEnabled !== true
+      || config.executiveDiary?.mode !== 'real-executive') {
+      throw error('Diário Executivo real aguardando autenticação segura.', 'EXEC_AUTH_PENDING');
+    }
+    if (!config.executiveDiary.apiUrl) throw error('Diário Executivo real aguardando autenticação segura.', 'EXEC_UNCONFIGURED');
+    const url = new URL(config.executiveDiary.apiUrl, location.origin);
+    // GitHub Pages não oferece esta API. Uma integração autenticada separada é necessária.
+    if (url.origin !== location.origin || url.username || url.password || url.search || url.hash) {
+      throw error('Endpoint executivo requer integração autenticada na mesma origem.', 'EXEC_CONFIG');
+    }
+    const abort = new AbortController();
+    const timer = setTimeout(() => abort.abort(), config.timeoutMs || 10000);
+    try {
+      const response = await fetch(url.href, {
+        method: 'POST', credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: abort.signal,
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ operation, ...(data ? { data } : {}), ...(id ? { id } : {}) })
+      });
+      if (!response.ok) throw error('O servidor não autorizou ou confirmou a operação executiva.', 'EXEC_REQUEST');
+      const result = await response.json();
+      if (result?.ok !== true) throw error('O servidor não confirmou a operação executiva.', 'EXEC_REQUEST');
+      return result.data;
+    } finally { clearTimeout(timer); }
+  }
+  return Object.freeze({ getBootstrap, current, reset, requestExecutiveDiary,
     canReadArea: areaId => permitted(areaId, 1),
     canWriteArea: areaId => permitted(areaId, 2),
     isAreaAdmin: areaId => permitted(areaId, 3)
