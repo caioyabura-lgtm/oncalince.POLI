@@ -1,59 +1,85 @@
 # POLI_PUBLICACAO — PRONTA PARA REVISÃO
 
-## Diário Executivo: demonstração e preparação real
+## Diário demonstrativo e Diário Executivo real
 
-O Hosted Demo continua sendo autorização de interface, sem autoridade sobre dados reais.
-O Diário Executivo Local usa exclusivamente `localStorage['onca-lince.producao.v01.diary']`.
-Em Produção Executiva → Diário de Produção, a ação discreta **LIMPAR DADOS DEMONSTRATIVOS**
-aparece somente no hosted-demo permitido, com acesso ADMIN à interface EXEC e diário local.
-Ela pede “Remover os registros demonstrativos armazenados neste navegador?”, remove essa
-única chave inteira, fecha o editor e atualiza lista, atividade recente e contador para zero.
-Depois informa “Dados demonstrativos removidos.” Cancelar preserva os registros.
-Não remove nenhuma chave de sessionStorage, sessão, configuração, INPUT, memória ou diário
-de outro departamento. Não acessa backend nem Sheets. A ação afeta só o navegador atual;
-os registros existentes não foram apagados automaticamente por esta alteração.
+Produção Executiva → Diário de Produção oferece dois links explícitos:
+**Diário demonstrativo** (`?diary=local#diary`) e **Diário Executivo real**
+(`?diary=real#diary`). O padrão continua local; o parâmetro escolhe a interface,
+nunca autoriza dados. Recarregar mantém a escolha. Os registros não são misturados,
+copiados ou migrados. O dashboard e o diário identificam a origem; após leitura real
+bem-sucedida, mostram “Conectado ao POLI_EXECUTIVO”. No hosted-demo local,
+mostram “Demonstração hospedada”.
 
-O Diário Executivo Real está preparado em `exec-diary-service.js`, com `list()`,
-`create(data)` e `update(id, data)`, usando o transporte separado de `poli-service.js`.
-Create/update enviam somente `titulo`, `registro`, `tipo`, `status`, `tags`; o alvo de update
-é enviado separadamente como `id` e precisa ser autorizado pelo backend. Campos de identidade
-e criação enviados no conteúdo são descartados. O backend define UUID, user_id e criado_em
-no create, preserva esses campos no update e filtra list pelo proprietário autorizado.
-O adapter real não lê armazenamento local e não migra registros demonstrativos.
+O backend Web App informado pelo responsável está configurado em `poli-config.js`;
+nenhuma chave privada está configurada ali. `realExecutiveDiaryEnabled = true` habilita
+o adapter, sem conceder autorização: cada POST exige a chave executiva validada pelo
+backend. Os grants hosted-demo continuam restritos à navegação de interface.
 
-Em `poli-config.js`, `realExecutiveDiaryEnabled = false`, `executiveDiary.mode = 'local'`
-e `executiveDiary.apiUrl = null`. O modo de dados futuro é `real-executive`, separado do
-modo de autorização `remote`. Hosted-demo/local nunca habilitam transporte real, mesmo
-forçando a flag. Sem habilitação segura, a resposta é:
-“Diário Executivo real aguardando autenticação segura.” Não há fallback real→local.
-O dashboard identifica “Demonstração hospedada” para dados locais hospedados; a indicação
-“Diário Executivo conectado” depende de uma consulta real bem-sucedida.
+Ao solicitar o real, `exec-diary-service.js` consulta somente a chave de sessionStorage
+`onca-lince.producao.v01.executive-access-key`. Se ausente, abre “Chave de acesso executivo”,
+com campo password vazio. Depois de enviar ou cancelar, o campo é apagado; a chave nunca
+é reexibida. Nenhum segredo é escrito em HTML, código, URL, query string ou localStorage.
+Logout, novo login, mudança de sessão em outra aba e EXEC_UNAVAILABLE removem a chave.
+Ela sobrevive ao reload na mesma sessão da aba; segue o ciclo de vida de sessionStorage.
+Restauração de sessões pelo navegador pode restaurar sessionStorage: para encerrar
+explicitamente o acesso, usar Sair. Não há autenticação individual nova nem login Google:
+a credencial real desta integração é a chave executiva validada pelo backend.
 
-POLI_EXECUTIVO é privado e separado: usa somente DIARIO_EXECUTIVO, nunca POLI / 20_DIARIO.
-O esqueleto Apps Script e sua documentação ficam **fora desta pasta pública**, em
-`../POLI_EXECUTIVO_BACKEND_PREPARACAO/Code.gs` e `../POLI_EXECUTIVO_BACKEND_PREPARACAO/README.md`.
-**Não enviar esses dois arquivos ao GitHub Pages.** Nenhuma planilha ou implantação foi
-modificada. O backend tem flag false e verificador de identidade que sempre recusa.
+O transporte em `poli-service.js` envia POST `{ operation, accessKey, data }`, sem cookies,
+com JSON como `text/plain;charset=UTF-8` para evitar preflight. Segue o redirecionamento
+do ContentService descrito na [documentação Google](https://developers.google.com/apps-script/guides/content#redirects).
+Não utiliza no-cors, JSONP ou GET como alternativa. Falhas não disparam repetição automática
+de gravação. EXEC_UNAVAILABLE mostra somente “Acesso executivo não autorizado ou indisponível.”
+e remove a chave; erros internos do backend não são exibidos.
 
-Ainda não existe autenticação server-side no projeto. A arquitetura futura exige login
-Google/OIDC validado no servidor, sessão HttpOnly, mapeamento privado de identidade para
-user_id, permissões executivas por operação, proteção CSRF e gateway autenticado para
-Apps Script. O transporte preparado requer API na mesma origem; GitHub Pages não oferece
-essa API, portanto não basta informar uma URL /exec ou mudar a flag. A implantação e a
-ponte autenticada permanecem pendentes. Não confiar em Session.getEffectiveUser como
-visitante nem presumir que Session.getActiveUser funciona em qualquer implantação:
-[documentação oficial](https://developers.google.com/apps-script/reference/base/session).
+Contrato adotado: list envia data vazio e recebe `{ok:true,data:[registros]}`;
+create envia apenas titulo, registro, tipo, status, tags; update acrescenta `data.diary_id`
+como alvo de edição. Nenhuma operação envia user_id ou criado_em, nem diary_id no create.
+Create/update exigem `{ok:true,...}` e a interface relê list após salvar. Os registros de list
+contêm diary_id, criado_em, titulo, registro, tipo, status, tags (array ou texto de tags).
+Backend define identidade, IDs e datas e deve validar o alvo do update. Não há DELETE real
+na interface. Formatos de sucesso e suporte a update precisam ser confirmados no teste
+com a chave válida; nenhum teste autenticado real foi executado por este agente.
 
-Testes desta etapa: `python tests/test_exec_diary.py`, `python tests/test_hosted_demo.py`,
-`python tests/test_poli_access.py` e `python tests/test_area_workspaces.py`.
-Os testes backend usam Sheets em memória; não validam uma implantação Google real.
+O diário demonstrativo permanece em `localStorage['onca-lince.producao.v01.diary']`.
+“LIMPAR DADOS DEMONSTRATIVOS” aparece somente no hosted-demo permitido com diário local
+e acesso ADMIN à interface EXEC. Pede confirmação e remove exclusivamente essa chave,
+atualizando lista, atividade e contador; não remove INPUTs, outras áreas, sessão ou qualquer
+chave de sessionStorage e não consulta o backend. Registros locais não são migrados.
 
-Publicação manual cumulativa (inclui a correção hosted-demo anterior): reenviar exatamente
-`producao.html`, `producao.js`, `poli-config.js`, `poli-local.js`, `poli-service.js` e o novo
-`exec-diary-service.js`. Para manter a documentação do repositório atualizada, reenviar também
-este `README_PUBLICACAO.md`. Testes não são dependências do site: manter no repositório
-`tests/test_hosted_demo.py` e `tests/test_exec_diary.py`; este último requer a preparação
-backend irmã para executar sua parte de contrato. Nenhum git push foi executado nesta etapa.
+A pasta irmã `../POLI_EXECUTIVO_BACKEND_PREPARACAO/` é apenas a preparação histórica da
+etapa anterior, desabilitada, e não representa o Web App publicado informado pelo usuário.
+Não reenviar seu Code.gs ou README.md ao GitHub Pages nem substituir o backend funcional.
+Nenhum backend, Google Sheets ou credencial Google foi alterado nesta etapa.
+
+## Teste manual com a chave executiva
+
+1. Publicar os arquivos abaixo e abrir Produção Executiva → Diário de Produção.
+2. Escolher **Diário Executivo real**; informar a chave no modal e clicar Conectar.
+3. Confirmar a listagem e “Conectado ao POLI_EXECUTIVO”.
+4. Criar um registro de teste identificável; confirmar que aparece na listagem real.
+5. Atualizar a página; confirmar que a chave não é pedida novamente e o registro continua.
+6. Editar o registro e confirmar a atualização; conferir o contrato de update no Web App
+   caso a operação seja recusada. Nenhuma tentativa alternativa automática é feita.
+7. Voltar ao demonstrativo e confirmar que o registro real não aparece ali.
+8. Clicar Sair e confirmar a ausência de `onca-lince.producao.v01.executive-access-key`
+   em sessionStorage (sem copiar ou capturar o valor). Entrar novamente deve pedir a chave.
+9. Opcional: informar uma chave inválida e confirmar mensagem genérica e remoção da chave.
+
+Testes automatizados: `tests/test_exec_webapp.py` (Web App interceptado, chave fictícia),
+`tests/test_exec_diary.py`, `tests/test_hosted_demo.py`, `tests/test_poli_access.py` e
+`tests/test_area_workspaces.py`. Não criam registros reais. Uma requisição de list sem chave
+ao Web App publicado retornou HTTP 200, CORS `*` e `{ok:false,error:"EXEC_UNAVAILABLE"}`.
+O mesmo POST sem chave também foi verificado no Chromium com origem GitHub Pages simulada,
+seguindo os redirecionamentos reais e lendo a resposta CORS. Esse resultado comprova a recusa
+sem credencial, não valida operações autenticadas.
+
+Reenvio público cumulativo: **auth.js, poli-config.js, poli-local.js, poli-service.js,
+exec-diary-service.js, producao.html, producao.js e README_PUBLICACAO.md**. O poli-local.js
+inclui a alteração hosted-demo anterior; reenviá-lo evita depender da versão já publicada.
+Testes são opcionais no repositório e não são dependências do site. Não executar git push.
+
+## Histórico da preparação inicial
 
 Data: 17/09/2026. POLI v0.1. Cópia estática autônoma em relação ao projeto original, com dependências externas declaradas. Nenhum comando Git ou publicação executado.
 

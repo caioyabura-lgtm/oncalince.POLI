@@ -89,6 +89,8 @@
         </form>
         <div class="filters"><label>Buscar<input id="diary-search" type="search" placeholder="Título, conteúdo ou tags"></label><label>Tipo<select id="filter-type"><option value="">Todos os tipos</option></select></label><label>Status<select id="filter-status"><option value="">Todos os status</option></select></label></div>
         <p class="list-caption">Mais recentes primeiro <span id="diary-count"></span></p>
+        <p class="list-caption" data-executive-connection></p>
+        <nav class="category-tabs" aria-label="Origem dos registros"><a href="?diary=local#diary">Diário demonstrativo</a><a href="?diary=real#diary">Diário Executivo real</a></nav>
         <div id="diary-list"></div>
         <button id="clear-demo-diary" type="button" hidden>LIMPAR DADOS DEMONSTRATIVOS</button>
       </section>
@@ -96,7 +98,7 @@
         <a class="view-return" href="#overview">← Dashboard Geral</a>
         <header class="section-heading"><p class="eyebrow">Área privada</p><h1 tabindex="-1">Produção Executiva</h1></header>
         <nav class="category-tabs" aria-label="Produção Executiva"><a href="#executivo">Dashboard</a><a href="#diary">Diário de Produção</a><a href="#executive-inputs">Inputs recebidos</a></nav>
-        <h2>Dashboard</h2><p id="executive-diary-mode" class="list-caption"></p><p id="executive-count"></p><p id="executive-input-count"></p><div id="executive-recent"></div>
+        <h2>Dashboard</h2><p id="executive-diary-mode" class="list-caption"></p><nav class="category-tabs" aria-label="Origem do diário"><a href="?diary=local#diary">Diário demonstrativo</a><a href="?diary=real#diary">Diário Executivo real</a></nav><p id="executive-count"></p><p id="executive-input-count"></p><div id="executive-recent"></div>
       </section>
       <section data-view="executive-inputs" hidden>
         <a class="view-return" href="#overview">← Dashboard Geral</a>
@@ -119,6 +121,13 @@
     </div>
   </div>
   <dialog id="profile-dialog"><h2>Perfil</h2><p id="profile-name"></p><p id="poli-mode-note">Equipe do laboratório · sessão demonstrativa</p><form method="dialog"><button>Fechar</button></form></dialog>
+  <dialog id="executive-key-dialog" aria-labelledby="executive-key-title">
+    <h2 id="executive-key-title">Chave de acesso executivo</h2>
+    <form autocomplete="off">
+      <label>Chave de acesso executivo<input type="password" name="executive-key" autocomplete="off" required spellcheck="false" autocapitalize="none"></label>
+      <div class="actions"><button type="submit">Conectar</button><button type="button" onclick="this.closest('dialog').close()">Cancelar</button></div>
+    </form>
+  </dialog>
   <noscript><p>Ative o JavaScript para utilizar o Diário e a Memória do Processo.</p></noscript>
 </body>
 </html>

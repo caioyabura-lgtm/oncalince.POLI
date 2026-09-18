@@ -6,6 +6,14 @@
 // Os verificadores PBKDF2 evitam guardar as senhas em texto simples.
 window.productionAuth = (() => {
   const key = 'onca-lince.producao.v01.session';
+  const executiveKey = 'onca-lince.producao.v01.executive-access-key';
+  function clearExecutiveKey() {
+    sessionStorage.removeItem(executiveKey);
+    window.dispatchEvent(new Event('executive-key-cleared'));
+  }
+  window.addEventListener('storage', event => {
+    if (event.key === key || event.key === null) clearExecutiveKey();
+  });
   const scriptBase = new URL('.', document.currentScript.src);
   let auditLoading, signingOut, signingIn;
   async function audit(type) {
@@ -48,8 +56,10 @@ window.productionAuth = (() => {
       return { access: session.access, name: accounts[session.access].name, profile: 'Equipe do laboratório', mode: 'demo', sessionId: session.sessionId || null };
     } catch { return null; }
   }
+  if (!current()) clearExecutiveKey();
   return {
     key,
+    executiveKey, clearExecutiveKey,
     current,
     signIn(access, password) {
       if (signingIn) return signingIn;
@@ -65,6 +75,7 @@ window.productionAuth = (() => {
         }, material, 256);
         const hash = Array.from(new Uint8Array(bits), byte => byte.toString(16).padStart(2, '0')).join('');
         if (hash !== accounts[access].hash) throw new Error('Acesso ou senha incorretos.');
+        clearExecutiveKey();
         window.poliService?.reset();
         try { localStorage.setItem(key, JSON.stringify({ access, sessionId: 'SES-' + crypto.randomUUID() })); }
         catch { throw new Error('Permita o armazenamento neste navegador para manter a sessão.'); }
@@ -74,6 +85,7 @@ window.productionAuth = (() => {
       return signingIn;
     },
     signOut({ audit: record = true } = {}) {
+      clearExecutiveKey();
       if (signingOut) return signingOut;
       const session = current();
       signingOut = (async () => {

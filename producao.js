@@ -98,7 +98,7 @@
   const localDiaryService = collectionService(KEYS.diary, diaryRecord, {
     area: 'producao_executiva', sourceDepartment: null, relatedDocument: null, visibility: 'executive-private'
   }, { read: 'executivo.diario.read', write: 'executivo.diario.write' });
-  const realDiary = window.poliConfig?.executiveDiary?.mode === 'real-executive';
+  const realDiary = new URLSearchParams(location.search).get('diary') === 'real';
   const fromReal = record => ({
     id: record.diary_id, createdAt: record.criado_em, date: record.criado_em.slice(0, 10),
     time: record.criado_em.slice(11, 16), title: record.titulo, body: record.registro,
@@ -108,8 +108,8 @@
     status: input.status, tags: tags(input.tags) });
   const diaryService = realDiary ? {
     async list() { return (await execDiaryService.list()).map(fromReal); },
-    async create(data) { return fromReal(await execDiaryService.create(toReal(data))); },
-    async update(id, data) { return fromReal(await execDiaryService.update(id, toReal(data))); }
+    async create(data) { return execDiaryService.create(toReal(data)); },
+    async update(id, data) { return execDiaryService.update(id, toReal(data)); }
   } : localDiaryService;
   function canClearDemo() {
     return !realDiary && window.poliConfig?.mode === 'hosted-demo'
@@ -121,6 +121,25 @@
 
   const $ = selector => document.querySelector(selector);
   const diaryForm = $('#diary-form');
+  // Data/hora de criação do diário real pertencem exclusivamente ao backend.
+  if (realDiary) for (const name of ['date', 'time']) {
+    diaryForm.elements[name].disabled = true;
+    diaryForm.elements[name].closest('label').hidden = true;
+  }
+  function connectionLabel(connected = false) {
+    const label = realDiary ? (connected ? 'Conectado ao POLI_EXECUTIVO' : 'Diário Executivo real')
+      : window.poliConfig?.mode === 'hosted-demo' ? 'Demonstração hospedada' : 'Diário Executivo local';
+    $('#executive-diary-mode').textContent = label;
+    document.querySelectorAll('[data-executive-connection]').forEach(node => { node.textContent = label; });
+  }
+  connectionLabel();
+  window.addEventListener('executive-key-cleared', () => {
+    if (!realDiary) return;
+    connectionLabel();
+    $('#diary-list').replaceChildren(); $('#executive-recent').replaceChildren();
+    $('#executive-count').textContent = ''; $('#diary-count').textContent = '';
+    closeEditor();
+  });
 
   let editingDiary = null;
 
@@ -232,12 +251,12 @@
   async function render() {
     // A home é somente navegação: não consulta nem renderiza dados dos módulos.
     if (route === 'overview') return;
+    if (realDiary) connectionLabel();
     if (route === 'executivo' || route === 'executive-inputs') {
       await window.authorizationService.require('executivo.access');
       if (route === 'executivo') {
         const records = await diaryService.list();
-        $('#executive-diary-mode').textContent = realDiary ? 'Diário Executivo conectado'
-          : window.poliConfig?.mode === 'hosted-demo' ? 'Demonstração hospedada' : 'Diário Executivo local';
+        connectionLabel(true);
         $('#executive-count').textContent = records.length + ' REGISTROS DO DIÁRIO';
         const inputs = await inputService.listForArea('producao_executiva');
         $('#executive-input-count').textContent = inputs.length + ' INPUTS RECEBIDOS';
@@ -252,6 +271,7 @@
         (!$('#filter-status').value || record.status === $('#filter-status').value) &&
         searchText([record.title, record.body, ...record.tags].join(' ')).includes(query));
       list($('#diary-list'), records, 'diary');
+      connectionLabel(true);
       $('#diary-count').textContent = records.length + ' registros';
     } else {
       await window.authorizationService.require('memory.read');

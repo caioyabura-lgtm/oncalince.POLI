@@ -105,33 +105,50 @@ window.poliService = (() => {
     return pending;
   }
   window.addEventListener('storage', event => { if (event.key === null || event.key === window.productionAuth?.key) reset(); });
-  // Transporte futuro: uma sessão autenticada no servidor será obrigatória.
-  // Nenhum grant de UI nem identidade demonstrativa é enviado como credencial.
-  async function requestExecutiveDiary(operation, data, id) {
+  // A chave digitada é validada pelo Web App, nunca pelos grants de interface.
+  async function requestExecutiveDiary(operation, data, id, accessKey) {
     const config = window.poliConfig;
-    if (config?.mode !== 'remote' || config.realExecutiveDiaryEnabled !== true
-      || config.executiveDiary?.mode !== 'real-executive') {
-      throw error('Diário Executivo real aguardando autenticação segura.', 'EXEC_AUTH_PENDING');
-    }
-    if (!config.executiveDiary.apiUrl) throw error('Diário Executivo real aguardando autenticação segura.', 'EXEC_UNCONFIGURED');
-    const url = new URL(config.executiveDiary.apiUrl, location.origin);
-    // GitHub Pages não oferece esta API. Uma integração autenticada separada é necessária.
-    if (url.origin !== location.origin || url.username || url.password || url.search || url.hash) {
-      throw error('Endpoint executivo requer integração autenticada na mesma origem.', 'EXEC_CONFIG');
-    }
+    if (!config?.realExecutiveDiaryEnabled || !config.executiveDiary?.apiUrl) throw error('Diário Executivo real não configurado.', 'EXEC_UNCONFIGURED');
+    const url = new URL(config.executiveDiary.apiUrl);
+    if (url.protocol !== 'https:' || url.hostname !== 'script.google.com'
+      || !/^\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url.pathname)
+      || url.port || url.username || url.password || url.search || url.hash) throw error('Endpoint executivo inválido.', 'EXEC_CONFIG');
+    if (!['list', 'create', 'update'].includes(operation)) throw error('Operação executiva inválida.', 'EXEC_CONFIG');
+    if (!accessKey || !window.productionAuth.current()) throw error('Informe a chave de acesso executivo.', 'EXEC_KEY_REQUIRED');
+    const session = window.productionAuth.current();
+    const stillCurrent = () => window.productionAuth.current()?.access === session.access
+      && window.productionAuth.current()?.sessionId === session.sessionId
+      && sessionStorage.getItem(window.productionAuth.executiveKey) === accessKey;
     const abort = new AbortController();
     const timer = setTimeout(() => abort.abort(), config.timeoutMs || 10000);
+    const cancel = () => abort.abort();
+    window.addEventListener('executive-key-cleared', cancel);
     try {
       const response = await fetch(url.href, {
-        method: 'POST', credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: abort.signal,
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ operation, ...(data ? { data } : {}), ...(id ? { id } : {}) })
+        method: 'POST', credentials: 'omit', cache: 'no-store', redirect: 'follow', signal: abort.signal,
+        // POST simples: JSON como texto evita preflight não suportado pelo Web App.
+        // ContentService redireciona a resposta para script.googleusercontent.com.
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+        body: JSON.stringify({ operation, accessKey, data: { ...(data || {}), ...(id ? { diary_id: id } : {}) } })
       });
-      if (!response.ok) throw error('O servidor não autorizou ou confirmou a operação executiva.', 'EXEC_REQUEST');
+      if (abort.signal.aborted || !stillCurrent()) throw error('Sessão encerrada.', 'EXEC_SESSION');
+      if (response.status === 401 || response.status === 403) {
+        window.productionAuth.clearExecutiveKey();
+        throw error('Acesso executivo não autorizado ou indisponível.', 'EXEC_UNAVAILABLE');
+      }
+      if (!response.ok) throw error('Não foi possível confirmar a operação. Consulte o diário antes de tentar novamente.', 'EXEC_REQUEST');
       const result = await response.json();
+      if (abort.signal.aborted || !stillCurrent()) throw error('Sessão encerrada.', 'EXEC_SESSION');
+      if (result?.error === 'EXEC_UNAVAILABLE' || result?.code === 'EXEC_UNAVAILABLE' || result?.error?.code === 'EXEC_UNAVAILABLE') {
+        window.productionAuth.clearExecutiveKey();
+        throw error('Acesso executivo não autorizado ou indisponível.', 'EXEC_UNAVAILABLE');
+      }
       if (result?.ok !== true) throw error('O servidor não confirmou a operação executiva.', 'EXEC_REQUEST');
       return result.data;
-    } finally { clearTimeout(timer); }
+    } catch (failure) {
+      if (failure.code) throw failure;
+      throw error('Não foi possível confirmar a operação. Consulte o diário antes de tentar novamente.', 'EXEC_NETWORK');
+    } finally { clearTimeout(timer); window.removeEventListener('executive-key-cleared', cancel); }
   }
   return Object.freeze({ getBootstrap, current, reset, requestExecutiveDiary,
     canReadArea: areaId => permitted(areaId, 1),
