@@ -1,7 +1,7 @@
 'use strict';
 
 // Mock explícito do contrato POLI. Não cadastra nem concede permissões a usuários reais.
-// Só é consumido pelo serviço em modo local e em localhost/127.0.0.1/::1.
+// Cenários somente em loopback; hosted-demo reutiliza o catálogo com NONE.
 window.poliLocalBootstrap = (session, scenario) => {
   const scenarios = {
     NONE: [],

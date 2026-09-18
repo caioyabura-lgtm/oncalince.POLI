@@ -140,7 +140,9 @@
       $('#profile-name').textContent = bootstrap.user.name;
       $('#poli-mode-note').textContent = poliConfig.mode === 'local'
         ? 'POLI local · cenário ' + poliConfig.localScenario + ' · usuário sintético; sem conexão remota'
-        : 'Permissões consultadas no POLI';
+        : poliConfig.mode === 'hosted-demo'
+          ? 'Modo de acesso: Demonstração hospedada · UI AUTHORIZATION ONLY · NOT DATA AUTHORIZATION'
+          : 'Permissões consultadas no POLI';
       permissionFeedback = '';
     } catch (error) {
       if (window.productionAuth.current()?.access !== access) return false;

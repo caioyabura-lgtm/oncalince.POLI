@@ -22,11 +22,11 @@ README.md não existe na raiz. POLI_AUDITORIA.md histórico não foi copiado: co
 
 Autenticação demonstrativa: os oito verificadores PBKDF2 foram mantidos conforme classificação validada. A sessão no navegador não oferece autenticação real nem proteção de dados; não usar o protótipo com dados reais. Segredos operacionais identificados na seleção: 0; isso não significa ausência de nomes pessoais nas contas demonstrativas.
 
-POLI permanece local, cenário A, com apiUrl null. A integração de auditoria é experimental e permanece local; nenhum evento remoto real foi enviado. Testes de API utilizam interceptações. APIs de Gabinete continuam não configuradas.
+O bootstrap usa local, cenário A, em loopback e hosted-demo exclusivamente em caioyabura-lgtm.github.io/oncalince.POLI/, com apiUrl null. A integração de auditoria é experimental e permanece local; nenhum evento remoto real foi enviado. Testes de API utilizam interceptações. APIs de Gabinete continuam não configuradas.
 
 INPUT é destinado inicialmente e exclusivamente a EXEC. Não existe escolha de TECH/ART/INTL/PROD/MKT/ADMIN pelo colaborador; campos forjados não alteram o destino. Não há encaminhamento automático ou operação implementada de distribuição pela EXEC.
 
-GitHub Pages não habilitará o modo POLI local, restrito a loopback. As áreas não terão a mesma abertura observada em localhost. Essa limitação foi preservada. Diários e INPUT usam armazenamento local demonstrativo, sem sincronização real.
+DEMONSTRAÇÃO — UI AUTHORIZATION ONLY — NOT DATA AUTHORIZATION. Em hosted-demo, somente `session.access === 'caio'` recebe ADMIN sintético em EXEC/ART/TECH/INTL; demais contas não recebem grants. PROD/MKT/ADMIN continuam inativos. O perfil identifica Demonstração hospedada. A configuração está em poli-config.js e a validação de endereço e grants em poli-service.js. Nenhum grant autoriza dados reais: o backend deverá revalidar leitura/escrita, arquivos privados, documentos e dados financeiros. Diários e INPUT usam armazenamento local demonstrativo, sem sincronização real. Teste específico: `python tests/test_hosted_demo.py` (origens interceptadas, sem backend).
 
 Memórias: promoção DIARIO, promoção INPUT e contrato completo 30_MEMORIA permanecem pendentes (3 SKIP justificados). Não são funcionalidades aprovadas.
 

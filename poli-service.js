@@ -74,6 +74,19 @@ window.poliService = (() => {
         if (config?.mode === 'local') {
           if (!['localhost', '127.0.0.1', '[::1]', '::1'].includes(location.hostname)) throw error('Modo local POLI disponível apenas em loopback.', 'POLI_CONFIG');
           data = window.poliLocalBootstrap(session, config.localScenario);
+        } else if (config?.mode === 'hosted-demo') {
+          if (location.hostname !== 'caioyabura-lgtm.github.io'
+            || !location.pathname.startsWith('/oncalince.POLI/')) {
+            throw error('Demonstração hospedada indisponível neste endereço.', 'POLI_CONFIG');
+          }
+          // DEMONSTRAÇÃO · UI AUTHORIZATION ONLY · NOT DATA AUTHORIZATION
+          // Hosted demo grants UI access only.
+          // Real executive data requires backend authorization.
+          // Reutiliza apenas o catálogo; cenários locais não concedem acesso hospedado.
+          data = window.poliLocalBootstrap(session, 'NONE');
+          data.permissions = session.access === 'caio'
+            ? ['EXEC', 'ART', 'TECH', 'INTL'].map(areaId => ({ areaId, level: 'ADMIN', active: true }))
+            : []; // Nenhuma política hospedada definida para as demais contas.
         } else if (config?.mode === 'remote') data = await remote(config, abort.signal);
         else throw error('Modo POLI não configurado.', 'POLI_CONFIG');
         const normalized = normalize(data);
