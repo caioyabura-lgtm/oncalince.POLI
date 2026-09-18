@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Gabinete Internacional · Onça Lince</title>
+
+  <meta
+    name="description"
+    content="Apoio jurídico, regulatório e documental para projetos audiovisuais e processos de cooperação internacional."
+  />
+
+  <style>
+    :root {
+      --paper: #fff8ed;
+      --surface: #fffdf8;
+      --ink: #15202b;
+
+      --orange: #fc9000;
+      --green: #61df00;
+      --pink: #e30041;
+      --blue: #065ea2;
+
+      --line: rgba(21, 32, 43, 0.16);
+      --muted: rgba(21, 32, 43, 0.66);
+
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .office-hero { padding: clamp(40px, 6vw, 72px) 0 40px; }
+    .office-hero h1 { max-width: 900px; margin: 0 0 20px; font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 750; line-height: 1.08; letter-spacing: -.04em; }
+    .office-hero p { max-width: 760px; margin: 0; color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.15rem); line-height: 1.65; }
+    .office-section { padding: 36px 0; border-top: 1px solid var(--line); }
+    .office-section h2 { margin: 0 0 24px; color: var(--blue); font: 400 .75rem/1.5 monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .office-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+    .office-grid li { min-width: 0; padding: 20px 22px; border: 1px solid var(--line); background: var(--surface); font-size: .95rem; line-height: 1.5; }
+    .office-contact-label { margin: 0 0 8px; color: var(--muted); font-size: .8rem; }
+    .office-email { margin: 0 0 24px; font-size: clamp(1rem, 2vw, 1.2rem); }
+    .office-email a { text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    .office-contact-button { display: inline-flex; align-items: center; min-height: 44px; padding: 12px 18px; border: 1px solid var(--orange); background: var(--orange); color: var(--ink); font: 600 .72rem/1.5 monospace; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; }
+    .office-contact-button:hover { background: transparent; }
+    .office-legal { margin: 0; padding: 24px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: .75rem; line-height: 1.65; }
+    .office-main { overflow-wrap: anywhere; }
+    .office-main :focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+    @media (max-width: 680px) {
+      .office-grid { grid-template-columns: minmax(0, 1fr); }
+      .office-grid li { padding: 18px; }
+      .office-section { padding: 28px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+  <link rel="stylesheet" href="public-header.css">
+  <link rel="stylesheet" href="i18n.css">
+  <script>
+    (() => {
+      const translations = {
+  "en": {
+    "Assessoria preventiva em contratos, autorizações e direitos": "Preventive advisory on contracts, permissions and rights",
+    "Estruturação jurídica e documental de coproduções e parcerias": "Legal and documentary structuring of co-productions and partnerships",
+    "Análise e revisão de documentos para produção e circulação": "Analysis and review of documents for production and distribution",
+    "Mapeamento de requisitos para festivais, mostras e plataformas": "Mapping of requirements for festivals, screenings and platforms",
+    "Análise comparada de requisitos legais e regulatórios entre jurisdições": "Comparative analysis of legal and regulatory requirements across jurisdictions",
+    "Organização de fluxos, procedimentos e documentação interna": "Organisation of workflows, procedures and internal documentation",
+    "Gestão de direitos e propriedade intelectual": "Rights management and intellectual property",
+    "Minutas e modelos": "Drafts and templates",
+    "Checklists": "Checklists",
+    "Protocolos": "Protocols",
+    "Relatórios de enquadramento": "Reports on applicable frameworks",
+    "Mapas de riscos e pendências": "Risk and outstanding issue maps",
+    "Notas técnicas": "Technical notes",
+    "Instrumentos de organização documental": "Document organisation tools",
+    "Apoio jurídico, regulatório e documental para projetos audiovisuais e processos de cooperação internacional.": "Legal, regulatory and documentary support for audiovisual projects and international cooperation processes.",
+    "Atividades que exijam representação jurídica formal ou responsabilidade profissional específica são realizadas por profissionais legalmente habilitados em cada jurisdição.": "Activities requiring formal legal representation or specific professional responsibility are carried out by professionals legally qualified in each jurisdiction.",
+    "Gabinete Internacional": "International Office",
+    "Gabinete Internacional · Onça Lince": "International Office · Onça Lince",
+    "Serviços": "Services",
+    "Produtos": "Products",
+    "Contato": "Contact",
+    "E-mail do Gabinete Internacional": "International Office email",
+    "Enviar e-mail ↗": "Send email ↗"
+  },
+  "de": {
+    "Assessoria preventiva em contratos, autorizações e direitos": "Präventive Beratung zu Verträgen, Genehmigungen und Rechten",
+    "Estruturação jurídica e documental de coproduções e parcerias": "Rechtliche Gestaltung und Strukturierung der Dokumentation für Koproduktionen und Partnerschaften",
+    "Análise e revisão de documentos para produção e circulação": "Analyse und Prüfung von Dokumenten für Produktion und Verbreitung",
+    "Mapeamento de requisitos para festivais, mostras e plataformas": "Ermittlung der Anforderungen für Festivals, Filmreihen und Plattformen",
+    "Análise comparada de requisitos legais e regulatórios entre jurisdições": "Vergleichende Analyse rechtlicher und regulatorischer Anforderungen verschiedener Rechtsordnungen",
+    "Organização de fluxos, procedimentos e documentação interna": "Organisation von Arbeitsabläufen, Verfahren und interner Dokumentation",
+    "Gestão de direitos e propriedade intelectual": "Rechtemanagement und geistiges Eigentum",
+    "Minutas e modelos": "Entwürfe und Vorlagen",
+    "Checklists": "Checklisten",
+    "Protocolos": "Protokolle",
+    "Relatórios de enquadramento": "Berichte zu anwendbaren Rahmenbedingungen",
+    "Mapas de riscos e pendências": "Übersichten zu Risiken und offenen Punkten",
+    "Notas técnicas": "Fachliche Erläuterungen",
+    "Instrumentos de organização documental": "Instrumente zur Dokumentenorganisation",
+    "Apoio jurídico, regulatório e documental para projetos audiovisuais e processos de cooperação internacional.": "Rechtliche, regulatorische und dokumentarische Unterstützung für audiovisuelle Projekte und internationale Kooperationsprozesse.",
+    "Atividades que exijam representação jurídica formal ou responsabilidade profissional específica são realizadas por profissionais legalmente habilitados em cada jurisdição.": "Tätigkeiten, die eine formelle rechtliche Vertretung oder eine besondere berufliche Verantwortung erfordern, werden von Fachpersonen ausgeführt, die in der jeweiligen Rechtsordnung dazu befugt sind.",
+    "Gabinete Internacional": "Internationales Büro",
+    "Gabinete Internacional · Onça Lince": "Internationales Büro · Onça Lince",
+    "Serviços": "Dienstleistungen",
+    "Produtos": "Produkte",
+    "Contato": "Kontakt",
+    "E-mail do Gabinete Internacional": "E-Mail des Internationalen Büros",
+    "Enviar e-mail ↗": "E-Mail senden ↗"
+  }
+};
+      const language = new URL(location.href).searchParams.get('lang');
+      if (!translations[language]) return;
+      const localeUrl = new URL(`locales/${language}.js`, location.href).href;
+      function extendPageDictionary(event) {
+        if (event.target.tagName !== 'SCRIPT' || event.target.src !== localeUrl) return;
+        Object.assign(window.PUBLIC_TRANSLATIONS, translations[language]);
+        document.removeEventListener('load', extendPageDictionary, true);
+      }
+      document.addEventListener('load', extendPageDictionary, true);
+    })();
+  </script>
+  <script src="i18n.js" defer></script>
+  <link rel="stylesheet" href="public-footer.css">
+</head>
+
+<body>
+
+  <!-- ===================================================
+       HEADER
+       =================================================== -->
+
+  <div class="public-header-shell">
+    <header class="portal-header">
+      <a class="portal-wordmark" href="index.html" aria-label="Laboratório de Co-realização Audiovisual — início">
+        <span class="portal-logo-symbol" aria-hidden="true">
+          <img class="portal-logo-image" src="logo_laboratorio/logo_laboratorio-paleta-home.png" alt="" width="1254" height="1254">
+        </span>
+        <span class="portal-wordmark-text">
+          <span>Laboratório</span>
+          <span>de Co-realização</span>
+          <span>Audiovisual</span>
+        </span>
+      </a>
+
+      <button class="portal-menu-toggle" type="button" aria-expanded="false" aria-controls="portal-navigation">
+        <span>Menu</span>
+        <span class="menu-lines" aria-hidden="true"></span>
+      </button>
+
+      <nav id="portal-navigation" class="portal-navigation" aria-label="Navegação principal">
+        <a href="quem-somos.html">Quem somos</a>
+        <a href="territorios.html">Territórios</a>
+        
+        <a href="contato.html">Contato</a>
+        <a href="https://www.instagram.com/fablab.acousmonium/" target="_blank" rel="noopener noreferrer" aria-label="Fablab Acousmonium no Instagram, abre em nova aba">Fablab ↗</a>
+        <a class="portal-gabinete-link" href="gabinete_internacional.html" aria-current="page">Gabinete internacional</a>
+        <button id="login-open" class="portal-login-open" type="button" aria-haspopup="dialog" aria-expanded="false">Entrar</button>
+      </nav>
+    </header>
+  </div>
+
+
+  <main class="office-main page">
+    <header class="office-hero">
+      <h1>Gabinete Internacional</h1>
+      <p>Apoio jurídico, regulatório e documental para projetos audiovisuais e processos de cooperação internacional.</p>
+    </header>
+
+    <section class="office-section" aria-labelledby="services-title">
+      <h2 id="services-title">Serviços</h2>
+      <ul class="office-grid">
+        <li>Assessoria preventiva em contratos, autorizações e direitos</li>
+        <li>Estruturação jurídica e documental de coproduções e parcerias</li>
+        <li>Análise e revisão de documentos para produção e circulação</li>
+        <li>Mapeamento de requisitos para festivais, mostras e plataformas</li>
+        <li>Análise comparada de requisitos legais e regulatórios entre jurisdições</li>
+        <li>Organização de fluxos, procedimentos e documentação interna</li>
+        <li>Gestão de direitos e propriedade intelectual</li>
+      </ul>
+    </section>
+
+    <section class="office-section" aria-labelledby="products-title">
+      <h2 id="products-title">Produtos</h2>
+      <ul class="office-grid">
+        <li>Minutas e modelos</li>
+        <li>Checklists</li>
+        <li>Protocolos</li>
+        <li>Relatórios de enquadramento</li>
+        <li>Mapas de riscos e pendências</li>
+        <li>Notas técnicas</li>
+        <li>Instrumentos de organização documental</li>
+      </ul>
+    </section>
+
+    <section class="office-section office-contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contato</h2>
+      <p class="office-contact-label">E-mail do Gabinete Internacional</p>
+      <!-- Canal institucional já utilizado na página Contato do projeto. -->
+      <p class="office-email"><a href="mailto:projeto@cooperativa.art">projeto@cooperativa.art</a></p>
+      <a class="office-contact-button" href="mailto:projeto@cooperativa.art">Enviar e-mail ↗</a>
+    </section>
+
+    <p class="office-legal">Atividades que exijam representação jurídica formal ou responsabilidade profissional específica são realizadas por profissionais legalmente habilitados em cada jurisdição.</p>
+  </main>
+
+
+
+
+<div id="login-modal" class="login-layer" hidden>
+    <div class="login-backdrop" data-login-close aria-hidden="true"></div>
+    <section class="login-panel" role="dialog" aria-modal="true" aria-labelledby="login-title" tabindex="-1">
+      <button class="login-close" type="button" data-login-close aria-label="Fechar acesso ao painel">×</button>
+      <p class="login-kicker">Área interna · equipe do laboratório</p>
+      <h2 id="login-title">Acessar o painel</h2>
+      <form id="login-form" novalidate>
+        <label for="login-email">E-mail</label>
+        <input id="login-email" name="email" type="email" autocomplete="username" inputmode="email" required>
+
+        <label for="login-password">Senha</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+
+        <p id="login-error" class="login-error" role="alert" aria-live="assertive"></p>
+        <button class="login-submit" type="submit">Acessar painel</button>
+      </form>
+      <p class="login-note">Acesso demonstrativo. A autenticação segura será integrada em uma etapa futura.</p>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

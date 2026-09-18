@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gabinete Internacional · Área interna</title>
+  <link rel="stylesheet" href="producao.css">
+  <link rel="stylesheet" href="public-header.css">
+  <link rel="stylesheet" href="gabinete-interno.css">
+  <script src="auth.js" defer></script>
+  <script src="poli-config.js" defer></script>
+  <script src="poli-local.js" defer></script>
+  <script src="poli-service.js" defer></script>
+  <script src="audit-service.js" defer></script>
+  <script src="area-workspaces.js" defer></script>
+  <script src="internal-services.js" defer></script>
+  <script src="area-inputs.js" defer></script>
+  <script src="gabinete-config.js" defer></script>
+  <script src="gabinete-service.js" defer></script>
+  <script src="gabinete-interno.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="production-page production-shell-page gabinete-page">
+  <a class="skip-link" href="#workspace">Ir para o conteúdo</a>
+  <div class="public-header-shell">
+    <header class="portal-header">
+      <a class="portal-wordmark" href="index.html" aria-label="Laboratório de Co-realização Audiovisual — início">
+        <span class="portal-logo-symbol" aria-hidden="true">
+          <img class="portal-logo-image" src="logo_laboratorio/logo_laboratorio-paleta-home.png" alt="" width="1254" height="1254">
+        </span>
+        <span class="portal-wordmark-text">
+          <span>Laboratório</span>
+          <span>de Co-realização</span>
+          <span>Audiovisual</span>
+        </span>
+      </a>
+
+      <button class="portal-menu-toggle" type="button" aria-expanded="false" aria-controls="portal-navigation">
+        <span>Menu</span>
+        <span class="menu-lines" aria-hidden="true"></span>
+      </button>
+
+      <nav id="portal-navigation" class="portal-navigation" aria-label="Navegação principal">
+        <a href="quem-somos.html">Quem somos</a>
+        <a href="territorios.html">Territórios</a>
+
+        <a href="contato.html">Contato</a>
+        <a href="https://www.instagram.com/fablab.acousmonium/" target="_blank" rel="noopener noreferrer" aria-label="Fablab Acousmonium no Instagram, abre em nova aba">Fablab ↗</a>
+        <a class="portal-gabinete-link" href="gabinete_internacional.html">Gabinete internacional</a>
+        <a href="producao.html" aria-current="page">Produção</a>
+      </nav>
+    </header>
+  </div>
+  <div class="production-shell">
+    <div class="session shell-session"><span id="session-user"></span><button id="profile-button" type="button">Perfil</button><button id="logout-button" type="button">Sair</button></div>
+    <main id="workspace" tabindex="-1">
+      <a class="view-return" href="producao.html#overview">← Dashboard Geral</a>
+      <header class="section-heading"><p class="eyebrow">Área interna</p><h1>Gabinete Internacional</h1></header>
+      <nav class="category-tabs" aria-label="Área interna"><a href="#dashboard">Dashboard</a><a href="#diario">Diário de Produção</a><a href="#inputs">Inputs recebidos</a></nav>
+      <p id="connection-status" role="status">Verificando conexão…</p>
+      <p id="feedback" role="status" aria-live="polite"></p>
+      <div class="actions"><button id="refresh" type="button" hidden>Atualizar registros</button></div>
+      <section data-gabinete-view="dashboard" aria-labelledby="dashboard-title">
+        <h2 id="dashboard-title" tabindex="-1">Dashboard do Gabinete</h2>
+        <p id="dashboard-empty" class="empty">Os acompanhamentos serão apresentados quando a base estiver conectada e houver registros.</p>
+        <p id="input-count" class="list-caption"></p>
+        <div id="dashboard-data" hidden>
+          <dl class="gabinete-summary" id="indicators"></dl>
+          <div class="gabinete-columns">
+            <section><h3>Últimos registros</h3><ul id="recent"></ul></section>
+            <section><h3>Atividades em aberto</h3><ul id="open"></ul></section>
+            <section><h3>Próximos prazos</h3><ul id="deadlines"></ul></section>
+            <section><h3>Por status</h3><ul id="by-status"></ul></section>
+            <section><h3>Por território ou país</h3><ul id="by-territory"></ul></section>
+          </div>
+        </div>
+      </section>
+      <section data-gabinete-view="diario" hidden aria-labelledby="diary-title">
+        <header class="section-heading"><h2 id="diary-title" tabindex="-1">Diário de Produção</h2><button id="new-record" class="primary" type="button">Novo registro</button></header>
+        <form id="gabinete-form" class="editor" hidden>
+          <h3 id="form-title">Novo registro</h3>
+          <div class="form-grid"><label>Data<input name="date" type="date" required></label><label>Responsável<input name="responsible" maxlength="200" required></label></div>
+          <div class="form-grid"><label>Hora<input name="time" type="time" required></label><label>Tipo<select name="type" required></select></label></div>
+          <label>Assunto ou atividade<input name="subject" maxlength="200" required></label>
+          <div class="form-grid"><label>Contato ou instituição<input name="contact" maxlength="200"></label><label>Território ou país<input name="territory" maxlength="120"></label></div>
+          <label>Andamento<textarea name="description" rows="3" maxlength="1000" required></textarea></label>
+          <label>Tags<input name="tags" maxlength="2000" placeholder="Separe por vírgulas"></label>
+          <div class="form-grid"><label>Decisão ou encaminhamento<textarea name="decision" rows="2" maxlength="600"></textarea></label><label>Próximo passo<textarea name="nextStep" rows="2" maxlength="600"></textarea></label></div>
+          <div class="form-grid"><label>Prazo<input name="deadline" type="date"></label><label>Status<select name="status" required></select></label></div>
+          <label>Documento, arquivo ou link relacionado<input name="reference" maxlength="2000"><small>Referência textual ou link; sem upload de arquivos.</small></label>
+          <p id="save-note" class="development-note"></p>
+          <div class="actions"><button id="save-record" class="primary" type="submit">Salvar registro</button><button id="cancel-record" type="button">Cancelar</button></div>
+        </form>
+        <div class="filters">
+          <label>Buscar<input id="search" type="search" placeholder="Assunto, responsável ou instituição"></label>
+          <label>Status<select id="filter-status"><option value="">Todos</option></select></label>
+          <label>Tipo<select id="filter-type"><option value="">Todos</option></select></label>
+          <label>Território ou país<select id="filter-territory"><option value="">Todos</option></select></label>
+          <label>De<input id="date-from" type="date"></label><label>Até<input id="date-to" type="date"></label>
+        </div>
+        <p id="record-count" class="list-caption"></p>
+        <div id="records"></div>
+      </section>
+      <section data-gabinete-view="inputs" hidden aria-labelledby="inputs-title"><h2 id="inputs-title" tabindex="-1">Inputs recebidos</h2><p class="development-note">Entradas destinadas a esta área. Consulta do registro original, sem duplicação.</p><div id="area-input-list"></div></section>
+    </main>
+    <div class="institutional-signature"><div class="institutional-marks" aria-hidden="true"></div><p class="development-credit">desenvolvido por Caio Rodrigues</p></div>
+  </div>
+  <dialog id="profile-dialog"><h2>Perfil</h2><p id="profile-name"></p><p>Equipe do laboratório · sessão demonstrativa</p><form method="dialog"><button>Fechar</button></form></dialog>
+  <noscript><p>Ative o JavaScript para acessar o Gabinete Internacional interno.</p></noscript>
+</body>
+</html>

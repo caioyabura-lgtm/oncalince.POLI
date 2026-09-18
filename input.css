@@ -1,0 +1,39 @@
+.input-page { --production-paper: #f5d338; --production-muted: #484332; --production-line: rgba(37,37,37,.35); background: var(--production-paper); }
+.input-workspace { width: min(900px, calc(100% - 40px)); margin: 48px auto 64px; }
+.input-heading { margin: 48px 0; }
+.input-heading h1 { font-size: clamp(4.5rem, 13vw, 8rem); font-weight: 800; letter-spacing: -.07em; }
+.input-heading .eyebrow { color: inherit; }
+.input-identity { font-size: .68rem; letter-spacing: .06em; }
+.input-identity span { display: block; margin-top: 5px; font-size: .85rem; letter-spacing: 0; }
+.input-workspace .editor > label { margin-bottom: 30px; font-weight: 650; letter-spacing: .04em; }
+.input-workspace input:not([type=radio]), .input-workspace textarea { background: transparent; border: 0; border-bottom: 1px solid var(--production-ink); padding: 12px 0; letter-spacing: normal; }
+.input-workspace .primary { background: var(--production-ink); color: var(--production-paper); border-color: var(--production-ink); padding: 16px 30px; }
+.input-workspace legend small { display: block; font-size: .65rem; font-weight: 400; margin-top: 4px; }
+.input-workspace .input-choice { padding: 12px 0; border-bottom: 1px solid var(--production-line); }
+.input-workspace .input-choice label { display: flex; align-items: center; gap: 12px; margin: 0; min-height: 44px; cursor: pointer; font-weight: 650; }
+.input-workspace input[type=radio] { width: 18px; height: 18px; flex: 0 0 18px; accent-color: #252525; }
+.input-choice:has(input:checked) { border-bottom: 3px solid var(--production-ink); }
+.input-choice details { margin-left: 30px; font-size: .8rem; max-width: 65ch; }
+.input-choice summary { cursor: pointer; padding: 5px 0; font-size: .72rem; }
+#selected-files { list-style: none; padding: 0; }
+#selected-files li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 16px; border-bottom: 1px solid var(--production-line); padding: 8px 0; font-size: .85rem; overflow-wrap: anywhere; }
+#selected-files button { border: 0; text-decoration: underline; font-size: .75rem; }
+#input-selection { font-size: .8rem; font-weight: 700; }
+#input-confirmation { border-top: 2px solid var(--production-ink); padding: 32px 0; }
+.input-protocol { font: .85rem/1.6 monospace; overflow-wrap: anywhere; }
+@media (max-width: 560px) { #selected-files li { grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; } #selected-files .entry-meta { grid-column: 1; } #selected-files button { grid-column: 2; grid-row: 1 / 3; } }
+.input-workspace > .section-heading { margin-top: 36px; }
+.input-workspace .editor { padding: 0; border: 0; background: transparent; }
+.input-workspace fieldset { margin: 36px 0 24px; padding: 24px 0; border: 0; border-top: 1px solid var(--production-line); }
+.input-workspace legend { padding: 0 18px 0 0; font-size: .9rem; font-weight: 600; }
+.input-workspace fieldset > p { color: var(--production-muted); font-size: .85rem; }
+.input-workspace fieldset label { margin-top: 20px; }
+#input-feedback { color: #065ea2; }
+#input-feedback.error { color: #a0002e; }
+#input-feedback:empty { display: none; }
+.input-entry { scroll-margin-top: 160px; overflow-wrap: anywhere; }
+.input-entry p { white-space: pre-wrap; }
+.input-entry summary { cursor: pointer; padding: 10px 0; }
+.input-entry:target { border-top-color: #fc9000; }
+.input-page > .institutional-signature { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+@media (max-width: 760px) { .input-workspace { margin-top: 28px; } }

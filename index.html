@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111917">
+  <meta name="description" content="Laboratório de Co-realização Audiovisual — uma rede de pesquisa e criação em desenvolvimento, com horizonte internacional.">
+  <title>Laboratório de Co-realização Audiovisual</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="i18n.css">
+  <script src="i18n.js" defer></script>
+  <link rel="stylesheet" href="public-header.css">
+  <link rel="stylesheet" href="public-footer.css">
+</head>
+<body class="home-portal">
+  <div id="preloader" class="portal-preloader" role="status" aria-live="polite" aria-label="Carregando a experiência 3D">
+    <div class="preloader-grid" aria-hidden="true"></div>
+    <div class="preloader-content">
+      <div class="preloader-index" aria-hidden="true">BR—PT / 00.00</div>
+      <p class="preloader-title">
+        <span>Laboratório de</span>
+        <span>Co-realização</span>
+        <span>Audiovisual</span>
+      </p>
+      <div class="preloader-readout">
+        <span>Carregando sistema</span>
+        <strong id="loading-percent">00%</strong>
+      </div>
+      <div class="preloader-track" aria-hidden="true">
+        <span id="loading-bar"></span>
+      </div>
+    </div>
+  </div>
+
+  <main class="portal-stage" aria-label="Portal do Laboratório de Co-realização Audiovisual">
+    <canvas id="lab-earth" aria-label="Globo interativo da cartografia de interesse e articulação do Laboratório no Brasil, em Portugal, na Alemanha e nos Estados Unidos"></canvas>
+    <div class="portal-atmosphere" aria-hidden="true"></div>
+    <div class="portal-frame" aria-hidden="true"></div>
+
+    <header class="portal-header">
+      <a class="portal-wordmark" href="index.html" aria-label="Laboratório de Co-realização Audiovisual — início">
+        <span class="portal-logo-symbol" aria-hidden="true">
+          <img class="portal-logo-image" src="logo_laboratorio/logo_laboratorio-paleta-home.png" alt="" width="1254" height="1254">
+        </span>
+        <span class="portal-wordmark-text">
+          <span>Laboratório</span>
+          <span>de Co-realização</span>
+          <span>Audiovisual</span>
+        </span>
+      </a>
+
+      <button class="portal-menu-toggle" type="button" aria-expanded="false" aria-controls="portal-navigation">
+        <span>Menu</span>
+        <span class="menu-lines" aria-hidden="true"></span>
+      </button>
+
+      <nav id="portal-navigation" class="portal-navigation" aria-label="Navegação principal">
+        <a href="quem-somos.html">Quem somos</a>
+        <a href="territorios.html">Territórios</a>
+        
+        <a href="contato.html">Contato</a>
+        <a href="https://www.instagram.com/fablab.acousmonium/" target="_blank" rel="noopener noreferrer" aria-label="Fablab Acousmonium no Instagram, abre em nova aba">Fablab ↗</a>
+        <a class="portal-gabinete-link" href="gabinete_internacional.html">Gabinete internacional</a>
+        <button id="login-open" class="portal-login-open" type="button" aria-haspopup="dialog" aria-expanded="false">Entrar</button>
+      </nav>
+    </header>
+
+    <section class="portal-identity" aria-label="Apresentação">
+      <p class="portal-eyebrow">Uma rede em desenvolvimento, um horizonte internacional.</p>
+      <h1>
+        <span>Laboratório</span>
+        <span>de Co-realização</span>
+        <span>Audiovisual</span>
+      </h1>
+      <nav class="portal-locations" aria-label="Acessar territórios">
+        <a href="territorios.html#lisboa">Lisboa</a><span aria-hidden="true">·</span>
+        <a href="territorios.html#sao-miguel">Açores</a><span aria-hidden="true">·</span>
+        <a href="territorios.html#berlim">Berlim</a><span aria-hidden="true">·</span>
+        <a href="territorios.html#belo-horizonte">Belo Horizonte</a><span aria-hidden="true">·</span>
+        <a href="territorios.html#goiania">Goiânia</a><span aria-hidden="true">·</span>
+        <a href="territorios.html#anapolis">Anápolis</a>
+      </nav>
+    </section>
+
+  
+
+    <p id="interaction-hint" class="interaction-hint">
+      <span class="desktop-hint">Arraste para explorar</span>
+      <span class="mobile-hint">Toque e arraste</span>
+    </p>
+
+    <div class="portal-process" aria-label="Ciclo do laboratório">
+      <span>pesquisa</span><i aria-hidden="true">→</i>
+      <span>laboratório</span><i aria-hidden="true">→</i>
+      <span>obras</span><i aria-hidden="true">→</i>
+      <span>circulação</span>
+    </div>
+
+    <div id="node-tooltip" class="node-tooltip" role="status" aria-live="polite" aria-hidden="true">
+      <span class="tooltip-coordinate"></span>
+      <strong></strong>
+      <p></p>
+      <span class="tooltip-action">Explorar território ↗</span>
+    </div>
+
+    <p id="earth-fallback" class="earth-fallback" hidden>
+      Visualização 3D indisponível neste dispositivo. A navegação permanece acessível.
+    </p>
+  </main>
+
+
+  <div id="login-modal" class="login-layer" hidden>
+    <div class="login-backdrop" data-login-close aria-hidden="true"></div>
+    <section class="login-panel" role="dialog" aria-modal="true" aria-labelledby="login-title" tabindex="-1">
+      <button class="login-close" type="button" data-login-close aria-label="Fechar acesso ao painel">×</button>
+      <p class="login-kicker">Área interna · equipe do laboratório</p>
+      <h2 id="login-title">Acessar o painel</h2>
+      <form id="login-form" novalidate>
+        <label for="login-email">E-mail</label>
+        <input id="login-email" name="email" type="email" autocomplete="username" inputmode="email" required>
+
+        <label for="login-password">Senha</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+
+        <p id="login-error" class="login-error" role="alert" aria-live="assertive"></p>
+        <button class="login-submit" type="submit">Acessar painel</button>
+      </form>
+      <p class="login-note">Acesso demonstrativo. A autenticação segura será integrada em uma etapa futura.</p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+  <script type="module" src="lab-earth.js"></script>
+</body>
+</html>

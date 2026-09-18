@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Input · Onça-Lince</title>
+  <link rel="stylesheet" href="producao.css">
+  <link rel="stylesheet" href="public-header.css">
+  <link rel="stylesheet" href="input.css">
+  <script src="auth.js" defer></script>
+  <script src="internal-services.js" defer></script>
+  <script src="input.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="production-page input-page">
+  <a class="skip-link" href="#input-workspace">Ir para o conteúdo</a>
+  <div class="public-header-shell">
+    <header class="portal-header">
+      <a class="portal-wordmark" href="index.html" aria-label="Laboratório de Co-realização Audiovisual — início">
+        <span class="portal-logo-symbol" aria-hidden="true">
+          <img class="portal-logo-image" src="logo_laboratorio/logo_laboratorio-paleta-home.png" alt="" width="1254" height="1254">
+        </span>
+        <span class="portal-wordmark-text">
+          <span>Laboratório</span>
+          <span>de Co-realização</span>
+          <span>Audiovisual</span>
+        </span>
+      </a>
+
+      <button class="portal-menu-toggle" type="button" aria-expanded="false" aria-controls="portal-navigation">
+        <span>Menu</span>
+        <span class="menu-lines" aria-hidden="true"></span>
+      </button>
+
+      <nav id="portal-navigation" class="portal-navigation" aria-label="Navegação principal">
+        <a href="quem-somos.html">Quem somos</a>
+        <a href="territorios.html">Territórios</a>
+
+        <a href="contato.html">Contato</a>
+        <a href="https://www.instagram.com/fablab.acousmonium/" target="_blank" rel="noopener noreferrer" aria-label="Fablab Acousmonium no Instagram, abre em nova aba">Fablab ↗</a>
+        <a class="portal-gabinete-link" href="gabinete_internacional.html">Gabinete internacional</a>
+        <a href="producao.html" aria-current="page">Produção</a>
+      </nav>
+    </header>
+  </div>
+  <main id="input-workspace" class="input-workspace">
+    <a href="producao.html#overview">← Voltar à Produção</a>
+    <header class="input-heading"><p class="eyebrow">ENTRADA / ROTEAMENTO / PROTOCOLO</p><h1>INPUT</h1><p class="input-identity" hidden>ENTRADA REALIZADA COMO <span id="input-user"></span></p></header>
+    <p id="input-feedback" role="status" aria-live="polite"></p>
+    <form id="input-form" class="editor" hidden>
+      <label>TÍTULO<input name="title" maxlength="200" required></label>
+      <label>SINOPSE DO INPUT<textarea name="synopsis" rows="4" maxlength="600" aria-describedby="synopsis-hint" required></textarea><small id="synopsis-hint">Um parágrafo.</small></label>
+      <label>LINK<input name="link" type="url" placeholder="https://…" aria-describedby="material-hint"></label>
+      <div class="input-files">
+        <button id="add-files" type="button">+ ADICIONAR ARQUIVOS</button>
+        <input id="file-picker" type="file" multiple hidden>
+        <p id="material-hint" class="development-note">Informe um link ou adicione arquivos: PDF, texto, áudio, vídeo ou foto.</p>
+        <ul id="selected-files" aria-label="Arquivos selecionados"></ul>
+        <p class="development-note">Seleção local: somente os nomes, tipos e tamanhos serão registrados. Os arquivos não serão armazenados nem enviados. Guarde os originais.</p>
+      </div>
+      <fieldset><legend>CATEGORIA DE LICENCIAMENTO</legend>
+        <p class="development-note">Condições operacionais provisórias. Não constituem licença definitiva.</p>
+        <div id="license-options"></div>
+      </fieldset>
+      <p>Destino inicial: PRODUÇÃO EXECUTIVA</p>
+      <p id="input-selection" aria-live="polite"></p>
+      <p class="development-note">Registro e protocolo locais neste navegador. Integração com a produção pendente.</p>
+      <button class="primary" type="submit">DAR ENTRADA</button>
+    </form>
+    <section id="input-confirmation" hidden aria-labelledby="confirmation-title"><h2 id="confirmation-title" tabindex="-1">ENTRADA REGISTRADA</h2><div id="confirmation-content"></div><p class="development-note">Entrada registrada. O envio automático do comprovante será ativado com a integração do serviço de notificação.</p><button id="new-input" type="button">NOVO INPUT</button></section>
+    <section class="overview-section"><h2 id="input-list-title">Meus inputs</h2><div id="input-list"></div></section>
+  </main>
+    <div class="institutional-signature" aria-label="Assinatura institucional">
+      <!-- Substituir esta composição tipográfica pelo arquivo transparente aprovado,
+           mantendo alt, proporção e a mesma região. Não recortar o background. -->
+      <div class="institutional-marks"><span>Cooperativa<br><small>dos Empreendedores</small></span><span>Fab Lab<br><small>Acousmonium</small></span><span>Onça-Lince</span></div>
+      <p class="development-credit">Desenvolvido por Caio Rodrigues</p>
+    </div>
+</body>
+</html>

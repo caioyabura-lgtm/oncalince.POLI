@@ -1,0 +1,135 @@
+/* Public introduction: styles scoped to Quem somos. */
+.about-page {
+  --about-paper: #fffdf8;
+  --about-ink: #172427;
+  --about-muted: #566269;
+  --about-line: rgba(23, 36, 39, .18);
+  background: var(--about-paper);
+  color: var(--about-ink);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+.about-page .wrap { width: min(1120px, calc(100% - 64px)); }
+.about-page .about-opening { padding: clamp(48px, 7vw, 88px) 0 52px; }
+.about-page h1 { margin: 0 0 24px; font: 500 clamp(2.3rem, 4vw, 3.6rem)/1.1 "Helvetica Neue", Arial, sans-serif; letter-spacing: -.04em; }
+.about-opening p { max-width: 640px; margin: 0; font-size: clamp(1.05rem, 1.6vw, 1.2rem); line-height: 1.65; color: var(--about-muted); }
+.about-block { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 40px; padding: 44px 0; border-top: 1px solid var(--about-line); }
+.about-page .about-block h2 { margin: 3px 0 0; font: 600 .72rem/1.6 "Helvetica Neue", Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.about-copy { max-width: 680px; min-width: 0; }
+.about-copy p { margin: 0 0 16px; color: var(--about-muted); font-size: 1rem; line-height: 1.7; }
+.about-copy p:last-child { margin-bottom: 0; }
+.about-copy .about-statement { max-width: 620px; color: var(--about-ink); font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.3; letter-spacing: -.025em; }
+.about-institutions { grid-template-columns: minmax(0, 1fr); gap: 30px; padding-bottom: 64px; }
+.about-institution-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.about-institution-grid article { min-width: 0; padding-top: 20px; border-top: 1px solid var(--about-line); }
+.about-page .about-institution-grid h3 { max-width: 320px; margin: 0 0 14px; font: 500 1.2rem/1.35 "Helvetica Neue", Arial, sans-serif; letter-spacing: -.02em; }
+.about-institution-grid p { margin: 0; color: var(--about-muted); font-size: .9rem; line-height: 1.65; }
+.about-page .about-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px 24px; border-top: 1px solid var(--about-line); padding: 24px 0 32px; color: var(--about-muted); font-size: .75rem; }
+.about-footer a { text-decoration: none; }
+.about-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.about-page :is(h1, h2, h3, p, a) { overflow-wrap: anywhere; }
+.about-page :focus-visible { outline: 2px solid var(--sea); outline-offset: 4px; }
+.about-conservation { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; gap: clamp(28px, 4vw, 56px); padding: clamp(28px, 4vw, 56px); margin-bottom: 40px; background: var(--paper-deep); border-top: 3px solid var(--copper); }
+.about-conservation-visual { min-width: 0; }
+.about-conservation-visual img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
+.about-conservation-copy { min-width: 0; --conservation-paragraph-gap: 24px; }
+:lang(en) .about-conservation-copy { --conservation-paragraph-gap: 14px; }
+.about-conservation-copy .eyebrow { margin: 0 0 20px; }
+.about-page .about-conservation h2 { margin: 0 0 24px; font: 500 clamp(2rem, 3.4vw, 3rem)/1.12 "Helvetica Neue", Arial, sans-serif; letter-spacing: -.035em; }
+.about-conservation-copy > p:not(.eyebrow) { margin: 0 0 var(--conservation-paragraph-gap); color: var(--about-muted); font-size: 1rem; line-height: 1.7; }
+@media (max-width: 850px) {
+  .about-conservation-copy { --conservation-paragraph-gap: 21px; }
+  :lang(en) .about-conservation-copy { --conservation-paragraph-gap: 26px; }
+  :lang(de) .about-conservation-copy { --conservation-paragraph-gap: 14px; }
+  .about-conservation { grid-template-columns: minmax(0, 1fr); }
+  .about-conservation-visual { width: min(100%, 320px); margin-inline: auto; }
+}
+@media (max-width: 850px) {
+  .about-block { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+}
+@media (max-width: 680px) {
+  .about-conservation-copy { --conservation-paragraph-gap: 16px; }
+  :lang(en) .about-conservation-copy { --conservation-paragraph-gap: 9px; }
+  :lang(de) .about-conservation-copy { --conservation-paragraph-gap: 12px; }
+  .about-page .wrap { width: calc(100% - 40px); }
+  .about-page .about-opening { padding: 44px 0 40px; }
+  .about-block { padding: 32px 0; }
+  .about-institution-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .about-page .about-institution-grid h3 { max-width: none; }
+  .about-institutions { padding-bottom: 44px; }
+}
+
+/* Experimental campaign composition. Remove conservation-campaign-v2 from
+   the section to restore the original layout above. */
+.about-conservation.conservation-campaign-v2 {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: clamp(12px, 2vw, 24px);
+  padding: clamp(28px, 3.3vw, 44px);
+  isolation: isolate;
+}
+.conservation-campaign-v2 .about-conservation-visual {
+  width: 100%;
+  margin: 0;
+  align-self: center;
+  mix-blend-mode: multiply;
+}
+.conservation-campaign-v2 .about-conservation-visual img {
+  mix-blend-mode: normal;
+  width: 140%;
+  max-width: none;
+  margin-left: -25%;
+  mask-image: linear-gradient(to right, transparent 2%, #000 17%, #000 85%, transparent 99%),
+    linear-gradient(to bottom, transparent, #000 3%, #000 95%, transparent);
+  mask-composite: intersect;
+}
+.conservation-campaign-v2 .about-conservation-copy {
+  position: relative;
+}
+.conservation-campaign-v2 .about-conservation-copy .eyebrow {
+  margin: 0 0 12px;
+}
+.about-page .conservation-campaign-v2 h2 {
+  max-width: 580px;
+  margin: 0 0 24px;
+  font-size: clamp(2.2rem, 3.8vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+.conservation-campaign-v2 .about-conservation-copy > p:not(.eyebrow) {
+  max-width: 520px;
+  margin: 0 0 14px;
+  line-height: 1.75;
+}
+.conservation-campaign-v2 .about-conservation-copy > p:last-child {
+  margin-bottom: 0;
+}
+@media (max-width: 850px) {
+  .about-conservation.conservation-campaign-v2 {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .conservation-campaign-v2 .about-conservation-copy {
+    display: contents;
+  }
+  .conservation-campaign-v2 .about-conservation-copy .eyebrow {
+    grid-row: 1;
+  }
+  .about-page .conservation-campaign-v2 h2 {
+    grid-row: 2;
+    max-width: 620px;
+    margin-bottom: 12px;
+    font-size: clamp(2rem, 5.5vw, 3.2rem);
+  }
+  .conservation-campaign-v2 .about-conservation-visual {
+    grid-row: 3;
+    width: min(100%, 380px);
+    margin: 0 auto 20px;
+  }
+  .conservation-campaign-v2 .about-conservation-visual img {
+    width: 100%;
+    margin-left: 0;
+  }
+  .conservation-campaign-v2 .about-conservation-copy > p:not(.eyebrow) {
+    max-width: 100%;
+  }
+}

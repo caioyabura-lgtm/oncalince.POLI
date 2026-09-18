@@ -1,0 +1,22 @@
+/* Credit for website creation only. */
+.site-credit {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 18px 20px;
+  border: 0;
+  background: transparent;
+  color: #647274;
+  font: 400 clamp(8px, 2.4vw, 11px)/1.5 Arial, sans-serif;
+  letter-spacing: 0;
+  text-align: center;
+}
+.home-portal .site-credit {
+  position: fixed;
+  z-index: 5;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 6px 20px max(6px, env(safe-area-inset-bottom));
+  color: rgba(255, 248, 237, .62);
+}

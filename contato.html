@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Entre em contato com o Laboratório de Co-realização Audiovisual.">
+  <meta name="theme-color" content="#fffdf8">
+  <title>Contato · Laboratório de Co-realização</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="contato.css">
+  <link rel="stylesheet" href="i18n.css">
+  <script src="i18n.js" defer></script>
+  <link rel="stylesheet" href="public-header.css">
+  <link rel="stylesheet" href="public-footer.css">
+</head>
+<body class="contact-page">
+  <div class="public-header-shell">
+    <header class="portal-header">
+      <a class="portal-wordmark" href="index.html" aria-label="Laboratório de Co-realização Audiovisual — início">
+        <span class="portal-logo-symbol" aria-hidden="true">
+          <img class="portal-logo-image" src="logo_laboratorio/logo_laboratorio-paleta-home.png" alt="" width="1254" height="1254">
+        </span>
+        <span class="portal-wordmark-text">
+          <span>Laboratório</span>
+          <span>de Co-realização</span>
+          <span>Audiovisual</span>
+        </span>
+      </a>
+
+      <button class="portal-menu-toggle" type="button" aria-expanded="false" aria-controls="portal-navigation">
+        <span>Menu</span>
+        <span class="menu-lines" aria-hidden="true"></span>
+      </button>
+
+      <nav id="portal-navigation" class="portal-navigation" aria-label="Navegação principal">
+        <a href="quem-somos.html">Quem somos</a>
+        <a href="territorios.html">Territórios</a>
+        
+        <a href="contato.html" aria-current="page">Contato</a>
+        <a href="https://www.instagram.com/fablab.acousmonium/" target="_blank" rel="noopener noreferrer" aria-label="Fablab Acousmonium no Instagram, abre em nova aba">Fablab ↗</a>
+        <a class="portal-gabinete-link" href="gabinete_internacional.html">Gabinete internacional</a>
+        <button id="login-open" class="portal-login-open" type="button" aria-haspopup="dialog" aria-expanded="false">Entrar</button>
+      </nav>
+    </header>
+  </div>
+
+  <main class="contact-stage">
+    <figure class="contact-intro">
+      <img class="contact-character" src="assets/oncalice_perfil.png" alt="Personagem visual do projeto Onça-Lince" width="1254" height="1254" decoding="async">
+      <figcaption>Brasil · Portugal · Alemanha</figcaption>
+    </figure>
+
+    <section class="contact-form-panel" aria-labelledby="form-title">
+      <h1 id="form-title" class="contact-accessible-title">Contato</h1>
+
+      <form class="contact-form" action="mailto:projeto@cooperativa.art" method="post" enctype="text/plain">
+        <label for="nome"><span>01 · Nome</span><input id="nome" name="nome" type="text" autocomplete="name" placeholder="Como podemos chamar você?" required></label>
+        <label for="email"><span>02 · E-mail</span><input id="email" name="email" type="email" autocomplete="email" placeholder="voce@exemplo.com" required></label>
+        <label class="subject-field" for="assunto"><span>03 · Assunto</span><input id="assunto" name="assunto" type="text" placeholder="Parceria, pesquisa, circulação…" required></label>
+        <label class="message-field" for="mensagem"><span>04 · Mensagem</span><textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem" required></textarea></label>
+        <button class="contact-submit" type="submit"><span>Enviar mensagem</span><strong aria-hidden="true">↗</strong></button>
+      </form>
+
+      <p class="form-note">
+        <span>Ao enviar, seu aplicativo de e-mail será aberto. Nenhum dado é armazenado nesta página.</span>
+        <a href="https://www.instagram.com/fablab.acousmonium/" target="_blank" rel="noopener noreferrer" aria-label="Fablab Acousmonium no Instagram, abre em nova aba">@fablab.acousmonium ↗</a>
+      </p>
+      <p class="contact-credit">Concepção e desenvolvimento do site — Caio Rodrigues</p>
+    </section>
+  </main>
+
+
+  <div id="login-modal" class="login-layer" hidden>
+    <div class="login-backdrop" data-login-close aria-hidden="true"></div>
+    <section class="login-panel" role="dialog" aria-modal="true" aria-labelledby="login-title" tabindex="-1">
+      <button class="login-close" type="button" data-login-close aria-label="Fechar acesso ao painel">×</button>
+      <p class="login-kicker">Área interna · equipe do laboratório</p>
+      <h2 id="login-title">Acessar o painel</h2>
+      <form id="login-form" novalidate>
+        <label for="login-email">E-mail</label>
+        <input id="login-email" name="email" type="email" autocomplete="username" inputmode="email" required>
+
+        <label for="login-password">Senha</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+
+        <p id="login-error" class="login-error" role="alert" aria-live="assertive"></p>
+        <button class="login-submit" type="submit">Acessar painel</button>
+      </form>
+      <p class="login-note">Acesso demonstrativo. A autenticação segura será integrada em uma etapa futura.</p>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

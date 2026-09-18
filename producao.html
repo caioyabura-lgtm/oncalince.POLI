@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Onça-Lince · Produção</title>
+  <link rel="stylesheet" href="producao.css">
+  <link rel="stylesheet" href="public-header.css">
+  <script src="auth.js" defer></script>
+  <script src="poli-config.js" defer></script>
+  <script src="poli-local.js" defer></script>
+  <script src="poli-service.js" defer></script>
+  <script src="audit-service.js" defer></script>
+  <script src="area-workspaces.js" defer></script>
+  <script src="internal-services.js" defer></script>
+  <script src="area-inputs.js" defer></script>
+  <script src="memory-artifacts.js" defer></script>
+  <script src="producao.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="production-page production-shell-page is-overview">
+  <a class="skip-link" href="#workspace">Ir para o conteúdo</a>
+  <div class="public-header-shell">
+    <header class="portal-header">
+      <a class="portal-wordmark" href="index.html" aria-label="Laboratório de Co-realização Audiovisual — início">
+        <span class="portal-logo-symbol" aria-hidden="true">
+          <img class="portal-logo-image" src="logo_laboratorio/logo_laboratorio-paleta-home.png" alt="" width="1254" height="1254">
+        </span>
+        <span class="portal-wordmark-text">
+          <span>Laboratório</span>
+          <span>de Co-realização</span>
+          <span>Audiovisual</span>
+        </span>
+      </a>
+
+      <button class="portal-menu-toggle" type="button" aria-expanded="false" aria-controls="portal-navigation">
+        <span>Menu</span>
+        <span class="menu-lines" aria-hidden="true"></span>
+      </button>
+
+      <nav id="portal-navigation" class="portal-navigation" aria-label="Navegação principal">
+        <a href="quem-somos.html">Quem somos</a>
+        <a href="territorios.html">Territórios</a>
+
+        <a href="contato.html">Contato</a>
+        <a href="https://www.instagram.com/fablab.acousmonium/" target="_blank" rel="noopener noreferrer" aria-label="Fablab Acousmonium no Instagram, abre em nova aba">Fablab ↗</a>
+        <a class="portal-gabinete-link" href="gabinete_internacional.html">Gabinete internacional</a>
+        <a href="producao.html" aria-current="page">Produção</a>
+      </nav>
+    </header>
+  </div>
+  <div class="production-shell">
+    <div class="session shell-session"><span id="session-user"></span><button id="profile-button" type="button">Perfil</button><button id="logout-button" type="button">Sair</button></div>
+    <main id="workspace" tabindex="-1">
+      <p id="feedback" role="status" aria-live="polite"></p>
+      <section data-view="overview" class="production-overview" aria-labelledby="overview-title">
+        <div class="production-left">
+          <h1 id="overview-title" class="dashboard-general" tabindex="-1">Dashboard Geral</h1>
+          <nav class="production-sectors" aria-label="Áreas de produção">
+            <button type="button" data-area-id="EXEC" disabled aria-disabled="true">Produção Executiva</button>
+            <button type="button" data-area-id="ART" disabled aria-disabled="true">Departamento de Arte e Performance</button>
+            <button type="button" data-area-id="PROD" disabled aria-disabled="true">Diretoria de Produção</button>
+            <button type="button" data-area-id="TECH" disabled aria-disabled="true">Diretoria Técnica</button>
+            <button type="button" data-area-id="MKT" disabled aria-disabled="true">Diretoria de Comunicação</button>
+            <button type="button" data-area-id="ADMIN" disabled aria-disabled="true">Diretoria Administrativa</button>
+            <button type="button" data-area-id="INTL" disabled aria-disabled="true">Gabinete Internacional</button>
+          </nav>
+          <a class="memory-entry" href="#memory">MEMÓRIAS E ARTEFATOS</a>
+        </div>
+        <div class="production-visual">
+          <!-- Aguardando identificação do asset aprovado. Não inserir outra
+               ilustração, imagem gerada ou placeholder nesta composição. -->
+          <a class="production-input" href="input.html">INPUT</a>
+        </div>
+      </section>
+      <section data-view="diary" hidden>
+        <a class="view-return" href="#overview">← Produção</a>
+        <nav class="category-tabs" aria-label="Produção Executiva"><a href="#executivo">Dashboard</a><a href="#diary">Diário de Produção</a><a href="#executive-inputs">Inputs recebidos</a></nav>
+        <header class="section-heading"><p class="eyebrow">Produção Executiva <span class="private-label">Área privada</span></p><h1 tabindex="-1">Diário de Produção</h1><p>Acompanhamentos, decisões e registros da Produção Executiva.</p><button id="new-diary" class="primary" type="button">Criar registro</button></header>
+        <form id="diary-form" class="editor" hidden>
+          <h2 id="diary-form-title">Novo registro</h2>
+          <div class="form-grid"><label>Data<input name="date" type="date" required></label><label>Hora<input name="time" type="time" required></label></div>
+          <label>Título / assunto<input name="title" maxlength="200" required></label>
+          <label>Registro<textarea name="body" rows="9" required></textarea></label>
+          <div class="form-grid"><label>Tipo<select name="type" id="diary-type" required></select></label><label>Status<select name="status" id="diary-status" required></select></label></div>
+          <label>Tags<input name="tags" placeholder="berlim, financiamento"><small>Separe as tags por vírgulas.</small></label>
+          <div class="actions"><button class="primary" type="submit">Salvar registro</button><button type="button" id="cancel-diary">Cancelar</button></div>
+        </form>
+        <div class="filters"><label>Buscar<input id="diary-search" type="search" placeholder="Título, conteúdo ou tags"></label><label>Tipo<select id="filter-type"><option value="">Todos os tipos</option></select></label><label>Status<select id="filter-status"><option value="">Todos os status</option></select></label></div>
+        <p class="list-caption">Mais recentes primeiro <span id="diary-count"></span></p>
+        <div id="diary-list"></div>
+      </section>
+      <section data-view="executivo" hidden>
+        <a class="view-return" href="#overview">← Dashboard Geral</a>
+        <header class="section-heading"><p class="eyebrow">Área privada</p><h1 tabindex="-1">Produção Executiva</h1></header>
+        <nav class="category-tabs" aria-label="Produção Executiva"><a href="#executivo">Dashboard</a><a href="#diary">Diário de Produção</a><a href="#executive-inputs">Inputs recebidos</a></nav>
+        <h2>Dashboard</h2><p id="executive-count"></p><p id="executive-input-count"></p><div id="executive-recent"></div>
+      </section>
+      <section data-view="executive-inputs" hidden>
+        <a class="view-return" href="#overview">← Dashboard Geral</a>
+        <header class="section-heading"><p class="eyebrow">Produção Executiva · área privada</p><h1 tabindex="-1">Inputs recebidos</h1></header>
+        <nav class="category-tabs" aria-label="Produção Executiva"><a href="#executivo">Dashboard</a><a href="#diary">Diário de Produção</a><a href="#executive-inputs">Inputs recebidos</a></nav>
+        <div id="executive-input-list"></div>
+      </section>
+      <section data-view="memory" hidden>
+        <a class="view-return" href="#overview">← Produção</a>
+        <header class="section-heading"><p class="eyebrow">Mural da produção</p><h1 tabindex="-1">Memórias e Artefatos</h1><p>Documentos, registros e artefatos relevantes para a produção, reunidos pela curadoria.</p></header>
+        <nav class="category-tabs" aria-label="Categorias do mural"><a href="#memory">Todos</a><a href="#memories">Memórias</a><a href="#artifacts">Artefatos</a></nav>
+        <div id="memory-list" class="memory-mural" role="region" aria-label="Mural de Memórias e Artefatos"></div>
+      </section>
+    </main>
+    <div class="institutional-signature">
+      <!-- Espaço reservado exclusivamente à composição transparente aprovada
+           das três marcas; sem substituição por marcas tipográficas. -->
+      <div class="institutional-marks" aria-hidden="true"></div>
+      <p class="development-credit">desenvolvido por Caio Rodrigues</p>
+    </div>
+  </div>
+  <dialog id="profile-dialog"><h2>Perfil</h2><p id="profile-name"></p><p id="poli-mode-note">Equipe do laboratório · sessão demonstrativa</p><form method="dialog"><button>Fechar</button></form></dialog>
+  <noscript><p>Ative o JavaScript para utilizar o Diário e a Memória do Processo.</p></noscript>
+</body>
+</html>
