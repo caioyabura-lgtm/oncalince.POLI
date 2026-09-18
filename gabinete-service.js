@@ -1,8 +1,12 @@
 'use strict';
 
-window.ProductionDiary = function ProductionDiary(area) {
+window.ProductionDiary = function ProductionDiary(area, { realIntl = false } = {}) {
   const areas = window.productionAreas;
   if (!areas.definitions[area] || area === 'producao_executiva') throw new Error('Área de diário inválida.');
+  if (realIntl) {
+    if (area !== 'gabinete_internacional') throw new Error('Diário real INTL restrito ao Gabinete Internacional.');
+    return createIntlDiary();
+  }
   const key = 'onca-lince.producao.v01.diary.' + area;
   const apiBase = area === 'gabinete_internacional' ? window.gabineteConfig.apiBase : window.gabineteConfig.areas?.[area]?.apiBase;
   const types = ['acompanhamento', 'decisão', 'reunião', 'contato', 'ideia', 'pendência', 'observação'];
@@ -141,3 +145,89 @@ window.ProductionDiary = function ProductionDiary(area) {
 };
 // Compatibilidade com integrações e testes anteriores do Gabinete.
 window.gabineteService = window.ProductionDiary('gabinete_internacional');
+
+// Caminho exclusivo POLI / 20_DIARIO / INTL; não utiliza o repositório local.
+function createIntlDiary() {
+  const key = 'onca-lince.gabinete.v01.intl-access-key';
+  const types = ['acompanhamento', 'decisão', 'reunião', 'contato', 'ideia', 'pendência', 'observação'];
+  const statuses = ['aberto', 'acompanhamento', 'concluído', 'arquivado'];
+  const apiUrl = window.gabineteConfig?.intlDiary?.apiUrl;
+  function normalize(input) {
+    const subject = String(input.subject || '').trim(), description = String(input.description || '').trim();
+    if (!subject || subject.length > 200 || !description || description.length > 1000
+      || !types.includes(input.type) || !statuses.includes(input.status)) throw new Error('Preencha título, registro, tipo e status válidos.');
+    const tags = (Array.isArray(input.tags) ? input.tags : String(input.tags || '').split(','))
+      .map(tag => String(tag).trim().replace(/^#+/, '')).filter(Boolean);
+    if (tags.length > 40 || tags.some(tag => tag.length > 80)) throw new Error('Use até 40 tags de até 80 caracteres.');
+    return { subject, description, type: input.type, status: input.status, tags };
+  }
+  async function request(operation, data) {
+    if (!apiUrl) throw new Error('URL do Diário real INTL não configurada.');
+    const url = new URL(apiUrl);
+    if (url.protocol !== 'https:' || url.hostname !== 'script.google.com' || url.port
+      || url.username || url.password || url.search || url.hash
+      || !/^\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url.pathname)) throw new Error('Endpoint INTL inválido.');
+    const session = window.productionAuth.current();
+    if (!session) throw new Error('Sessão encerrada.');
+    let accessKey = sessionStorage.getItem(key);
+    if (!accessKey) {
+      accessKey = window.prompt('Chave de acesso — Gabinete Internacional')?.trim();
+      if (!accessKey) throw new Error('Acesso ao Diário real INTL cancelado.');
+      sessionStorage.setItem(key, accessKey);
+    }
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    try {
+      const response = await fetch(url.href, {
+        method: 'POST', credentials: 'omit', redirect: 'follow', cache: 'no-store', signal: controller.signal,
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+        body: JSON.stringify({ operation, accessKey, ...(data ? { data } : {}) })
+      });
+      const result = await response.json();
+      if (window.productionAuth.current()?.access !== session.access
+        || window.productionAuth.current()?.sessionId !== session.sessionId
+        || sessionStorage.getItem(key) !== accessKey) throw new Error('Sessão encerrada.');
+      if (response.status === 401 || response.status === 403 || result?.error === 'INTL_UNAVAILABLE') {
+        sessionStorage.removeItem(key);
+        window.dispatchEvent(new Event('intl-access-denied'));
+        throw new Error('Acesso ao Gabinete Internacional não autorizado ou indisponível.');
+      }
+      if (!response.ok || result?.ok !== true) throw new Error('O serviço INTL não confirmou a operação.');
+      return result.data;
+    } catch (error) {
+      if (error instanceof TypeError || error instanceof SyntaxError || error.name === 'AbortError') {
+        throw new Error('Não foi possível confirmar a operação INTL. Consulte a lista antes de tentar novamente.');
+      }
+      throw error;
+    } finally { clearTimeout(timeout); }
+  }
+  function record(value) {
+    if (!value || value.area_id !== 'INTL' || typeof value.diary_id !== 'string' || !value.diary_id
+      || typeof value.criado_em !== 'string' || !Number.isFinite(Date.parse(value.criado_em))) {
+      throw new Error('Resposta inválida ou registro de outra área no Diário INTL.');
+    }
+    let tags = value.tags;
+    if (typeof tags === 'string') {
+      try { tags = JSON.parse(tags); } catch { tags = tags.split(','); }
+    }
+    if (!Array.isArray(tags) || tags.some(tag => typeof tag !== 'string')) throw new Error('Tags inválidas no Diário INTL.');
+    const editorial = normalize({ subject: value.titulo, description: value.registro, type: value.tipo, status: value.status, tags });
+    const created = new Date(value.criado_em).toISOString();
+    return { ...editorial, id: value.diary_id, date: created.slice(0, 10), time: created.slice(11, 16),
+      responsible: String(value.user_id || ''), territory: '', contact: '', decision: '', nextStep: '', deadline: '', reference: '' };
+  }
+  return Object.freeze({
+    mode: 'real-intl', configured: Boolean(apiUrl), types, statuses, normalize,
+    async list() {
+      const data = await request('list');
+      if (!Array.isArray(data)) throw new Error('Resposta inválida do Diário INTL.');
+      const rows = data.map(record);
+      if (new Set(rows.map(row => row.id)).size !== rows.length) throw new Error('Registros duplicados na resposta INTL.');
+      return rows.sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
+    },
+    async create(input) {
+      const value = normalize(input);
+      return request('create', { titulo: value.subject, registro: value.description, tipo: value.type, status: value.status, tags: value.tags });
+    }
+  });
+}

@@ -12,8 +12,9 @@ window.productionAuth = (() => {
     window.dispatchEvent(new Event('executive-key-cleared'));
   }
   window.addEventListener('storage', event => {
-    if (event.key === key || event.key === null) clearExecutiveKey();
+    if (event.key === key || event.key === null) { clearExecutiveKey(); clearIntlKey(); }
   });
+  function clearIntlKey() { sessionStorage.removeItem('onca-lince.gabinete.v01.intl-access-key'); }
   const scriptBase = new URL('.', document.currentScript.src);
   let auditLoading, signingOut, signingIn;
   async function audit(type) {
@@ -56,7 +57,7 @@ window.productionAuth = (() => {
       return { access: session.access, name: accounts[session.access].name, profile: 'Equipe do laboratório', mode: 'demo', sessionId: session.sessionId || null };
     } catch { return null; }
   }
-  if (!current()) clearExecutiveKey();
+  if (!current()) { clearExecutiveKey(); clearIntlKey(); }
   return {
     key,
     executiveKey, clearExecutiveKey,
@@ -76,6 +77,7 @@ window.productionAuth = (() => {
         const hash = Array.from(new Uint8Array(bits), byte => byte.toString(16).padStart(2, '0')).join('');
         if (hash !== accounts[access].hash) throw new Error('Acesso ou senha incorretos.');
         clearExecutiveKey();
+        clearIntlKey();
         window.poliService?.reset();
         try { localStorage.setItem(key, JSON.stringify({ access, sessionId: 'SES-' + crypto.randomUUID() })); }
         catch { throw new Error('Permita o armazenamento neste navegador para manter a sessão.'); }
@@ -85,6 +87,7 @@ window.productionAuth = (() => {
       return signingIn;
     },
     signOut({ audit: record = true } = {}) {
+      clearIntlKey();
       clearExecutiveKey();
       if (signingOut) return signingOut;
       const session = current();
