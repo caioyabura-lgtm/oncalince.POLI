@@ -35,15 +35,22 @@
     $('#connection-status').after(modes);
   }
   function protectRealFields() {
-    if (!realIntl) return;
+    if (area !== 'gabinete_internacional') return;
     for (const name of ['date', 'time', 'responsible', 'contact', 'territory', 'decision', 'nextStep', 'deadline', 'reference']) {
-      form.elements[name].disabled = true; form.elements[name].closest('label').hidden = true;
+      // O demonstrativo mantém seus metadados internos legados; o real não os envia.
+      form.elements[name].disabled = realIntl; form.elements[name].closest('label').hidden = true;
     }
   }
   protectRealFields();
+  if (area === 'gabinete_internacional') {
+    form.elements.subject.previousSibling.textContent = 'Título / assunto';
+    form.elements.description.previousSibling.textContent = 'Registro / andamento';
+    for (const name of ['subject', 'type', 'status', 'description', 'tags']) {
+      form.insertBefore(form.elements[name].closest('label'), $('#save-note'));
+    }
+    form.querySelectorAll('.form-grid').forEach(grid => { grid.hidden = true; });
+  }
   if (realIntl) {
-    form.elements.subject.previousSibling.textContent = 'Título';
-    form.elements.description.previousSibling.textContent = 'Registro';
     window.addEventListener('intl-access-denied', () => { records = []; connected = false; updateViews(); });
   }
   const notify = (text = '', error = false) => { $('#feedback').textContent = text; $('#feedback').classList.toggle('error', error); $('#feedback').setAttribute('role', error ? 'alert' : 'status'); };
@@ -80,11 +87,11 @@
     $('#record-count').textContent = 'Mais recentes primeiro · ' + selected.length + ' registro(s)';
     for (const record of selected) {
       const article = node('article', '', 'entry');
-      article.append(node('p', dateLabel(record.date) + ' ' + (record.time || '') + ' · ' + record.responsible + ' · ' + record.status, 'entry-meta'), node('h3', record.subject), node('p', record.description, 'entry-body'));
+      article.append(node('p', dateLabel(record.date) + ' ' + (record.time || '') + (realIntl ? ' · ' : ' · ' + record.responsible + ' · ') + record.status, 'entry-meta'), node('h3', record.subject), node('p', record.description, 'entry-body'));
       const details = node('details'); details.append(node('summary', 'Consultar registro'));
       const fields = node('dl');
       fields.append(node('dt', 'Tipo'), node('dd', record.type || 'acompanhamento'), node('dt', 'Tags'), node('dd', (record.tags || []).join(', ')));
-      for (const [key, label] of Object.entries({ contact: 'Contato / instituição', territory: 'Território / país', decision: 'Decisão / encaminhamento', nextStep: 'Próximo passo', deadline: 'Prazo', reference: 'Referência' })) {
+      for (const [key, label] of Object.entries(realIntl ? {} : { contact: 'Contato / instituição', territory: 'Território / país', decision: 'Decisão / encaminhamento', nextStep: 'Próximo passo', deadline: 'Prazo', reference: 'Referência' })) {
         if (!record[key]) continue;
         const value = node('dd', key === 'deadline' ? dateLabel(record[key]) : record[key]);
         if (key === 'reference') {
