@@ -41,6 +41,10 @@ window.productionAuth = (() => {
     } catch { console.warn('[AUDIT] Serviço indisponível; autenticação preservada.'); }
   }
   const accounts = {
+    'jose.akashi': { name: 'José Akashi', hash: 'df8f4f0101f145563a5e1f8f586f3394afa25a97186c7ec74b38ba36308a6261' },
+    'augusto.almeida': { name: 'Augusto Almeida', hash: '0911376cce39d477c6581ab16b357fc3eb7bc55617607b6c1611f830659af222' },
+    'pedro.sebastiao': { name: 'Pedro Sebastião', hash: '00b4dfbf83405f87d748e67897a5c63c0628e43ef576480fc3d26d598dd35371' },
+    'alexandre.furtado': { name: 'Alexandre Furtado', hash: 'a35fe8011a67ed4ce70e68659adcf3eadef67b508f2f0da67de6c9037d072202' },
     'sergio.inocencio': { name: 'Sérgio Inocêncio', hash: '25e754c8cbb42f2a0b75e22ce6919d1fbd25dc7755978ad023c5100093b97b9d' },
     mariana: { name: 'Mariana Tiago', hash: '90e54a4764ab5838f3f3ff8b0ef9ea5e04b8351bdfd549777271fcc5c65588a1' },
     ricarda: { name: 'Ricarda Kruitz', hash: 'a8a569e17a905fa67b450922d2eecb26927923f77248064562ab5362a01cb924' },

@@ -168,6 +168,7 @@
       const allowed = Boolean(sectorRoutes[id] && window.poliService.canReadArea(id));
       button.disabled = !allowed;
       button.setAttribute('aria-disabled', String(!allowed));
+      if (id === 'TECH') button.setAttribute('aria-label', 'Diretoria Técnica, abre em nova aba');
     });
   }
   async function loadAccess() {
@@ -354,6 +355,7 @@
     const id = button.dataset.areaId;
     if (!window.poliService.canReadArea(id) || !sectorRoutes[id]) { updateSectors(); return; }
     if (id === 'EXEC') location.hash = 'executivo';
+    else if (id === 'TECH') window.open(sectorRoutes[id], '_blank', 'noopener,noreferrer');
     else location.assign(sectorRoutes[id]);
   });
   window.addEventListener('poli-access-change', updateSectors);

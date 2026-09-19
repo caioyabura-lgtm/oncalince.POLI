@@ -75,7 +75,8 @@ window.poliService = (() => {
           if (!['localhost', '127.0.0.1', '[::1]', '::1'].includes(location.hostname)) throw error('Modo local POLI disponível apenas em loopback.', 'POLI_CONFIG');
           data = window.poliLocalBootstrap(session, config.localScenario);
           // Esta conta demonstrativa permanece restrita a INTL também em loopback.
-          if (session.access === 'sergio.inocencio') data.permissions = [{ areaId: 'INTL', level: 'WRITE', active: true }];
+          if (['sergio.inocencio', 'jose.akashi', 'augusto.almeida'].includes(session.access)) data.permissions = [{ areaId: 'INTL', level: 'WRITE', active: true }];
+          if (['pedro.sebastiao', 'alexandre.furtado'].includes(session.access)) data.permissions = [{ areaId: 'TECH', level: 'WRITE', active: true }];
         } else if (config?.mode === 'hosted-demo') {
           if (location.hostname !== 'caioyabura-lgtm.github.io'
             || !location.pathname.startsWith('/oncalince.POLI/')) {
@@ -88,9 +89,11 @@ window.poliService = (() => {
           data = window.poliLocalBootstrap(session, 'NONE');
           data.permissions = session.access === 'caio'
             ? ['EXEC', 'ART', 'TECH', 'INTL'].map(areaId => ({ areaId, level: 'ADMIN', active: true }))
-            : session.access === 'sergio.inocencio'
+            : ['sergio.inocencio', 'jose.akashi', 'augusto.almeida'].includes(session.access)
               ? [{ areaId: 'INTL', level: 'WRITE', active: true }]
-              : []; // Nenhuma política hospedada definida para as demais contas.
+              : ['pedro.sebastiao', 'alexandre.furtado'].includes(session.access)
+                ? [{ areaId: 'TECH', level: 'WRITE', active: true }]
+                : []; // Nenhuma política hospedada definida para as demais contas.
         } else if (config?.mode === 'remote') data = await remote(config, abort.signal);
         else throw error('Modo POLI não configurado.', 'POLI_CONFIG');
         const normalized = normalize(data);
