@@ -79,18 +79,14 @@ try:
         page.locator('#new-record').click()
         page.locator('[name=subject]').fill('Contato de produção')
         page.locator('[name=description]').fill('Reunião de acompanhamento')
-        page.locator('[name=contact]').fill('Instituição de teste')
-        page.locator('[name=territory]').fill('Portugal')
-        page.locator('[name=decision]').fill('Retomar contato')
-        page.locator('[name=nextStep]').fill('Enviar documento')
-        page.locator('[name=deadline]').fill('2099-01-01')
-        page.locator('[name=reference]').fill('https://example.org/documento')
+        assert page.locator('#gabinete-form input:visible, #gabinete-form select:visible, #gabinete-form textarea:visible').evaluate_all('(els)=>els.map(e=>e.name)') == ['subject','type','status','description','tags']
+        page.locator('[name=tags]').fill('instituição, Portugal')
         page.locator('#save-record').click()
         page.wait_for_function("document.querySelector('#feedback').textContent === 'Registro salvo.'")
         assert len(rows) == 1 and rows[0]['version'] == 1
         assert page.locator('#records .entry').count() == 1
         page.locator('#records summary').click()
-        assert page.get_by_role('link', name='Abrir referência').get_attribute('rel') == 'noopener noreferrer'
+        assert 'instituição, Portugal' in page.locator('#records').inner_text()
         page.locator('#records').get_by_role('button', name='Editar', exact=True).click()
         page.locator('[name=subject]').fill('Contato atualizado')
         mode['error'] = 409
@@ -114,8 +110,8 @@ try:
         page.get_by_role('link', name='Dashboard', exact=True).click()
         page.locator('[data-gabinete-view=dashboard]').wait_for(state='visible')
         assert page.locator('#dashboard-data').is_visible()
-        assert 'Portugal · 1' in page.locator('#by-territory').inner_text()
-        assert '01/01/2099' in page.locator('#deadlines').inner_text()
+        assert 'Não informado · 1' in page.locator('#by-territory').inner_text()
+        assert 'Nenhum próximo prazo informado.' in page.locator('#deadlines').inner_text()
         for width in [390,768,1440,1920]:
             page.set_viewport_size({'width':width,'height':1000})
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')

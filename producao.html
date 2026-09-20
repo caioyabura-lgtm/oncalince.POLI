@@ -51,13 +51,16 @@
     </header>
   </div>
   <div class="production-shell">
-    <div class="session shell-session"><span id="session-user"></span><button id="profile-button" type="button">Perfil</button><button id="logout-button" type="button">Sair</button></div>
+    <header class="management-header"><p class="management-brand">POLI</p><div class="session shell-session"><span id="session-user"></span><button id="profile-button" type="button">Perfil</button><button id="logout-button" type="button">Sair</button></div></header>
     <main id="workspace" tabindex="-1">
       <p id="feedback" role="status" aria-live="polite"></p>
       <section data-view="overview" class="production-overview" aria-labelledby="overview-title">
-        <div class="production-left">
-          <h1 id="overview-title" class="dashboard-general" tabindex="-1">Dashboard Geral</h1>
-          <nav class="production-sectors" aria-label="Áreas de produção">
+        <header class="candidacy-heading">
+          <h1 id="overview-title" class="dashboard-general" tabindex="-1">PAINEL ONÇA LINCE - Desenvolvimento da candidatura</h1>
+          <p class="candidacy-reference"><a href="https://www.goethe.de/en/kul/foe/int.html" target="_blank" rel="noopener noreferrer" aria-label="International Coproduction Fund (IKF), abre em nova aba"><strong>International Coproduction Fund (IKF)</strong></a><span>2026</span></p>
+        </header>
+        <aside class="production-left" aria-label="Navegação de gestão"><p class="navigation-caption">ÁREAS</p>
+          <nav class="production-sectors production-sections" aria-label="Áreas de produção">
             <button type="button" data-area-id="EXEC" disabled aria-disabled="true">Produção Executiva</button>
             <button type="button" data-area-id="ART" disabled aria-disabled="true">Departamento de Arte e Performance</button>
             <button type="button" data-area-id="PROD" disabled aria-disabled="true">Diretoria de Produção</button>
@@ -67,11 +70,13 @@
             <button type="button" data-area-id="INTL" disabled aria-disabled="true">Gabinete Internacional</button>
           </nav>
           <a class="memory-entry" href="#memory">MEMÓRIAS E ARTEFATOS</a>
-        </div>
+        </aside>
         <div class="production-visual">
-          <!-- Aguardando identificação do asset aprovado. Não inserir outra
-               ilustração, imagem gerada ou placeholder nesta composição. -->
-          <a class="production-input" href="input.html">INPUT</a>
+          <section class="overview-input-block" aria-labelledby="overview-input-title">
+            <p class="navigation-caption">Ferramenta de entrada</p>
+            <h2 id="overview-input-title"><a class="production-input" href="input.html" aria-describedby="overview-input-description">INPUT<span aria-hidden="true"> ↗</span></a></h2>
+            <p id="overview-input-description">Entrada de informações, documentos, referências e materiais para a Produção Executiva.</p>
+          </section>
         </div>
       </section>
       <section data-view="diary" hidden>

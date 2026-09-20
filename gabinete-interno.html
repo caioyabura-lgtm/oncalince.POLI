@@ -4,10 +4,13 @@
   <meta charset="utf-8">
   <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Gabinete Internacional · Área interna</title>
+
   <link rel="stylesheet" href="producao.css">
   <link rel="stylesheet" href="public-header.css">
   <link rel="stylesheet" href="gabinete-interno.css">
+
   <script src="auth.js" defer></script>
   <script src="poli-config.js" defer></script>
   <script src="poli-local.js" defer></script>
@@ -21,14 +24,33 @@
   <script src="gabinete-interno.js" defer></script>
   <script src="script.js" defer></script>
 </head>
+
 <body class="production-page production-shell-page gabinete-page">
+
   <a class="skip-link" href="#workspace">Ir para o conteúdo</a>
+
+  <!-- =========================================================
+       CABEÇALHO PÚBLICO
+  ========================================================== -->
+
   <div class="public-header-shell">
     <header class="portal-header">
-      <a class="portal-wordmark" href="index.html" aria-label="Laboratório de Co-realização Audiovisual — início">
+
+      <a
+        class="portal-wordmark"
+        href="index.html"
+        aria-label="Laboratório de Co-realização Audiovisual — início"
+      >
         <span class="portal-logo-symbol" aria-hidden="true">
-          <img class="portal-logo-image" src="logo_laboratorio/logo_laboratorio-paleta-home.png" alt="" width="1254" height="1254">
+          <img
+            class="portal-logo-image"
+            src="logo_laboratorio/logo_laboratorio-paleta-home.png"
+            alt=""
+            width="1254"
+            height="1254"
+          >
         </span>
+
         <span class="portal-wordmark-text">
           <span>Laboratório</span>
           <span>de Co-realização</span>
@@ -36,77 +58,947 @@
         </span>
       </a>
 
-      <button class="portal-menu-toggle" type="button" aria-expanded="false" aria-controls="portal-navigation">
+      <button
+        class="portal-menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="portal-navigation"
+      >
         <span>Menu</span>
         <span class="menu-lines" aria-hidden="true"></span>
       </button>
 
-      <nav id="portal-navigation" class="portal-navigation" aria-label="Navegação principal">
+      <nav
+        id="portal-navigation"
+        class="portal-navigation"
+        aria-label="Navegação principal"
+      >
         <a href="quem-somos.html">Quem somos</a>
         <a href="territorios.html">Territórios</a>
-
         <a href="contato.html">Contato</a>
-        <a href="https://www.instagram.com/fablab.acousmonium/" target="_blank" rel="noopener noreferrer" aria-label="Fablab Acousmonium no Instagram, abre em nova aba">Fablab ↗</a>
-        <a class="portal-gabinete-link" href="gabinete_internacional.html">Gabinete internacional</a>
-        <a href="producao.html" aria-current="page">Produção</a>
+
+        <a
+          href="https://www.instagram.com/fablab.acousmonium/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Fablab Acousmonium no Instagram, abre em nova aba"
+        >
+          Fablab ↗
+        </a>
+
+        <a
+          class="portal-gabinete-link"
+          href="gabinete_internacional.html"
+        >
+          Gabinete internacional
+        </a>
+
+        <a href="producao.html" aria-current="page">
+          Produção
+        </a>
       </nav>
+
     </header>
   </div>
+
+
+  <!-- =========================================================
+       ÁREA INTERNA
+  ========================================================== -->
+
   <div class="production-shell">
-    <div class="session shell-session"><span id="session-user"></span><button id="profile-button" type="button">Perfil</button><button id="logout-button" type="button">Sair</button></div>
+
+    <div class="session shell-session">
+      <span id="session-user"></span>
+      <button id="profile-button" type="button">Perfil</button>
+      <button id="logout-button" type="button">Sair</button>
+    </div>
+
+
     <main id="workspace" tabindex="-1">
-      <a class="view-return" href="producao.html#overview">← Dashboard Geral</a>
-      <header class="section-heading"><p class="eyebrow">Área interna</p><h1>Gabinete Internacional</h1></header>
-      <nav class="category-tabs" aria-label="Área interna"><a href="#dashboard">Dashboard</a><a href="#diario">Diário de Produção</a><a href="#inputs">Inputs recebidos</a></nav>
-      <p id="connection-status" role="status">Verificando conexão…</p>
-      <p id="feedback" role="status" aria-live="polite"></p>
-      <div class="actions"><button id="refresh" type="button" hidden>Atualizar registros</button></div>
-      <section data-gabinete-view="dashboard" aria-labelledby="dashboard-title">
-        <h2 id="dashboard-title" tabindex="-1">Dashboard do Gabinete</h2>
-        <p id="dashboard-empty" class="empty">Os acompanhamentos serão apresentados quando a base estiver conectada e houver registros.</p>
-        <p id="input-count" class="list-caption"></p>
-        <div id="dashboard-data" hidden>
-          <dl class="gabinete-summary" id="indicators"></dl>
-          <div class="gabinete-columns">
-            <section><h3>Últimos registros</h3><ul id="recent"></ul></section>
-            <section><h3>Atividades em aberto</h3><ul id="open"></ul></section>
-            <section><h3>Próximos prazos</h3><ul id="deadlines"></ul></section>
-            <section><h3>Por status</h3><ul id="by-status"></ul></section>
-            <section><h3>Por território ou país</h3><ul id="by-territory"></ul></section>
+
+      <a class="view-return" href="producao.html#overview">
+        ← Dashboard Geral
+      </a>
+
+
+      <!-- =====================================================
+           IDENTIFICAÇÃO DO GABINETE
+      ====================================================== -->
+
+      <header class="section-heading">
+
+        <p class="eyebrow">Área interna</p>
+
+        <h1>Gabinete Internacional</h1>
+
+        <p class="gabinete-description">
+          Pesquisa · Serviços jurídicos · Logística internacional
+        </p>
+
+      </header>
+
+
+      <nav class="category-tabs" aria-label="Área interna">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#diario">Diário de Produção</a>
+        <a href="#inputs">Inputs recebidos</a>
+      </nav>
+
+
+      <p id="connection-status" role="status">
+        Verificando conexão…
+      </p>
+
+      <p
+        id="feedback"
+        role="status"
+        aria-live="polite"
+      ></p>
+
+
+      <div class="actions">
+        <button id="refresh" type="button" hidden>
+          Atualizar registros
+        </button>
+      </div>
+
+
+      <!-- =====================================================
+           DASHBOARD
+      ====================================================== -->
+
+      <section
+        data-gabinete-view="dashboard"
+        aria-labelledby="dashboard-title"
+      >
+
+        <h2 id="dashboard-title" tabindex="-1">
+          Dashboard do Gabinete
+        </h2>
+
+
+        <!-- =================================================
+             TERRITÓRIOS & MARCOS JURÍDICOS
+        ================================================== -->
+
+        <section
+          class="legal-territories"
+          aria-labelledby="legal-territories-title"
+        >
+
+          <header class="legal-territories-heading">
+
+            <p class="eyebrow">
+              Campo de atuação
+            </p>
+
+            <h3 id="legal-territories-title">
+              Territórios & Marcos Jurídicos
+            </h3>
+
+            <p>
+              Referências territoriais e institucionais utilizadas
+              pelo Gabinete Internacional para organização,
+              pesquisa e acompanhamento de processos.
+            </p>
+
+          </header>
+
+
+          <div class="legal-framework-grid">
+
+
+            <!-- MERCOSUL -->
+
+            <article
+              class="legal-framework-card"
+              data-framework="mercosul"
+            >
+
+              <div class="legal-framework-mark">
+
+                <img
+                  src="assets/mercosul.png"
+                  alt="Símbolo do MERCOSUL"
+                  loading="lazy"
+                >
+
+              </div>
+
+              <div class="legal-framework-content">
+
+                <p class="framework-region">
+                  América do Sul
+                </p>
+
+                <h4>MERCOSUL</h4>
+
+                <p>
+                  Marco institucional de referência para processos
+                  relacionados à atuação e circulação regional.
+                </p>
+
+                <div
+                  class="framework-tags"
+                  aria-label="Territórios relacionados"
+                >
+                  <span>Brasil</span>
+                  <span>Circulação regional</span>
+                </div>
+
+              </div>
+
+            </article>
+
+
+            <!-- CONEXÃO TRANSATLÂNTICA -->
+
+            <div
+              class="transatlantic-bridge"
+              aria-label="Conexão transatlântica"
+            >
+
+              <span class="bridge-line" aria-hidden="true"></span>
+
+              <div class="bridge-content">
+
+                <strong>TRANSATLÂNTICO</strong>
+
+                <span>
+                  MERCOSUL ⇄ UNIÃO EUROPEIA
+                </span>
+
+              </div>
+
+              <span class="bridge-line" aria-hidden="true"></span>
+
+            </div>
+
+
+            <!-- UNIÃO EUROPEIA -->
+
+            <article
+              class="legal-framework-card"
+              data-framework="eu"
+            >
+
+              <div class="legal-framework-mark">
+
+                <img
+                  src="assets/uniao-europeia.png"
+                  alt="Emblema da União Europeia"
+                  loading="lazy"
+                >
+
+              </div>
+
+              <div class="legal-framework-content">
+
+                <p class="framework-region">
+                  Europa
+                </p>
+
+                <h4>União Europeia</h4>
+
+                <p>
+                  Marco institucional de referência para processos
+                  relacionados à atuação e circulação no espaço europeu.
+                </p>
+
+                <div
+                  class="framework-tags"
+                  aria-label="Territórios relacionados"
+                >
+                  <span>Portugal</span>
+                  <span>Alemanha</span>
+                  <span>Circulação europeia</span>
+                </div>
+
+              </div>
+
+            </article>
+
           </div>
+
+
+          <!-- NOTA DE INDEPENDÊNCIA -->
+
+          <p class="legal-framework-disclaimer">
+
+            Os símbolos apresentados nesta área identificam
+            referências territoriais e jurídico-institucionais de
+            interesse do Gabinete Internacional. Sua utilização não
+            representa filiação, parceria, financiamento, apoio ou
+            endosso institucional por parte das organizações
+            representadas.
+
+          </p>
+
+        </section>
+
+
+        <!-- =================================================
+             DADOS DO DASHBOARD
+        ================================================== -->
+
+        <p id="dashboard-empty" class="empty">
+          Os acompanhamentos serão apresentados quando a base estiver
+          conectada e houver registros.
+        </p>
+
+        <p
+          id="input-count"
+          class="list-caption"
+        ></p>
+
+
+        <div id="dashboard-data" hidden>
+
+          <dl
+            class="gabinete-summary"
+            id="indicators"
+          ></dl>
+
+
+          <div class="gabinete-columns">
+
+            <section>
+              <h3>Últimos registros</h3>
+              <ul id="recent"></ul>
+            </section>
+
+
+            <section>
+              <h3>Atividades em aberto</h3>
+              <ul id="open"></ul>
+            </section>
+
+
+            <section>
+              <h3>Próximos prazos</h3>
+              <ul id="deadlines"></ul>
+            </section>
+
+
+            <section>
+              <h3>Por status</h3>
+              <ul id="by-status"></ul>
+            </section>
+
+
+            <section>
+              <h3>Por território ou país</h3>
+              <ul id="by-territory"></ul>
+            </section>
+
+
+            <!-- preparado para implementação posterior -->
+
+            <section>
+              <h3>Por marco institucional</h3>
+              <ul id="by-framework"></ul>
+            </section>
+
+          </div>
+
         </div>
+
       </section>
-      <section data-gabinete-view="diario" hidden aria-labelledby="diary-title">
-        <header class="section-heading"><h2 id="diary-title" tabindex="-1">Diário de Produção</h2><button id="new-record" class="primary" type="button">Novo registro</button></header>
-        <form id="gabinete-form" class="editor" hidden>
-          <h3 id="form-title">Novo registro</h3>
-          <div class="form-grid"><label>Data<input name="date" type="date" required></label><label>Responsável<input name="responsible" maxlength="200" required></label></div>
-          <div class="form-grid"><label>Hora<input name="time" type="time" required></label><label>Tipo<select name="type" required></select></label></div>
-          <label>Assunto ou atividade<input name="subject" maxlength="200" required></label>
-          <div class="form-grid"><label>Contato ou instituição<input name="contact" maxlength="200"></label><label>Território ou país<input name="territory" maxlength="120"></label></div>
-          <label>Andamento<textarea name="description" rows="3" maxlength="1000" required></textarea></label>
-          <label>Tags<input name="tags" maxlength="2000" placeholder="Separe por vírgulas"></label>
-          <div class="form-grid"><label>Decisão ou encaminhamento<textarea name="decision" rows="2" maxlength="600"></textarea></label><label>Próximo passo<textarea name="nextStep" rows="2" maxlength="600"></textarea></label></div>
-          <div class="form-grid"><label>Prazo<input name="deadline" type="date"></label><label>Status<select name="status" required></select></label></div>
-          <label>Documento, arquivo ou link relacionado<input name="reference" maxlength="2000"><small>Referência textual ou link; sem upload de arquivos.</small></label>
-          <p id="save-note" class="development-note"></p>
-          <div class="actions"><button id="save-record" class="primary" type="submit">Salvar registro</button><button id="cancel-record" type="button">Cancelar</button></div>
+
+
+      <!-- =====================================================
+           DIÁRIO DE PRODUÇÃO
+      ====================================================== -->
+
+      <section
+        data-gabinete-view="diario"
+        hidden
+        aria-labelledby="diary-title"
+      >
+
+        <header class="section-heading">
+
+          <h2 id="diary-title" tabindex="-1">
+            Diário de Produção
+          </h2>
+
+          <button
+            id="new-record"
+            class="primary"
+            type="button"
+          >
+            Novo registro
+          </button>
+
+        </header>
+
+
+        <!-- =================================================
+             FORMULÁRIO
+        ================================================== -->
+
+        <form
+          id="gabinete-form"
+          class="editor"
+          hidden
+        >
+
+          <h3 id="form-title">
+            Novo registro
+          </h3>
+
+
+          <div class="form-grid">
+
+            <label>
+              Data
+              <input
+                name="date"
+                type="date"
+                required
+              >
+            </label>
+
+
+            <label>
+              Responsável
+              <input
+                name="responsible"
+                maxlength="200"
+                required
+              >
+            </label>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <label>
+              Hora
+              <input
+                name="time"
+                type="time"
+                required
+              >
+            </label>
+
+
+            <label>
+              Tipo
+              <select
+                name="type"
+                required
+              ></select>
+            </label>
+
+          </div>
+
+
+          <label>
+            Assunto ou atividade
+
+            <input
+              name="subject"
+              maxlength="200"
+              required
+            >
+
+          </label>
+
+
+          <div class="form-grid">
+
+            <label>
+              Contato ou instituição
+
+              <input
+                name="contact"
+                maxlength="200"
+              >
+
+            </label>
+
+
+            <label>
+              Território ou país
+
+              <input
+                name="territory"
+                maxlength="120"
+                placeholder="Ex.: Brasil, Portugal, Alemanha"
+              >
+
+            </label>
+
+          </div>
+
+
+          <!-- =================================================
+               NOVA CAMADA: MARCO INSTITUCIONAL
+          ================================================== -->
+
+          <div class="form-grid">
+
+            <label>
+              Marco institucional
+
+              <select name="framework">
+
+                <option value="">
+                  Não definido
+                </option>
+
+                <option value="MERCOSUL">
+                  MERCOSUL
+                </option>
+
+                <option value="UNIÃO EUROPEIA">
+                  União Europeia
+                </option>
+
+                <option value="TRANSATLÂNTICO">
+                  Transatlântico · MERCOSUL ⇄ União Europeia
+                </option>
+
+                <option value="OUTRO">
+                  Outro
+                </option>
+
+              </select>
+
+            </label>
+
+
+            <!-- =============================================
+                 NOVA CAMADA: MATÉRIA
+            ============================================== -->
+
+            <label>
+              Matéria
+
+              <select name="legalMatter">
+
+                <option value="">
+                  Não definida
+                </option>
+
+                <option value="CONTRATOS">
+                  Contratos
+                </option>
+
+                <option value="DIREITOS_AUTORAIS">
+                  Direitos autorais
+                </option>
+
+                <option value="LICENCIAMENTO">
+                  Licenciamento
+                </option>
+
+                <option value="EXPLORACAO_ECONOMICA">
+                  Exploração econômica
+                </option>
+
+                <option value="CIRCULACAO">
+                  Circulação internacional
+                </option>
+
+                <option value="LOGISTICA">
+                  Logística
+                </option>
+
+                <option value="FINANCIAMENTO">
+                  Financiamento
+                </option>
+
+                <option value="PROTECAO_DADOS">
+                  Proteção de dados
+                </option>
+
+                <option value="PROPRIEDADE_INTELECTUAL">
+                  Propriedade intelectual
+                </option>
+
+                <option value="OUTRO">
+                  Outro
+                </option>
+
+              </select>
+
+            </label>
+
+          </div>
+
+
+          <label>
+
+            Andamento
+
+            <textarea
+              name="description"
+              rows="3"
+              maxlength="1000"
+              required
+            ></textarea>
+
+          </label>
+
+
+          <label>
+
+            Tags
+
+            <input
+              name="tags"
+              maxlength="2000"
+              placeholder="Separe por vírgulas"
+            >
+
+          </label>
+
+
+          <div class="form-grid">
+
+            <label>
+
+              Decisão ou encaminhamento
+
+              <textarea
+                name="decision"
+                rows="2"
+                maxlength="600"
+              ></textarea>
+
+            </label>
+
+
+            <label>
+
+              Próximo passo
+
+              <textarea
+                name="nextStep"
+                rows="2"
+                maxlength="600"
+              ></textarea>
+
+            </label>
+
+          </div>
+
+
+          <div class="form-grid">
+
+            <label>
+
+              Prazo
+
+              <input
+                name="deadline"
+                type="date"
+              >
+
+            </label>
+
+
+            <label>
+
+              Status
+
+              <select
+                name="status"
+                required
+              ></select>
+
+            </label>
+
+          </div>
+
+
+          <label>
+
+            Documento, arquivo ou link relacionado
+
+            <input
+              name="reference"
+              maxlength="2000"
+            >
+
+            <small>
+              Referência textual ou link; sem upload de arquivos.
+            </small>
+
+          </label>
+
+
+          <p
+            id="save-note"
+            class="development-note"
+          ></p>
+
+
+          <div class="actions">
+
+            <button
+              id="save-record"
+              class="primary"
+              type="submit"
+            >
+              Salvar registro
+            </button>
+
+
+            <button
+              id="cancel-record"
+              type="button"
+            >
+              Cancelar
+            </button>
+
+          </div>
+
         </form>
+
+
+        <!-- =================================================
+             FILTROS
+        ================================================== -->
+
         <div class="filters">
-          <label>Buscar<input id="search" type="search" placeholder="Assunto, responsável ou instituição"></label>
-          <label>Status<select id="filter-status"><option value="">Todos</option></select></label>
-          <label>Tipo<select id="filter-type"><option value="">Todos</option></select></label>
-          <label>Território ou país<select id="filter-territory"><option value="">Todos</option></select></label>
-          <label>De<input id="date-from" type="date"></label><label>Até<input id="date-to" type="date"></label>
+
+          <label>
+
+            Buscar
+
+            <input
+              id="search"
+              type="search"
+              placeholder="Assunto, responsável ou instituição"
+            >
+
+          </label>
+
+
+          <label>
+
+            Status
+
+            <select id="filter-status">
+              <option value="">Todos</option>
+            </select>
+
+          </label>
+
+
+          <label>
+
+            Tipo
+
+            <select id="filter-type">
+              <option value="">Todos</option>
+            </select>
+
+          </label>
+
+
+          <label>
+
+            Território ou país
+
+            <select id="filter-territory">
+              <option value="">Todos</option>
+            </select>
+
+          </label>
+
+
+          <!-- filtro preparado para integração com JS -->
+
+          <label>
+
+            Marco institucional
+
+            <select id="filter-framework">
+
+              <option value="">
+                Todos
+              </option>
+
+              <option value="MERCOSUL">
+                MERCOSUL
+              </option>
+
+              <option value="UNIÃO EUROPEIA">
+                União Europeia
+              </option>
+
+              <option value="TRANSATLÂNTICO">
+                Transatlântico
+              </option>
+
+            </select>
+
+          </label>
+
+
+          <label>
+
+            De
+
+            <input
+              id="date-from"
+              type="date"
+            >
+
+          </label>
+
+
+          <label>
+
+            Até
+
+            <input
+              id="date-to"
+              type="date"
+            >
+
+          </label>
+
         </div>
-        <p id="record-count" class="list-caption"></p>
+
+
+        <p
+          id="record-count"
+          class="list-caption"
+        ></p>
+
+
         <div id="records"></div>
+
       </section>
-      <section data-gabinete-view="inputs" hidden aria-labelledby="inputs-title"><h2 id="inputs-title" tabindex="-1">Inputs recebidos</h2><p class="development-note">Entradas destinadas a esta área. Consulta do registro original, sem duplicação.</p><div id="area-input-list"></div></section>
+
+
+      <!-- =====================================================
+           INPUTS
+      ====================================================== -->
+
+      <section
+        data-gabinete-view="inputs"
+        hidden
+        aria-labelledby="inputs-title"
+      >
+
+        <h2
+          id="inputs-title"
+          tabindex="-1"
+        >
+          Inputs recebidos
+        </h2>
+
+
+        <p class="development-note">
+
+          Entradas destinadas a esta área.
+          Consulta do registro original, sem duplicação.
+
+        </p>
+
+
+        <div id="area-input-list"></div>
+
+      </section>
+
     </main>
-    <div class="institutional-signature"><div class="institutional-marks" aria-hidden="true"></div><p class="development-credit">desenvolvido por Caio Rodrigues</p></div>
+
+
+    <!-- =======================================================
+         ASSINATURA
+    ======================================================== -->
+
+    <div class="institutional-signature">
+
+      <div
+        class="institutional-marks"
+        aria-hidden="true"
+      ></div>
+
+      <p class="development-credit">
+        desenvolvido por Caio Rodrigues
+      </p>
+
+    </div>
+
   </div>
-  <dialog id="profile-dialog"><h2>Perfil</h2><p id="profile-name"></p><p>Equipe do laboratório · sessão demonstrativa</p><form method="dialog"><button>Fechar</button></form></dialog>
-  <noscript><p>Ative o JavaScript para acessar o Gabinete Internacional interno.</p></noscript>
+
+
+  <!-- =========================================================
+       PERFIL
+  ========================================================== -->
+
+  <dialog id="profile-dialog">
+
+    <h2>Perfil</h2>
+
+    <p id="profile-name"></p>
+
+    <p>
+      Equipe do laboratório · sessão demonstrativa
+    </p>
+
+    <form method="dialog">
+      <button>Fechar</button>
+    </form>
+
+  </dialog>
+
+
+  <!-- Documentos futuros exigirão fonte autorizada: article com technical_id e title;
+       category vinculada à seção; date em time; version, responsible, territory e
+       status em dl; description em p; reference somente quando real e autorizada.
+       Não publicar documentos internos diretamente neste HTML estático. -->
+  <template id="technical-workspace-template">
+    <a class="view-return" href="producao.html#overview">← Dashboard Geral</a>
+    <header class="section-heading technical-heading">
+      <p class="eyebrow">Área interna</p>
+      <h1>Diretoria Técnica</h1>
+      <p class="technical-subtitle">Documentação técnica</p>
+      <p>Área de consulta da documentação técnica consolidada do projeto.</p>
+    </header>
+    <section class="technical-documents" aria-labelledby="technical-documents-title">
+      <h2 id="technical-documents-title">Documentos técnicos</h2>
+      <section class="technical-category" data-category="som-espacializacao" aria-labelledby="technical-som-espacializacao">
+        <header><h3 id="technical-som-espacializacao">Som &amp; Espacialização</h3><p>Sistema multicanal · espacialização · riders · mapas · áudio</p></header>
+        <div class="technical-document-list"><p class="technical-empty">Nenhum documento publicado nesta categoria.</p></div>
+      </section>
+      <section class="technical-category" data-category="video-projecao" aria-labelledby="technical-video-projecao">
+        <header><h3 id="technical-video-projecao">Vídeo &amp; Projeção</h3><p>Live video · LED · projeção · mapping · sinais</p></header>
+        <div class="technical-document-list"><p class="technical-empty">Nenhum documento publicado nesta categoria.</p></div>
+      </section>
+      <section class="technical-category" data-category="iluminacao" aria-labelledby="technical-iluminacao">
+        <header><h3 id="technical-iluminacao">Iluminação</h3><p>Iluminação cênica · equipamentos · integração</p></header>
+        <div class="technical-document-list"><p class="technical-empty">Nenhum documento publicado nesta categoria.</p></div>
+      </section>
+      <section class="technical-category" data-category="palco-infraestrutura" aria-labelledby="technical-palco-infraestrutura">
+        <header><h3 id="technical-palco-infraestrutura">Palco &amp; Infraestrutura</h3><p>Plantas · rigging · energia · montagem · infraestrutura</p></header>
+        <div class="technical-document-list"><p class="technical-empty">Nenhum documento publicado nesta categoria.</p></div>
+      </section>
+      <section class="technical-category" data-category="fabricacao-eletronica" aria-labelledby="technical-fabricacao-eletronica">
+        <header><h3 id="technical-fabricacao-eletronica">Fabricação &amp; Eletrônica</h3><p>Arduino · sensores · fabricação · cenografia cinética</p></header>
+        <div class="technical-document-list"><p class="technical-empty">Nenhum documento publicado nesta categoria.</p></div>
+      </section>
+      <section class="technical-category" data-category="logistica-tecnica" aria-labelledby="technical-logistica-tecnica">
+        <header><h3 id="technical-logistica-tecnica">Logística técnica</h3><p>Equipamentos · transporte · implantação · necessidades territoriais</p></header>
+        <div class="technical-document-list"><p class="technical-empty">Nenhum documento publicado nesta categoria.</p></div>
+      </section>
+    </section>
+  </template>
+
+  <noscript>
+    <p>
+      Ative o JavaScript para acessar o Gabinete Internacional interno.
+    </p>
+  </noscript>
+
 </body>
 </html>

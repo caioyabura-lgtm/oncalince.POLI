@@ -1,5 +1,7 @@
 'use strict';
 (async () => {
+  const area = new URLSearchParams(location.search).get('area') || 'gabinete_internacional';
+  if (area === 'diretoria_tecnica') document.querySelector('#workspace').replaceChildren();
   if (!window.productionAuth?.current()) { location.replace('index.html#login'); return; }
   // Somente controle de abertura. Os serviços de Diário e INPUT permanecem legados.
   try { await window.poliService.getBootstrap(); }
@@ -8,7 +10,6 @@
     location.replace('producao.html#overview'); return;
   }
   const $ = selector => document.querySelector(selector);
-  const area = new URLSearchParams(location.search).get('area') || 'gabinete_internacional';
   const definition = window.productionAreas.definitions[area];
   if (!definition || area === 'producao_executiva' || !window.productionAreas.can(area)) {
     $('#workspace').replaceChildren();
@@ -17,42 +18,31 @@
     $('#workspace').append(message, back); return;
   }
   document.title = definition.label + ' · Área interna';
+  if (area === 'diretoria_tecnica') {
+    $('#workspace').append($('#technical-workspace-template').content.cloneNode(true));
+    $('#session-user').textContent = $('#profile-name').textContent = productionAuth.current().name;
+    $('#profile-button').addEventListener('click', () => $('#profile-dialog').showModal());
+    $('#logout-button').addEventListener('click', async () => {
+      await productionAuth.signOut(); location.assign('index.html');
+    });
+    window.addEventListener('storage', event => {
+      if (event.key === null || event.key === productionAuth.key) {
+        $('#workspace').replaceChildren(); location.reload();
+      }
+    });
+    window.auditService?.transition(productionAreas.ids[area]);
+    window.addEventListener('pageshow', event => { if (event.persisted) location.reload(); });
+    return;
+  }
   $('#workspace h1').textContent = definition.label;
   $('#dashboard-title').textContent = 'Dashboard';
-  const realIntl = area === 'gabinete_internacional' && new URLSearchParams(location.search).get('diary') === 'real';
-  const service = window.ProductionDiary(area, { realIntl });
+  const service = window.ProductionDiary(area);
   const form = $('#gabinete-form');
   let records = [], editing = null, dirty = false, busy = false, connected = false;
   let requestId = null, lastPayload = null;
   const node = (tag, text = '', className = '') => {
     const element = document.createElement(tag); element.textContent = text; element.className = className; return element;
   };
-  if (area === 'gabinete_internacional') {
-    const modes = node('nav', '', 'category-tabs');
-    for (const [mode, label] of [['local', 'Diário demonstrativo'], ['real', 'Diário real INTL']]) {
-      const link = node('a', label); link.href = '?area=gabinete_internacional&diary=' + mode + '#diario'; modes.append(link);
-    }
-    $('#connection-status').after(modes);
-  }
-  function protectRealFields() {
-    if (area !== 'gabinete_internacional') return;
-    for (const name of ['date', 'time', 'responsible', 'contact', 'territory', 'decision', 'nextStep', 'deadline', 'reference']) {
-      // O demonstrativo mantém seus metadados internos legados; o real não os envia.
-      form.elements[name].disabled = realIntl; form.elements[name].closest('label').hidden = true;
-    }
-  }
-  protectRealFields();
-  if (area === 'gabinete_internacional') {
-    form.elements.subject.previousSibling.textContent = 'Título / assunto';
-    form.elements.description.previousSibling.textContent = 'Registro / andamento';
-    for (const name of ['subject', 'type', 'status', 'description', 'tags']) {
-      form.insertBefore(form.elements[name].closest('label'), $('#save-note'));
-    }
-    form.querySelectorAll('.form-grid').forEach(grid => { grid.hidden = true; });
-  }
-  if (realIntl) {
-    window.addEventListener('intl-access-denied', () => { records = []; connected = false; updateViews(); });
-  }
   const notify = (text = '', error = false) => { $('#feedback').textContent = text; $('#feedback').classList.toggle('error', error); $('#feedback').setAttribute('role', error ? 'alert' : 'status'); };
   const today = () => { const d = new Date(); return [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-'); };
   const dateLabel = value => value ? value.split('-').reverse().join('/') : '';
@@ -60,8 +50,7 @@
   const searchText = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR');
   function closeForm() { form.hidden = true; form.reset(); editing = null; dirty = false; requestId = null; lastPayload = null; }
   function openForm(record = null) {
-    if (!realIntl) window.productionAreas.require(area);
-    if (realIntl && record) return;
+    window.productionAreas.require(area);
     if (busy || (dirty && !confirm('Descartar o preenchimento atual?'))) return;
     closeForm(); editing = record;
     form.elements.date.value = today(); form.elements.responsible.value = productionAuth.current().name;
@@ -87,11 +76,11 @@
     $('#record-count').textContent = 'Mais recentes primeiro · ' + selected.length + ' registro(s)';
     for (const record of selected) {
       const article = node('article', '', 'entry');
-      article.append(node('p', dateLabel(record.date) + ' ' + (record.time || '') + (realIntl ? ' · ' : ' · ' + record.responsible + ' · ') + record.status, 'entry-meta'), node('h3', record.subject), node('p', record.description, 'entry-body'));
+      article.append(node('p', dateLabel(record.date) + ' ' + (record.time || '') + ' · ' + record.responsible + ' · ' + record.status, 'entry-meta'), node('h3', record.subject), node('p', record.description, 'entry-body'));
       const details = node('details'); details.append(node('summary', 'Consultar registro'));
       const fields = node('dl');
       fields.append(node('dt', 'Tipo'), node('dd', record.type || 'acompanhamento'), node('dt', 'Tags'), node('dd', (record.tags || []).join(', ')));
-      for (const [key, label] of Object.entries(realIntl ? {} : { contact: 'Contato / instituição', territory: 'Território / país', decision: 'Decisão / encaminhamento', nextStep: 'Próximo passo', deadline: 'Prazo', reference: 'Referência' })) {
+      for (const [key, label] of Object.entries({ contact: 'Contato / instituição', territory: 'Território / país', decision: 'Decisão / encaminhamento', nextStep: 'Próximo passo', deadline: 'Prazo', reference: 'Referência' })) {
         if (!record[key]) continue;
         const value = node('dd', key === 'deadline' ? dateLabel(record[key]) : record[key]);
         if (key === 'reference') {
@@ -100,7 +89,7 @@
         fields.append(node('dt', label), value);
       }
       const edit = node('button', 'Editar'); edit.type = 'button'; edit.disabled = busy; edit.addEventListener('click', () => openForm(record));
-      details.append(fields); if (!realIntl) details.append(edit); article.append(details); list.append(article);
+      details.append(fields, edit); article.append(details); list.append(article);
     }
     if (!selected.length) list.append(node('p', records.length ? 'Nenhum registro corresponde aos filtros.' : 'Nenhum registro na base conectada.', 'empty'));
   }
@@ -136,7 +125,7 @@
     $('#connection-status').textContent = 'Consultando registros…';
     try {
       records = await service.list(); connected = true;
-      $('#connection-status').textContent = realIntl ? 'Diário real INTL · POLI / 20_DIARIO · leitura confirmada.' : service.mode === 'local' ? 'Diário local desta área, neste navegador. Integração com o banco ainda pendente.' : 'Base da área · leitura confirmada pelo serviço.';
+      $('#connection-status').textContent = service.mode === 'local' ? 'Diário local desta área, neste navegador. Integração com o banco ainda pendente.' : 'Base da área · leitura confirmada pelo serviço.';
       notify();
     } catch (error) {
       records = []; connected = false;
@@ -166,12 +155,6 @@
       const payload = JSON.stringify(input);
       if (payload !== lastPayload) { requestId = crypto.randomUUID(); lastPayload = payload; }
       const saved = editing ? await service.update(editing.id, editing.version, input, requestId) : await service.create(input, requestId);
-      if (realIntl) {
-        closeForm(); records = []; connected = false; updateViews();
-        records = await service.list(); connected = true;
-        notify('Registro salvo no Diário real INTL.'); $('#new-record').focus();
-        return;
-      }
       records = [...records.filter(r => r.id !== saved.id), saved].sort((a, b) => (b.date + (b.time || '')).localeCompare(a.date + (a.time || '')));
       closeForm(); notify(service.mode === 'local' ? 'Registro salvo neste navegador.' : 'Registro salvo.'); $('#new-record').focus();
       // Sem leitura completa, não apresentar indicadores parciais como totais.
@@ -180,7 +163,6 @@
     finally {
       busy = false;
       for (const field of form.elements) field.disabled = false;
-      protectRealFields();
       $('#save-record').disabled = !service.configured; updateViews();
     }
   });
@@ -209,5 +191,5 @@
     if (event.persisted) window.auditService?.transition(productionAreas.ids[area]);
   });
   if (service.configured) refresh();
-  else $('#connection-status').textContent = realIntl ? 'URL do Diário real INTL não configurada. Leitura e gravação indisponíveis.' : 'Integração com Google Sheets não configurada. Leitura e gravação ainda indisponíveis.';
+  else $('#connection-status').textContent = 'Integração com Google Sheets não configurada. Leitura e gravação ainda indisponíveis.';
 })();

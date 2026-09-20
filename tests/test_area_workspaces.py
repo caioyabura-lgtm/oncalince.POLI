@@ -81,6 +81,21 @@ try:
             page.locator('[data-area-id='+area_id+']').click()
             expected = base+'/gabinete-interno.html'+('' if area_id=='INTL' else '?area='+area)
             page.wait_for_url(expected)
+            if area_id == 'TECH':
+                page.locator('.technical-documents').wait_for()
+                assert page.locator('.technical-category').count() == 6
+                assert page.locator('.technical-empty').count() == 6
+                assert page.locator('#workspace form, #workspace input, #workspace button, .category-tabs, #connection-status, #feedback').count() == 0
+                assert page.locator('meta[name=robots]').get_attribute('content') == 'noindex, nofollow'
+                page.locator('#profile-button').click()
+                assert page.locator('#profile-dialog').is_visible()
+                page.locator('#profile-dialog button').click()
+                for width in [320,390,768,1440,1920]:
+                    page.set_viewport_size({'width':width,'height':1000})
+                    assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+                page.locator('.view-return').click()
+                page.wait_for_url('**/producao.html#overview')
+                continue
             page.wait_for_function("document.querySelector('#connection-status').textContent.includes('Diário local')")
             page.wait_for_function("document.querySelector('#input-count').textContent === '0 INPUTS recebidos'")
             page.get_by_role('link', name='Inputs recebidos', exact=True).click()
@@ -124,20 +139,18 @@ try:
         page.evaluate("localStorage.setItem(productionAuth.key,JSON.stringify({access:'mariana'}))")
         grants = [{'areaId':'TECH','level':'READ'}]
         page.goto(base + '/gabinete-interno.html?area=diretoria_tecnica#inputs')
-        page.wait_for_function("document.querySelector('#input-count').textContent === '0 INPUTS recebidos'")
-        assert page.locator('#area-input-list .entry').count() == 0
+        page.locator('.technical-documents').wait_for()
+        assert page.locator('#area-input-list, #gabinete-form, .category-tabs').count() == 0
         assert page.evaluate('localStorage.getItem(inputService.key)') == original_inputs
         assert page.evaluate("(async()=>{try{await ProductionDiary('arte_performance').create({});return false;}catch{return true;}})()")
         assert page.evaluate("productionAreas.fromPatch('diretoria_tecnica') === 'diretoria_tecnica' && productionAreas.fromPatch({primary:'arte-performance'}) === 'arte_performance'")
-        # Falha local preserva formulário e coleção.
-        page.get_by_role('link', name='Diário de Produção', exact=True).click()
-        page.locator('#new-record').click()
-        page.locator('[name=subject]').fill('Preservar')
-        page.locator('[name=description]').fill('Texto')
-        page.evaluate("localStorage.setItem(ProductionDiary('diretoria_tecnica').key,'corrupt')")
-        page.locator('#save-record').click()
-        page.wait_for_function("document.querySelector('#feedback').textContent.includes('preservados')")
-        assert page.locator('[name=subject]').input_value() == 'Preservar'
+        # A consulta permanece independente de falhas dos serviços legados.
+        page.evaluate("window.ProductionDiary=()=>{throw Error('Unexpected diary')}; window.areaInputs.render=()=>{throw Error('Unexpected inputs')}")
+        assert page.locator('.technical-category').count() == 6
+        page.locator('#logout-button').click()
+        page.wait_for_url('**/index.html')
+        page.goto(base + '/gabinete-interno.html?area=diretoria_tecnica')
+        page.wait_for_url('**/index.html#login')
         assert not errors, errors
         browser.close()
         print('PASS: shell por area_id, abertura POLI, dados isolados, INPUT somente EXEC, edição, filtros, persistência, erros e responsividade. Concessões temporárias somente no teste.')

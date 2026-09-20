@@ -13,3 +13,15 @@
 .gabinete-page .filters { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 760px) { .gabinete-columns { grid-template-columns: 1fr; } .gabinete-page .filters { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 420px) { .gabinete-page .filters, .gabinete-page .entry dl { grid-template-columns: 1fr; } }
+
+/* Estilos exclusivos da consulta da Diretoria Técnica. */
+.technical-heading { margin-bottom: 48px; }
+.technical-heading .technical-subtitle { margin: 24px 0 8px; color: var(--production-ink); font-size: 1.15rem; }
+.technical-documents { min-width: 0; overflow-wrap: anywhere; }
+.technical-documents > h2 { margin: 0 0 24px; font: .75rem/1.6 monospace; letter-spacing: .08em; text-transform: uppercase; }
+.technical-category { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 16px 40px; padding: 24px 0; border-top: 1px solid var(--production-line); }
+.technical-category > * { min-width: 0; }
+.technical-category h3 { margin: 0 0 8px; font-size: .9rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.technical-category p { margin: 0; color: var(--production-muted); font-size: .85rem; line-height: 1.65; }
+.technical-category .technical-empty { font-size: .78rem; }
+@media (max-width: 760px) { .technical-category { grid-template-columns: minmax(0, 1fr); gap: 12px; } .technical-heading { margin-bottom: 32px; } }
