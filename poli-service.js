@@ -113,6 +113,10 @@ window.poliService = (() => {
             { areaId: 'PROD', level: 'READ', active: false }
           ];
         }
+        // Marta: acesso de interface exclusivo a ART; dados legados permanecem intactos.
+        if (['local', 'hosted-demo'].includes(config?.mode) && session.access === 'marta') {
+          data.permissions = [{ areaId: 'ART', level: 'WRITE', active: true }];
+        }
         const normalized = normalize(data);
         if (version !== generation || window.productionAuth.current()?.access !== session.access) throw error('A sessão mudou durante a consulta.', 'POLI_SESSION');
         bootstrap = normalized;
