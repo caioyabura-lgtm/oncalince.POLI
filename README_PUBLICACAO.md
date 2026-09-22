@@ -138,3 +138,25 @@ Executar: python tests/test_poli_access.py, python tests/test_poli_audit.py, pyt
 - mailto:projeto@cooperativa.art: abertura do cliente de e-mail, sem envio automático.
 
 A cópia não depende da pasta original; a experiência 3D ainda depende do CDN. Nenhuma biblioteca externa foi incorporada.
+
+
+## Teste controlado — Davi
+
+Login: `davifurtuoso`. Conta PBKDF2 no padrão existente; senha entregue separadamente, nunca armazenada no projeto. Em local e hosted-demo: somente INTL READ e ART READ. Sem EXEC, WRITE ou ADMIN. Os demais usuários conservam suas regras.
+
+PROD: encontrados apenas catálogo, botão desabilitado e classificação de INPUT. Faltam conteúdo próprio da Diretoria de Produção e definição de workspace/rota em area-workspaces.js. READ de Davi fica explicitamente inativo em poli-service.js; sua futura ativação exige decisão e conexão da área, sem substituir PROD por EXEC.
+
+READ autoriza a abertura das páginas; não concede chave dos diários reais nem altera a política legada dos dados.
+
+### Melhorias futuras recomendadas
+
+- Validar identidade, sessão e permissões no servidor: hoje a sessão em localStorage e as verificações JavaScript podem ser adulteradas.
+- Proteger a entrega de conteúdo restrito: arquivos estáticos públicos não ficam seguros apenas com bloqueio no navegador.
+- Unificar autorização de página e dados, com READ/WRITE por operação e credenciais individuais para os diários; hoje existem regras legadas e chaves independentes.
+- Adotar provisionamento, troca e recuperação de senha e proteção contra tentativas automatizadas; verificadores públicos permitem tentativas offline.
+
+Essas melhorias não foram implementadas nesta etapa, por decisão expressa de manter o protótipo para teste controlado.
+
+Validação desta etapa: navegador isolado, arquivos locais e origens localhost/hosted-demo simuladas, sem publicar nem acessar serviços reais. Login PBKDF2 válido/inválido, ART, botões restritos, bloqueio de URLs TECH/EXEC e áreas sem rota: aprovados. PROD permanece inativa. Sessões e permissões das 13 contas anteriores comparadas antes/depois nos quatro cenários locais e hospedados, sem diferenças; contas e algoritmo de autenticação preservados byte a byte. Senhas anteriores não estavam disponíveis para repetir seus logins.
+
+Pendência preexistente encontrada no teste INTL: gabinete-interno.js procura `#workspace h1`, ausente no HTML atual fora do template técnico, interrompendo a inicialização. A permissão INTL READ de Davi é concedida, mas o funcionamento completo do Gabinete não foi aprovado. Correção não realizada; requer consulta ao responsável. Acesso aos dados dos diários continua dependente das políticas/chaves existentes.

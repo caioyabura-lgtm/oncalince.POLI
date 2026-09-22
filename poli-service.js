@@ -103,6 +103,16 @@ window.poliService = (() => {
             data.permissions.push({ areaId: 'TECH', level: 'READ', active: true });
           }
         }
+        // Teste controlado: grants de interface; PROD fica preparado, mas inativo.
+        if (['local', 'hosted-demo'].includes(config?.mode)
+          && session.access === 'davifurtuoso') {
+          data.user.email = 'davifurtuosodeoliveira@gmail.com';
+          data.permissions = [
+            { areaId: 'INTL', level: 'READ', active: true },
+            { areaId: 'ART', level: 'READ', active: true },
+            { areaId: 'PROD', level: 'READ', active: false }
+          ];
+        }
         const normalized = normalize(data);
         if (version !== generation || window.productionAuth.current()?.access !== session.access) throw error('A sessão mudou durante a consulta.', 'POLI_SESSION');
         bootstrap = normalized;
