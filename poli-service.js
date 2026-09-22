@@ -124,6 +124,10 @@ window.poliService = (() => {
             { areaId: 'INTL', level: 'WRITE', active: true }
           ];
         }
+        if (['local', 'hosted-demo'].includes(config?.mode)
+          && ['pedro.sebastiao', 'alexandre.furtado'].includes(session.access)) {
+          data.permissions.push({ areaId: 'ART', level: 'WRITE', active: true });
+        }
         const normalized = normalize(data);
         if (version !== generation || window.productionAuth.current()?.access !== session.access) throw error('A sessão mudou durante a consulta.', 'POLI_SESSION');
         bootstrap = normalized;
