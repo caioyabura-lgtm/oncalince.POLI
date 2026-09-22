@@ -42,7 +42,7 @@ window.productionAuth = (() => {
   }
   const accounts = {
     'davifurtuoso': { name: 'Davi Furtuoso de Oliveira', hash: '8d6a1006da45ccdc755e1924cedaf35b71e566a555a6cecce2eedc65e3496c26' },
-    'jose.akashi': { name: 'José Akashi', hash: 'df8f4f0101f145563a5e1f8f586f3394afa25a97186c7ec74b38ba36308a6261' },
+    'jose.akashi': { name: 'José Akashi', hash: '6753e7bb442ebb596f24fb911f32fba1f5361750e2d9af5184d860e2eb298270' },
     'augusto.almeida': { name: 'Augusto Almeida', hash: '0911376cce39d477c6581ab16b357fc3eb7bc55617607b6c1611f830659af222' },
     'pedro.sebastiao': { name: 'Pedro Sebastião', hash: '00b4dfbf83405f87d748e67897a5c63c0628e43ef576480fc3d26d598dd35371' },
     'alexandre.furtado': { name: 'Alexandre Furtado', hash: 'a35fe8011a67ed4ce70e68659adcf3eadef67b508f2f0da67de6c9037d072202' },
