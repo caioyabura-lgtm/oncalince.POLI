@@ -117,6 +117,13 @@ window.poliService = (() => {
         if (['local', 'hosted-demo'].includes(config?.mode) && session.access === 'marta') {
           data.permissions = [{ areaId: 'ART', level: 'WRITE', active: true }];
         }
+        // Uma conta existente, com acesso de interface apenas a ART e INTL.
+        if (['local', 'hosted-demo'].includes(config?.mode) && session.access === 'jose.akashi') {
+          data.permissions = [
+            { areaId: 'ART', level: 'WRITE', active: true },
+            { areaId: 'INTL', level: 'WRITE', active: true }
+          ];
+        }
         const normalized = normalize(data);
         if (version !== generation || window.productionAuth.current()?.access !== session.access) throw error('A sessão mudou durante a consulta.', 'POLI_SESSION');
         bootstrap = normalized;
