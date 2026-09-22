@@ -51,7 +51,7 @@ window.productionAuth = (() => {
     'andre.simoes': { name: 'André Simões', hash: '32544af7e5d839ce4d43bb04d7b90d2464456469e271db390326d45af826a32c' },
     'davifurtuoso': { name: 'Davi Furtuoso de Oliveira', hash: '8d6a1006da45ccdc755e1924cedaf35b71e566a555a6cecce2eedc65e3496c26' },
     'jose.akashi': { name: 'José Akashi', hash: '6753e7bb442ebb596f24fb911f32fba1f5361750e2d9af5184d860e2eb298270' },
-    'augusto.almeida': { name: 'Augusto Almeida', hash: '0911376cce39d477c6581ab16b357fc3eb7bc55617607b6c1611f830659af222' },
+    'augusto.almeida': { name: 'Augusto Almeida', hash: 'db38b5b1b246adc81cdcb791b3f0aa2bdcfaec9f7eff2c620674c79970e02e9b' },
     'pedro.sebastiao': { name: 'Pedro Sebastião', hash: '00b4dfbf83405f87d748e67897a5c63c0628e43ef576480fc3d26d598dd35371' },
     'alexandre.furtado': { name: 'Alexandre Furtado', hash: 'a35fe8011a67ed4ce70e68659adcf3eadef67b508f2f0da67de6c9037d072202' },
     'sergio.inocencio': { name: 'Sérgio Inocêncio', hash: '25e754c8cbb42f2a0b75e22ce6919d1fbd25dc7755978ad023c5100093b97b9d' },
