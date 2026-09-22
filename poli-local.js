@@ -21,6 +21,7 @@ window.poliLocalBootstrap = (session, scenario) => {
       { id: 'ADMIN', name: 'Diretoria Administrativa', status: 'ATIVO', dashboardActive: false },
       { id: 'INTL', name: 'Gabinete Internacional', status: 'ATIVO', dashboardActive: true }
     ],
-    permissions: scenarios[scenario].map(([areaId, level]) => ({ areaId, level, active: true }))
+    // Caio has the same ART access in the default local and hosted demos.
+    permissions: [...scenarios[scenario], ...(scenario === 'A' && session.access === 'caio' ? [['ART', 'ADMIN']] : [])].map(([areaId, level]) => ({ areaId, level, active: true }))
   };
 };

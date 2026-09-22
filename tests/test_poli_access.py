@@ -51,7 +51,7 @@ try:
         assert not page.evaluate("authorizationService.can('executivo.diario.read')")
         # Não há decisão de abertura por nome/conta: trocar a credencial conserva cenário.
         page.evaluate("localStorage.setItem(productionAuth.key,JSON.stringify({access:'caio'}))")
-        load(['EXEC','TECH','INTL'])
+        load(['EXEC','ART','TECH','INTL'])
         config['localScenario']='B'
         load(['ART'])
         assert page.evaluate("poliService.canWriteArea('ART') && !poliService.isAreaAdmin('ART')")

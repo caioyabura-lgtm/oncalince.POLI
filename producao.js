@@ -355,7 +355,7 @@
     const id = button.dataset.areaId;
     if (!window.poliService.canReadArea(id) || !sectorRoutes[id]) { updateSectors(); return; }
     if (id === 'EXEC') location.hash = 'executivo';
-    else if (id === 'TECH') window.open(sectorRoutes[id], '_blank', 'noopener,noreferrer');
+    else if (id === 'TECH' || id === 'ART') window.open(sectorRoutes[id], '_blank', 'noopener,noreferrer');
     else location.assign(sectorRoutes[id]);
   });
   window.addEventListener('poli-access-change', updateSectors);

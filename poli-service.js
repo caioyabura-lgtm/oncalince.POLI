@@ -96,6 +96,13 @@ window.poliService = (() => {
                 : []; // Nenhuma política hospedada definida para as demais contas.
         } else if (config?.mode === 'remote') data = await remote(config, abort.signal);
         else throw error('Modo POLI não configurado.', 'POLI_CONFIG');
+        if (['local', 'hosted-demo'].includes(config?.mode)
+          && ['mariana', 'ricarda'].includes(session.access)) {
+          data.permissions.push({ areaId: 'ART', level: 'READ', active: true });
+          if (!data.permissions.some(item => item.areaId === 'TECH')) {
+            data.permissions.push({ areaId: 'TECH', level: 'READ', active: true });
+          }
+        }
         const normalized = normalize(data);
         if (version !== generation || window.productionAuth.current()?.access !== session.access) throw error('A sessão mudou durante a consulta.', 'POLI_SESSION');
         bootstrap = normalized;

@@ -1,3 +1,36 @@
+/* Compact signature; static globe derived from the home cartography. */
+.gabinete-page .gi-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 28px;
+}
+.gabinete-page .gi-globe {
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+}
+.gabinete-page .gi-globe svg { display: block; width: 100%; height: 100%; }
+.gabinete-page .gi-identity-text { display: grid; gap: 3px; min-width: 0; }
+.gabinete-page .gi-identity-text strong {
+  color: var(--production-ink);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  line-height: 1.2;
+}
+.gabinete-page .gi-identity-text span {
+  color: var(--production-muted);
+  font-size: .75rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .gabinete-page .gi-identity { gap: 10px; margin-bottom: 24px; }
+  .gabinete-page .gi-globe { flex-basis: 48px; width: 48px; height: 48px; }
+  .gabinete-page .gi-identity-text strong { font-size: 1.05rem; }
+}
+
 .gabinete-page .gabinete-summary { display: flex; flex-wrap: wrap; gap: 24px 48px; padding: 24px 0; border-block: 1px solid var(--production-line); }
 .gabinete-summary dt { color: var(--production-muted); font-size: .8rem; }
 .gabinete-summary dd { margin: 4px 0 0; font-size: 1.8rem; }

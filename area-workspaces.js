@@ -6,7 +6,7 @@ window.productionAreas = (() => {
     producao_executiva: Object.freeze({ label: 'Produção Executiva', patch: 'producao-executiva', href: 'producao.html#executivo' }),
     gabinete_internacional: Object.freeze({ label: 'Gabinete Internacional', patch: 'administracao-internacional', href: 'gabinete-interno.html' }),
     diretoria_tecnica: Object.freeze({ label: 'Diretoria Técnica', patch: 'direcao-tecnica', href: 'diretoria_tecnica.html' }),
-    arte_performance: Object.freeze({ label: 'Departamento de Arte e Performance', patch: 'arte-performance', href: 'gabinete-interno.html?area=arte_performance' })
+    arte_performance: Object.freeze({ label: 'Departamento de Arte e Performance', patch: 'arte-performance', href: 'departamento_arte_performance.html' })
   });
   const ids = Object.freeze({ producao_executiva: 'EXEC', arte_performance: 'ART', diretoria_tecnica: 'TECH', gabinete_internacional: 'INTL' });
   // Política legada de DADOS mantida porque Diário/INPUT não integram o POLI nesta etapa.
@@ -15,7 +15,7 @@ window.productionAreas = (() => {
     producao_executiva: Object.freeze(['caio']),
     gabinete_internacional: Object.freeze(['mariana', 'ricarda', 'rafael', 'caio', 'marta', 'zoe', 'lucimar', 'rogerio']),
     diretoria_tecnica: Object.freeze([]),
-    arte_performance: Object.freeze([])
+    arte_performance: Object.freeze(['caio'])
   });
   function canUseLegacyData(area) {
     const session = window.productionAuth?.current();
