@@ -117,8 +117,8 @@ window.poliService = (() => {
         if (['local', 'hosted-demo'].includes(config?.mode) && session.access === 'marta') {
           data.permissions = [{ areaId: 'ART', level: 'WRITE', active: true }];
         }
-        // Uma conta existente, com acesso de interface apenas a ART e INTL.
-        if (['local', 'hosted-demo'].includes(config?.mode) && session.access === 'jose.akashi') {
+        // Contas existentes, com acesso de interface apenas a ART e INTL.
+        if (['local', 'hosted-demo'].includes(config?.mode) && ['jose.akashi', 'augusto.almeida'].includes(session.access)) {
           data.permissions = [
             { areaId: 'ART', level: 'WRITE', active: true },
             { areaId: 'INTL', level: 'WRITE', active: true }
@@ -127,6 +127,16 @@ window.poliService = (() => {
         if (['local', 'hosted-demo'].includes(config?.mode)
           && ['pedro.sebastiao', 'alexandre.furtado'].includes(session.access)) {
           data.permissions.push({ areaId: 'ART', level: 'WRITE', active: true });
+        }
+        if (['local', 'hosted-demo'].includes(config?.mode)) {
+          if (session.access === 'sergio.henriques') {
+            data.permissions = ['ART', 'TECH'].map(areaId => ({ areaId, level: 'WRITE', active: true }));
+          } else if (['jaime.reis', 'mariana.vieira', 'nuno.lobo', 'marcelo.ribeiro', 'andre.simoes'].includes(session.access)) {
+            data.permissions = [{ areaId: 'ART', level: 'WRITE', active: true }];
+          } else if (['ricardo.almeida', 'flavia.ivar'].includes(session.access)) {
+            // Grants preparados; as interfaces PROD e ADMIN continuam inativas no catalogo.
+            data.permissions = ['PROD', 'ADMIN'].map(areaId => ({ areaId, level: 'WRITE', active: true }));
+          }
         }
         const normalized = normalize(data);
         if (version !== generation || window.productionAuth.current()?.access !== session.access) throw error('A sessão mudou durante a consulta.', 'POLI_SESSION');

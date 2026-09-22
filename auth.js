@@ -41,6 +41,14 @@ window.productionAuth = (() => {
     } catch { console.warn('[AUDIT] Serviço indisponível; autenticação preservada.'); }
   }
   const accounts = {
+    'sergio.henriques': { name: 'Sérgio Henriques', hash: '30b45acc298906a8eca6836a5363b947988e353f3c88b1c6a8b29b5f629b9ec9' },
+    'jaime.reis': { name: 'Jaime Reis', hash: '0fb3b99ca3a426d4f4e124b8cd3461a24fe17e27e23069004b65832603e7b25c' },
+    'mariana.vieira': { name: 'Mariana Vieira', hash: 'ab82377ba122998ea53029e1e1f638cd49edc24f1d3c6392941d6a9b921345a2' },
+    'nuno.lobo': { name: 'Nuno Lobo', hash: '643cefca1ff88b8e0fe44f6a0352ce32f5e05431515932ca48665b3d3995d7e9' },
+    'ricardo.almeida': { name: 'Ricardo Almeida', hash: '8b969d7c798791aa1911003e6dd7e54923d9ae9c6cb0493e556ecbddd92053f6' },
+    'flavia.ivar': { name: 'Flávia Ivar', hash: 'ad5b740f85bfb80365c913487520690029865e6d89145473c1a3443c9c4845fb' },
+    'marcelo.ribeiro': { name: 'Marcelo Ribeiro', hash: '47518db4693857b9aaf9545e4a5deea7018604fc32bdb70bccef6b1d521540ac' },
+    'andre.simoes': { name: 'André Simões', hash: '32544af7e5d839ce4d43bb04d7b90d2464456469e271db390326d45af826a32c' },
     'davifurtuoso': { name: 'Davi Furtuoso de Oliveira', hash: '8d6a1006da45ccdc755e1924cedaf35b71e566a555a6cecce2eedc65e3496c26' },
     'jose.akashi': { name: 'José Akashi', hash: '6753e7bb442ebb596f24fb911f32fba1f5361750e2d9af5184d860e2eb298270' },
     'augusto.almeida': { name: 'Augusto Almeida', hash: '0911376cce39d477c6581ab16b357fc3eb7bc55617607b6c1611f830659af222' },
