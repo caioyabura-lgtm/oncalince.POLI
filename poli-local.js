@@ -18,7 +18,7 @@ window.poliLocalBootstrap = (session, scenario) => {
       { id: 'PROD', name: 'Direção de Produção', status: 'ATIVO', dashboardActive: false },
       { id: 'TECH', name: 'Diretoria Técnica', status: 'ATIVO', dashboardActive: true },
       { id: 'MKT', name: 'Direção de Marketing', status: 'ATIVO', dashboardActive: false },
-      { id: 'ADMIN', name: 'Diretoria Administrativa', status: 'ATIVO', dashboardActive: false },
+      { id: 'ADMIN', name: 'Diretoria Administrativa', status: 'ATIVO', dashboardActive: true },
       { id: 'INTL', name: 'Gabinete Internacional', status: 'ATIVO', dashboardActive: true }
     ],
     // Caio has the same ART access in the default local and hosted demos.

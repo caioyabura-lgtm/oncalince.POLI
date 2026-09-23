@@ -146,6 +146,7 @@
   let route = 'overview';
   let permissionFeedback = '';
   const sectorRoutes = Object.fromEntries(Object.entries(productionAreas.ids).map(([area, id]) => [id, productionAreas.definitions[area].href]));
+  sectorRoutes.ADMIN = 'producao.html#administrativa';
   const sectorLabels = new Map([...document.querySelectorAll('[data-area-id]')].map(button => [button.dataset.areaId, button.textContent]));
   function updateSectors() {
     $('#clear-demo-diary').hidden = !canClearDemo();
@@ -251,7 +252,7 @@
   const searchText = value => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('pt-BR');
   async function render() {
     // A home é somente navegação: não consulta nem renderiza dados dos módulos.
-    if (route === 'overview') return;
+    if (route === 'overview' || route === 'administrativa') return;
     if (realDiary) connectionLabel();
     if (route === 'executivo' || route === 'executive-inputs') {
       await window.authorizationService.require('executivo.access');
@@ -326,7 +327,7 @@
   }
   async function navigate() {
     const requested = location.hash.slice(1);
-    route = ['overview', 'diary', 'executivo', 'executive-inputs', 'memory', 'memories', 'artifacts'].includes(requested) ? requested : 'overview';
+    route = ['overview', 'diary', 'executivo', 'executive-inputs', 'memory', 'memories', 'artifacts', 'administrativa'].includes(requested) ? requested : 'overview';
     const executive = window.poliService.canReadArea('EXEC');
     updateSectors();
     if (!executive) {
@@ -336,6 +337,7 @@
       $('#executive-recent').replaceChildren(); $('#executive-input-list').replaceChildren();
       if (['diary', 'executivo', 'executive-inputs'].includes(route)) { route = 'overview'; history.replaceState(null, '', '#overview'); }
     }
+    if (route === 'administrativa' && !window.poliService.canReadArea('ADMIN')) { route = 'overview'; history.replaceState(null, '', '#overview'); }
     const view = ['memories', 'artifacts'].includes(route) ? 'memory' : route;
     document.querySelectorAll('[data-view]').forEach(section => { section.hidden = section.dataset.view !== view; });
     document.querySelectorAll('.category-tabs a').forEach(link => {
@@ -343,8 +345,9 @@
       else link.removeAttribute('aria-current');
     });
     document.body.classList.toggle('is-overview', view === 'overview');
+    document.body.classList.toggle('is-administrative', view === 'administrativa');
     // Workspace já autorizado e visível; abas internas não são novas aberturas.
-    window.auditService?.transition(executive && ['executivo', 'diary', 'executive-inputs'].includes(view) ? 'EXEC' : null);
+    window.auditService?.transition(executive && ['executivo', 'diary', 'executive-inputs'].includes(view) ? 'EXEC' : view === 'administrativa' ? 'ADMIN' : null);
     notify(permissionFeedback);
     await render();
     $('[data-view="' + view + '"] h1').focus({ preventScroll: true });
@@ -354,7 +357,8 @@
     if (!button || button.disabled) return;
     const id = button.dataset.areaId;
     if (!window.poliService.canReadArea(id) || !sectorRoutes[id]) { updateSectors(); return; }
-    if (id === 'EXEC') location.hash = 'executivo';
+    if (id === 'ADMIN') location.hash = 'administrativa';
+    else if (id === 'EXEC') location.hash = 'executivo';
     else if (id === 'TECH' || id === 'ART') window.open(sectorRoutes[id], '_blank', 'noopener,noreferrer');
     else location.assign(sectorRoutes[id]);
   });

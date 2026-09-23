@@ -128,9 +128,14 @@ window.poliService = (() => {
           && ['pedro.sebastiao', 'alexandre.furtado'].includes(session.access)) {
           data.permissions.push({ areaId: 'ART', level: 'WRITE', active: true });
         }
+        // Caio: acesso administrativo completo, preservando os demais grants.
+        if (['local', 'hosted-demo'].includes(config?.mode) && session.access === 'caio') {
+          data.permissions = data.permissions.filter(item => item.areaId !== 'ADMIN');
+          data.permissions.push({ areaId: 'ADMIN', level: 'ADMIN', active: true });
+        }
         if (['local', 'hosted-demo'].includes(config?.mode)) {
           if (session.access === 'sergio.henriques') {
-            data.permissions = ['ART', 'TECH'].map(areaId => ({ areaId, level: 'WRITE', active: true }));
+            data.permissions = ['ART', 'TECH', 'INTL'].map(areaId => ({ areaId, level: 'WRITE', active: true }));
           } else if (['jaime.reis', 'mariana.vieira', 'nuno.lobo', 'marcelo.ribeiro', 'andre.simoes'].includes(session.access)) {
             data.permissions = [{ areaId: 'ART', level: 'WRITE', active: true }];
           } else if (session.access === 'carlos.marecos') {
