@@ -118,7 +118,7 @@ window.poliService = (() => {
           data.permissions = [{ areaId: 'ART', level: 'WRITE', active: true }];
         }
         // Contas existentes, com acesso de interface apenas a ART e INTL.
-        if (['local', 'hosted-demo'].includes(config?.mode) && ['jose.akashi', 'augusto.almeida'].includes(session.access)) {
+        if (['local', 'hosted-demo'].includes(config?.mode) && ['jose.akashi', 'augusto.almeida', 'sergio.inocencio'].includes(session.access)) {
           data.permissions = [
             { areaId: 'ART', level: 'WRITE', active: true },
             { areaId: 'INTL', level: 'WRITE', active: true }
@@ -133,6 +133,11 @@ window.poliService = (() => {
             data.permissions = ['ART', 'TECH'].map(areaId => ({ areaId, level: 'WRITE', active: true }));
           } else if (['jaime.reis', 'mariana.vieira', 'nuno.lobo', 'marcelo.ribeiro', 'andre.simoes'].includes(session.access)) {
             data.permissions = [{ areaId: 'ART', level: 'WRITE', active: true }];
+          } else if (session.access === 'carlos.marecos') {
+            data.permissions = ['ART', 'TECH', 'INTL'].map(areaId => ({ areaId, level: 'WRITE', active: true }));
+          } else if (['leonardo.trindade', 'joao.bosco'].includes(session.access)) {
+            // Permissao preparada; a interface ADMIN permanece inativa no catalogo.
+            data.permissions = [{ areaId: 'ADMIN', level: 'WRITE', active: true }];
           } else if (['ricardo.almeida', 'flavia.ivar'].includes(session.access)) {
             // Grants preparados; as interfaces PROD e ADMIN continuam inativas no catalogo.
             data.permissions = ['PROD', 'ADMIN'].map(areaId => ({ areaId, level: 'WRITE', active: true }));
