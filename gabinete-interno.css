@@ -19,7 +19,10 @@
   letter-spacing: .06em;
   line-height: 1.2;
 }
-.gabinete-page .gi-identity-text span {
+.gabinete-page .gi-identity-text h1 {
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: normal;
   color: var(--production-muted);
   font-size: .75rem;
   line-height: 1.4;
@@ -58,3 +61,129 @@
 .technical-category p { margin: 0; color: var(--production-muted); font-size: .85rem; line-height: 1.65; }
 .technical-category .technical-empty { font-size: .78rem; }
 @media (max-width: 760px) { .technical-category { grid-template-columns: minmax(0, 1fr); gap: 12px; } .technical-heading { margin-bottom: 32px; } }
+
+/* Internal application shell. The legacy technical route keeps its own layout. */
+.gabinete-page .production-shell { min-height: 100dvh; background: var(--production-paper); }
+.gabinete-page .production-shell::before, .gabinete-page .production-shell::after { content: none; }
+.gabinete-page .gi-toolbar {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  gap: 12px 24px; padding: 12px 28px; border-bottom: 1px solid var(--production-line);
+}
+.gabinete-page .gi-toolbar .view-return { margin: 0; }
+.gabinete-page .shell-session { display: flex; flex-wrap: wrap; gap: 8px 12px; }
+.gabinete-page #workspace:has(.gi-shell) { width: 100%; max-width: none; margin: 0; padding: 0; }
+.gi-shell { display: grid; grid-template-columns: 260px minmax(0, 1fr); min-height: calc(100dvh - 65px); }
+.gi-sidebar {
+  min-width: 0; padding: 32px 20px; border-right: 1px solid var(--production-line);
+  background: #f4f3ed;
+}
+.gabinete-page .gi-identity { align-items: flex-start; margin-bottom: 32px; }
+.gi-menu { display: flex; flex-direction: column; gap: 2px; }
+.gi-menu a {
+  display: block; padding: 11px 12px; border-left: 3px solid transparent;
+  text-decoration: none; text-transform: uppercase; font-size: .78rem;
+  line-height: 1.45; letter-spacing: .025em; overflow-wrap: anywhere;
+}
+.gi-menu a.gi-group-start { margin-top: 20px; }
+.gi-menu a:hover { background: #ebeae2; }
+.gi-menu a[aria-current="page"] { border-left-color: #c45e00; background: #fff8ed; font-weight: 700; }
+.gi-menu a:focus-visible, .gi-content a:focus-visible { outline: 2px solid #065ea2; outline-offset: 3px; }
+.gi-content { min-width: 0; padding: 24px clamp(24px, 4vw, 64px) 56px; overflow-wrap: anywhere; }
+.gi-content > [data-gi-view] { max-width: 1120px; }
+.gi-content > [data-gi-view] > h2 { margin: 24px 0 32px; font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.2; letter-spacing: -.03em; }
+.gi-content #connection-status { margin: 0; font-size: .75rem; }
+.gi-content #feedback:empty { display: none; }
+.gi-content > .actions { margin-block: 12px 24px; }
+.gi-content #refresh { padding: 6px 10px; font-size: .75rem; }
+.gi-content .gabinete-description { max-width: 60ch; font-size: 1.15rem; line-height: 1.8; margin-bottom: 48px; }
+.gi-content .legal-territories-heading { max-width: 70ch; padding-top: 24px; border-top: 1px solid var(--production-line); }
+.gi-content .legal-territories-heading p { line-height: 1.8; }
+.gi-transatlantic { margin-top: 32px; color: var(--production-muted); font-size: .75rem; }
+.gi-content .legal-framework-card { display: flex; align-items: flex-start; gap: 32px; padding-block: 24px 40px; }
+.gi-content .legal-framework-mark { flex: 0 0 140px; }
+.gi-content .legal-framework-mark img { display: block; width: 140px; height: 120px; object-fit: contain; }
+.gi-content .legal-framework-content { max-width: 60ch; min-width: 0; }
+.gi-content .legal-framework-content h4 { font-size: 1.25rem; margin: 12px 0; }
+.gi-content .legal-framework-content p { line-height: 1.8; }
+.gi-content .framework-region { color: var(--production-muted); font-size: .8rem; margin-top: 0; }
+.gi-content .framework-tags { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: .8rem; color: var(--production-muted); }
+.gi-content .legal-framework-disclaimer { max-width: 85ch; border-top: 1px solid var(--production-line); padding-top: 24px; font-size: .78rem; line-height: 1.8; color: var(--production-muted); }
+.gi-content .category-tabs { gap: 12px 24px; border-bottom: 1px solid var(--production-line); }
+.gi-content .development-note { color: var(--production-muted); }
+.gabinete-page .institutional-signature { padding: 12px 28px; border-top: 1px solid var(--production-line); }
+.gabinete-page .institutional-marks { display: none; }
+.gabinete-page .development-credit { margin: 0; }
+@media (max-width: 1000px) {
+  .gi-shell { grid-template-columns: 220px minmax(0, 1fr); }
+  .gi-sidebar { padding-inline: 14px; }
+  .gi-content .legal-framework-card { gap: 20px; }
+}
+@media (max-width: 700px) {
+  .gi-shell { display: block; }
+  .gi-sidebar { border-right: 0; border-bottom: 1px solid var(--production-line); padding: 20px; }
+  .gabinete-page .gi-identity { margin-bottom: 20px; }
+  .gi-menu a { padding-block: 10px; }
+  .gi-menu a.gi-group-start { margin-top: 12px; }
+  .gi-content { padding: 24px 20px 40px; }
+  .gabinete-page .gi-toolbar { padding: 12px 20px; }
+  .gi-content .legal-framework-card { flex-direction: column; }
+  .gi-content .legal-framework-mark { flex-basis: auto; }
+}
+
+/* Editorial layout restricted to the MERCOSUL view. */
+[data-gi-view="mercosul"] .gi-mercosul-agreement { max-width: 78ch; padding-bottom: 36px; }
+[data-gi-view="mercosul"] .gi-mercosul-mark { display: block; object-fit: contain; margin-bottom: 24px; }
+[data-gi-view="mercosul"] .gi-mercosul-agreement h3 { font-size: clamp(1.2rem, 2vw, 1.7rem); line-height: 1.4; margin: 0 0 24px; }
+[data-gi-view="mercosul"] .gi-mercosul-block { border-top: 1px solid var(--production-line); padding-block: 28px 36px; }
+[data-gi-view="mercosul"] .gi-mercosul-block h3 { margin: 0 0 20px; font-size: .85rem; letter-spacing: .04em; }
+[data-gi-view="mercosul"] p { max-width: 78ch; line-height: 1.8; }
+[data-gi-view="mercosul"] a { display: inline-block; padding-block: 8px; font-size: .85rem; text-underline-offset: 4px; }
+[data-gi-view="mercosul"] .gi-mercosul-authorities { margin: 28px 0 0; }
+[data-gi-view="mercosul"] .gi-mercosul-authorities > div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 12px 24px; border-top: 1px solid var(--production-line); padding-block: 20px; }
+[data-gi-view="mercosul"] .gi-mercosul-authorities dt { font-size: .75rem; font-weight: 700; letter-spacing: .04em; padding-top: 4px; }
+[data-gi-view="mercosul"] .gi-mercosul-authorities dd { margin: 0; min-width: 0; }
+[data-gi-view="mercosul"] .gi-mercosul-authorities p { margin: 0; }
+[data-gi-view="mercosul"] .gi-mercosul-tracking { display: flex; flex-wrap: wrap; gap: 12px 28px; padding: 0; list-style: none; font-size: .9rem; }
+@media (max-width: 700px) {
+  [data-gi-view="mercosul"] .gi-mercosul-authorities > div { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+}
+
+/* Editorial spacing restricted to the Europa view. */
+[data-gi-view="europa"] .gi-europa-intro { max-width: 78ch; margin-bottom: 36px; }
+[data-gi-view="europa"] .gi-europa-intro p:first-child { font-size: 1.1rem; }
+[data-gi-view="europa"] .gi-europa-block { border-top: 1px solid var(--production-line); padding-block: 28px 36px; }
+[data-gi-view="europa"] .gi-europa-block h3 { margin: 0 0 20px; font-size: .85rem; letter-spacing: .04em; }
+[data-gi-view="europa"] .gi-europa-program h3 { font-size: clamp(1.2rem, 2vw, 1.7rem); line-height: 1.4; }
+[data-gi-view="europa"] .gi-europa-block h4 { max-width: 78ch; margin: 20px 0 12px; font-size: 1rem; line-height: 1.5; }
+[data-gi-view="europa"] p { max-width: 78ch; line-height: 1.8; }
+[data-gi-view="europa"] .eyebrow { margin-top: 0; }
+[data-gi-view="europa"] a { display: inline-block; padding-block: 8px; font-size: .85rem; text-underline-offset: 4px; }
+[data-gi-view="europa"] .gi-europa-reference + .gi-europa-reference { margin-top: 32px; }
+[data-gi-view="europa"] .development-note { font-size: .85rem; }
+[data-gi-view="europa"] .gi-europa-tracking { display: flex; flex-wrap: wrap; gap: 12px 28px; padding: 0; list-style: none; font-size: .9rem; }
+
+/* Operational reading layout restricted to Importacao e Exportacao. */
+[data-gi-view="importacao-exportacao"] .gi-circulation-block { border-top: 1px solid var(--production-line); padding-block: 28px 32px; }
+[data-gi-view="importacao-exportacao"] .gi-circulation-block h3 { margin: 0 0 20px; font-size: .85rem; letter-spacing: .04em; }
+[data-gi-view="importacao-exportacao"] p { max-width: 78ch; line-height: 1.8; }
+[data-gi-view="importacao-exportacao"] .gi-circulation-flows { display: flex; flex-wrap: wrap; gap: 12px 28px; padding: 0; list-style: none; }
+[data-gi-view="importacao-exportacao"] .gi-circulation-categories { padding: 0; list-style: none; }
+[data-gi-view="importacao-exportacao"] .gi-circulation-categories li { margin-bottom: 20px; }
+[data-gi-view="importacao-exportacao"] .gi-circulation-categories strong { font-size: .85rem; }
+[data-gi-view="importacao-exportacao"] .gi-circulation-categories span { display: block; margin-top: 4px; color: var(--production-muted); }
+[data-gi-view="importacao-exportacao"] .gi-circulation-checklist { max-width: 78ch; padding-left: 22px; list-style-type: square; }
+[data-gi-view="importacao-exportacao"] .gi-circulation-checklist li { margin-bottom: 10px; }
+[data-gi-view="importacao-exportacao"] .empty { padding-block: 12px; }
+
+/* Documentary layout restricted to Memorias e Artefatos. */
+[data-gi-view="memorias"] .gi-memory-intro { max-width: 78ch; margin-bottom: 36px; }
+[data-gi-view="memorias"] .gi-memory-intro p:first-child { font-size: 1.1rem; }
+[data-gi-view="memorias"] .gi-memory-block { border-top: 1px solid var(--production-line); padding-block: 28px 32px; }
+[data-gi-view="memorias"] h3 { margin: 0 0 20px; font-size: .85rem; letter-spacing: .04em; }
+[data-gi-view="memorias"] h4 { margin: 24px 0 12px; font-size: .85rem; }
+[data-gi-view="memorias"] p { max-width: 78ch; line-height: 1.8; }
+[data-gi-view="memorias"] .gi-memory-categories { display: flex; flex-wrap: wrap; gap: 10px 24px; max-width: 78ch; padding: 0; list-style: none; font-size: .9rem; }
+[data-gi-view="memorias"] .gi-memory-fields { padding-left: 22px; }
+[data-gi-view="memorias"] .gi-memory-fields li { margin-bottom: 8px; }
+[data-gi-view="memorias"] .empty { margin-bottom: 0; padding-block: 12px; }
+[data-gi-view="memorias"] .gi-memory-relations { border-top: 1px solid var(--production-line); padding-top: 24px; color: var(--production-muted); font-size: .85rem; }

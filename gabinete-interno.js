@@ -133,10 +133,25 @@
     } finally { busy = false; $('#refresh').disabled = false; updateViews(); }
   }
   function navigate() {
-    const view = ['#diario', '#inputs'].includes(location.hash) ? location.hash.slice(1) : 'dashboard';
-    document.querySelectorAll('[data-gabinete-view]').forEach(section => { section.hidden = section.dataset.gabineteView !== view; });
-    document.querySelectorAll('.category-tabs a').forEach(link => { if (link.hash === '#' + view) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current'); });
-    $('[data-gabinete-view="' + view + '"] h2').focus({ preventScroll: true });
+    const hash = location.hash.slice(1);
+    const archiveView = ['dashboard', 'diario', 'inputs'].includes(hash) ? hash : 'dashboard';
+    const views = [...document.querySelectorAll('[data-gi-view]')];
+    const selected = views.find(section => section.dataset.giView === hash)
+      || views.find(section => section.dataset.giView === (['dashboard', 'diario', 'inputs'].includes(hash) ? 'arquivo' : 'missao'));
+    views.forEach(section => { section.hidden = section !== selected; });
+    document.querySelectorAll('.gi-menu a').forEach(link => {
+      if (link.hash === '#' + selected.dataset.giView) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+    document.querySelectorAll('[data-gabinete-view]').forEach(section => { section.hidden = section.dataset.gabineteView !== archiveView; });
+    document.querySelectorAll('.category-tabs a').forEach(link => {
+      if (link.hash === '#' + archiveView) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+    $('#gi-content').scrollTo(0, 0);
+    const heading = selected.dataset.giView === 'arquivo'
+      ? $('[data-gabinete-view="' + archiveView + '"] h2') : selected.querySelector('h2');
+    if (location.hash !== '#workspace') heading.focus({ preventScroll: true });
   }
   service.types.forEach(type => { form.elements.type.add(new Option(type, type)); $('#filter-type').add(new Option(type, type)); });
   service.statuses.forEach(status => { form.elements.status.add(new Option(status, status)); $('#filter-status').add(new Option(status, status)); });

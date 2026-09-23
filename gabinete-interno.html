@@ -8,7 +8,6 @@
   <title>Gabinete Internacional · Área interna</title>
 
   <link rel="stylesheet" href="producao.css">
-  <link rel="stylesheet" href="public-header.css">
   <link rel="stylesheet" href="gabinete-interno.css">
 
   <script src="auth.js" defer></script>
@@ -22,111 +21,25 @@
   <script src="gabinete-config.js" defer></script>
   <script src="gabinete-service.js" defer></script>
   <script src="gabinete-interno.js" defer></script>
-  <script src="script.js" defer></script>
 </head>
 
 <body class="production-page production-shell-page gabinete-page">
 
   <a class="skip-link" href="#workspace">Ir para o conteúdo</a>
 
-  <!-- =========================================================
-       CABEÇALHO PÚBLICO
-  ========================================================== -->
-
-  <div class="public-header-shell">
-    <header class="portal-header">
-
-      <a
-        class="portal-wordmark"
-        href="index.html"
-        aria-label="Laboratório de Co-realização Audiovisual — início"
-      >
-        <span class="portal-logo-symbol" aria-hidden="true">
-          <img
-            class="portal-logo-image"
-            src="logo_laboratorio/logo_laboratorio-paleta-home.png"
-            alt=""
-            width="1254"
-            height="1254"
-          >
-        </span>
-
-        <span class="portal-wordmark-text">
-          <span>Laboratório</span>
-          <span>de Co-realização</span>
-          <span>Audiovisual</span>
-        </span>
-      </a>
-
-      <button
-        class="portal-menu-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="portal-navigation"
-      >
-        <span>Menu</span>
-        <span class="menu-lines" aria-hidden="true"></span>
-      </button>
-
-      <nav
-        id="portal-navigation"
-        class="portal-navigation"
-        aria-label="Navegação principal"
-      >
-        <a href="quem-somos.html">Quem somos</a>
-        <a href="territorios.html">Territórios</a>
-        <a href="contato.html">Contato</a>
-
-        <a
-          href="https://www.instagram.com/fablab.acousmonium/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Fablab Acousmonium no Instagram, abre em nova aba"
-        >
-          Fablab ↗
-        </a>
-
-        <a
-          class="portal-gabinete-link"
-          href="gabinete_internacional.html"
-        >
-          Gabinete internacional
-        </a>
-
-        <a href="producao.html" aria-current="page">
-          Produção
-        </a>
-      </nav>
-
-    </header>
-  </div>
-
-
-  <!-- =========================================================
-       ÁREA INTERNA
-  ========================================================== -->
-
   <div class="production-shell">
-
-    <div class="session shell-session">
-      <span id="session-user"></span>
-      <button id="profile-button" type="button">Perfil</button>
-      <button id="logout-button" type="button">Sair</button>
-    </div>
-
-
+    <header class="gi-toolbar">
+      <a class="view-return" href="producao.html#overview">← Dashboard Geral</a>
+      <div class="session shell-session">
+        <span id="session-user"></span>
+        <button id="profile-button" type="button">Perfil</button>
+        <button id="logout-button" type="button">Sair</button>
+      </div>
+    </header>
     <main id="workspace" tabindex="-1">
-
-      <a class="view-return" href="producao.html#overview">
-        ← Dashboard Geral
-      </a>
-
-
-      <!-- =====================================================
-           IDENTIFICAÇÃO DO GABINETE
-      ====================================================== -->
-
-      <div class="gi-identity">
+      <div class="gi-shell">
+        <aside class="gi-sidebar" aria-label="Gabinete Internacional">
+          <div class="gi-identity">
         <div class="gi-globe" aria-hidden="true">
           <!-- Static projection of CARTOGRAPHY_PLACEHOLDER in lab-earth.js,
                centered at -20 degrees, with the home globe's original palette. -->
@@ -147,26 +60,21 @@
         </div>
         <div class="gi-identity-text">
           <strong>G.I.</strong>
-          <span>Gabinete Internacional</span>
+          <h1>Gabinete Internacional</h1>
         </div>
       </div>
-
-      <header class="section-heading">
-
-        <p class="gabinete-description">
-          Pesquisa · Serviços jurídicos · Logística internacional
-        </p>
-
-      </header>
-
-
-      <nav class="category-tabs" aria-label="Área interna">
-        <a href="#dashboard">Dashboard</a>
-        <a href="#diario">Diário de Produção</a>
-        <a href="#inputs">Inputs recebidos</a>
-      </nav>
-
-
+          <nav class="gi-menu" aria-label="Seções do Gabinete">
+          <a href="#missao">Missão</a>
+          <a href="#integrantes">Integrantes</a>
+          <a href="#mercosul" class="gi-group-start">MERCOSUL</a>
+          <a href="#europa">Europa</a>
+          <a href="#seguros" class="gi-group-start">Seguros</a>
+          <a href="#importacao-exportacao">Importação e Exportação</a>
+          <a href="#memorias" class="gi-group-start">Memórias e Artefatos</a>
+          <a href="#arquivo">Arquivo</a>
+          </nav>
+        </aside>
+        <div class="gi-content" id="gi-content">
       <p id="connection-status" role="status">
         Verificando conexão…
       </p>
@@ -185,178 +93,475 @@
       </div>
 
 
-      <!-- =====================================================
-           DASHBOARD
-      ====================================================== -->
 
+        <section data-gi-view="missao" aria-labelledby="gi-missao-title" hidden>
+          <h2 id="gi-missao-title" tabindex="-1">Missão</h2>
+          <p class="gabinete-description">
+            O Gabinete Internacional apoia o desenvolvimento e a circulação internacional
+            dos projetos vinculados ao laboratório, reunindo pesquisa, articulação
+            institucional, suporte jurídico e organização logística.
+          </p>
+          <p>
+            No contexto do ONÇA-LINCE, o Gabinete acompanha as relações entre os
+            diferentes territórios envolvidos na coprodução, organiza informações
+            necessárias ao desenvolvimento da candidatura e às negociações e contribui
+            para que decisões artísticas, técnicas e produtivas possam ser realizadas
+            dentro das condições institucionais, jurídicas e operacionais de cada país.
+          </p>
+
+          <h3>ATUAÇÃO</h3>
+          <p>Sua atuação pode compreender:</p>
+          <ul>
+            <li>Pesquisa institucional: instituições, programas, legislações e oportunidades.</li>
+            <li>Articulação internacional: apoio às relações com parceiros internacionais.</li>
+            <li>Jurídico e documentação: acompanhamento de contratos, direitos, licenciamento e documentos.</li>
+            <li>Logística e circulação: organização das necessidades de circulação de pessoas, equipamentos e materiais.</li>
+            <li>Seguros: pesquisa sobre as necessidades de cobertura nas atividades do projeto.</li>
+            <li>Importação e exportação: pesquisa sobre as condições de circulação internacional de equipamentos e materiais.</li>
+            <li>Memória institucional: registro e preservação das informações produzidas durante o processo.</li>
+          </ul>
+          <p>
+            O Gabinete funciona também como área de memória institucional das relações
+            internacionais do projeto, permitindo que conhecimentos adquiridos em uma
+            candidatura, negociação ou circulação possam ser reaproveitados posteriormente.
+            Suas frentes de atuação podem evoluir conforme as necessidades do projeto.
+          </p>
+          <p class="development-note"><small>Status: EM DESENVOLVIMENTO</small></p>
+        </section>
+        <section data-gi-view="integrantes" aria-labelledby="gi-integrantes-title" hidden>
+          <h2 id="gi-integrantes-title" tabindex="-1">Integrantes</h2>
+
+          <section aria-labelledby="gi-direcao-title">
+            <h3 id="gi-direcao-title">DIREÇÃO</h3>
+            <p><strong>Sérgio Inocêncio</strong><br><small>Advogado</small></p>
+            <p><strong>Caio Rodrigues</strong><br><small>Secretário</small></p>
+          </section>
+
+          <section aria-labelledby="gi-conselho-title">
+            <h3 id="gi-conselho-title">CONSELHO</h3>
+            <p><strong>Augusto César de Almeida</strong><br><small>Conselheiro</small></p>
+            <p><strong>José Akashi</strong><br><small>Conselheiro</small></p>
+            <p><strong>Davi Furtuoso de Oliveira</strong><br><small>Conselheiro</small></p>
+            <p><strong>David Lotugo</strong><br><small>Conselheiro</small></p>
+            <p><strong>André Simões</strong><br><small>Conselheiro</small></p>
+          </section>
+        </section>
+        <section data-gi-view="mercosul" aria-labelledby="gi-mercosul-title" hidden>
+          <h2 id="gi-mercosul-title" tabindex="-1">MERCOSUL</h2>
+
+          <article class="gi-mercosul-agreement" data-framework="mercosul" aria-labelledby="gi-mercosul-acordo-title">
+            <img class="gi-mercosul-mark" src="assets/mercosul.png" alt="Símbolo do MERCOSUL" width="100" height="80" loading="lazy">
+            <h3 id="gi-mercosul-acordo-title">ACORDO DO MERCOSUL SOBRE COPRODUÇÃO CINEMATOGRÁFICA E AUDIOVISUAL</h3>
+            <p>O Acordo do MERCOSUL sobre Coprodução Cinematográfica e Audiovisual foi aprovado em 7 de julho de 2024, no âmbito do Conselho do Mercado Comum.</p>
+            <p>O instrumento foi elaborado pela RECAM e estabelece um marco regional para o fortalecimento da integração e do desenvolvimento da produção cinematográfica e audiovisual entre os Estados Partes.</p>
+            <a href="https://www.mercosur.int/pt-br/assinam-convenio-de-coproducao-cinematografica-e-audiovisual" target="_blank" rel="noopener noreferrer" aria-label="Consultar acordo — abre em nova aba">Consultar acordo ↗</a>
+          </article>
+
+          <section class="gi-mercosul-block" aria-labelledby="gi-recam-title">
+            <h3 id="gi-recam-title">RECAM</h3>
+            <p><strong>Reunião Especializada de Autoridades Cinematográficas e Audiovisuais do MERCOSUL</strong></p>
+            <p>A RECAM é o espaço especializado de articulação das autoridades cinematográficas e audiovisuais dos países do MERCOSUL.</p>
+            <p>No contexto do Gabinete Internacional, constitui uma referência para acompanhamento de políticas, coproduções, circulação, programas e iniciativas audiovisuais regionais.</p>
+            <a href="https://www.mercosur.int/tema/cultura/recam" target="_blank" rel="noopener noreferrer" aria-label="Consultar RECAM — abre em nova aba">Consultar RECAM ↗</a>
+          </section>
+
+          <section class="gi-mercosul-block" aria-labelledby="gi-autoridades-title">
+            <h3 id="gi-autoridades-title">AUTORIDADES NACIONAIS DO AUDIOVISUAL</h3>
+            <p>Instituições públicas nacionais de referência para políticas, fomento e regulação do audiovisual na América do Sul.</p>
+            <dl class="gi-mercosul-authorities">
+              <div>
+                <dt>ARGENTINA</dt>
+                <dd>
+                  <p>INCAA — Instituto Nacional de Cine y Artes Audiovisuales</p>
+                  <a href="https://www.incaa.gob.ar/" target="_blank" rel="noopener noreferrer" aria-label="Visitar INCAA — abre em nova aba">Visitar INCAA ↗</a>
+                </dd>
+              </div>
+              <div>
+                <dt>BOLÍVIA</dt>
+                <dd>
+                  <p>ADECINE — Agencia del Desarrollo del Cine y Audiovisual Bolivianos</p>
+                  <a href="https://www.adecine.gob.bo/" target="_blank" rel="noopener noreferrer" aria-label="Visitar ADECINE — abre em nova aba">Visitar ADECINE ↗</a>
+                </dd>
+              </div>
+              <div>
+                <dt>BRASIL</dt>
+                <dd>
+                  <p>ANCINE — Agência Nacional do Cinema</p>
+                  <a href="https://www.gov.br/ancine/pt-br" target="_blank" rel="noopener noreferrer" aria-label="Visitar ANCINE — abre em nova aba">Visitar ANCINE ↗</a>
+                </dd>
+              </div>
+              <div>
+                <dt>CHILE</dt>
+                <dd>
+                  <p>Chile Audiovisual / Ministerio de las Culturas, las Artes y el Patrimonio</p>
+                  <a href="https://chileaudiovisual.cultura.gob.cl/" target="_blank" rel="noopener noreferrer" aria-label="Visitar Chile Audiovisual — abre em nova aba">Visitar Chile Audiovisual ↗</a>
+                </dd>
+              </div>
+              <div>
+                <dt>COLÔMBIA</dt>
+                <dd>
+                  <p>DACMI — Dirección de Audiovisuales, Cine y Medios Interactivos · Ministerio de las Culturas, las Artes y los Saberes</p>
+                  <a href="https://www.mincultura.gov.co/direcciones/audiovisuales-cine-y-medios-interactivos" target="_blank" rel="noopener noreferrer" aria-label="Visitar DACMI — abre em nova aba">Visitar DACMI ↗</a>
+                </dd>
+              </div>
+              <div>
+                <dt>PARAGUAI</dt>
+                <dd>
+                  <p>INAP — Instituto Nacional del Audiovisual Paraguayo</p>
+                  <a href="https://inap.gov.py/" target="_blank" rel="noopener noreferrer" aria-label="Visitar INAP — abre em nova aba">Visitar INAP ↗</a>
+                </dd>
+              </div>
+              <div>
+                <dt>PERU</dt>
+                <dd>
+                  <p>DAFO — Dirección del Audiovisual, la Fonografía y los Nuevos Medios · Ministerio de Cultura</p>
+                  <a href="https://dafo.cultura.pe/" target="_blank" rel="noopener noreferrer" aria-label="Visitar DAFO — abre em nova aba">Visitar DAFO ↗</a>
+                </dd>
+              </div>
+              <div>
+                <dt>URUGUAI</dt>
+                <dd>
+                  <p>ACAU — Agencia del Cine y el Audiovisual del Uruguay</p>
+                  <a href="https://www.acau.gub.uy/" target="_blank" rel="noopener noreferrer" aria-label="Visitar ACAU — abre em nova aba">Visitar ACAU ↗</a>
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="gi-mercosul-block" aria-labelledby="gi-acompanhamento-title">
+            <h3 id="gi-acompanhamento-title">EM ACOMPANHAMENTO</h3>
+            <p class="development-note">Área em desenvolvimento para acompanhamento do Gabinete.</p>
+            <ul class="gi-mercosul-tracking">
+              <li>Acordos</li>
+              <li>Coproduções</li>
+              <li>Chamadas</li>
+              <li>Circulação</li>
+              <li>Oportunidades regionais</li>
+            </ul>
+          </section>
+
+          <p class="legal-framework-disclaimer">
+            A presença de símbolos, nomes ou links institucionais nesta página tem caráter informativo e de referência.
+            Sua utilização não representa filiação, parceria, financiamento, apoio ou endosso institucional por parte das organizações apresentadas.
+          </p>
+        </section>
+        <section data-gi-view="europa" aria-labelledby="gi-europa-title" hidden>
+          <h2 id="gi-europa-title" tabindex="-1">Europa</h2>
+          <div class="gi-europa-intro">
+            <p>Área dedicada ao acompanhamento de instituições, programas, marcos de coprodução e oportunidades relacionadas ao desenvolvimento e à circulação do projeto no espaço europeu.</p>
+            <p>Nesta etapa, o acompanhamento concentra-se especialmente em Portugal e Alemanha.</p>
+          </div>
+
+          <section class="gi-europa-block gi-europa-program" data-framework="eu" aria-labelledby="gi-media-title">
+            <p class="eyebrow">União Europeia</p>
+            <h3 id="gi-media-title">CREATIVE EUROPE MEDIA</h3>
+            <p>A vertente MEDIA do programa Europa Criativa apoia os setores cinematográfico e audiovisual europeus, incluindo desenvolvimento, distribuição, promoção, cooperação, inovação, acesso a mercados e formação de redes profissionais.</p>
+            <p>Referência institucional e programa a ser acompanhado pelo Gabinete Internacional.</p>
+            <a href="https://culture.ec.europa.eu/pt-pt/creative-europe/creative-europe-media-strand" target="_blank" rel="noopener noreferrer" aria-label="Consultar programa — abre em nova aba">Consultar programa ↗</a>
+          </section>
+
+          <section class="gi-europa-block gi-europa-program" aria-labelledby="gi-eurimages-title">
+            <p class="eyebrow">Conselho da Europa</p>
+            <h3 id="gi-eurimages-title">EURIMAGES</h3>
+            <p><strong>Fundo de apoio à coprodução do Conselho da Europa</strong></p>
+            <p>Eurimages apoia coproduções internacionais de obras cinematográficas de longa duração, incluindo ficção, animação e documentário.</p>
+            <p>É uma referência relevante para o acompanhamento de modelos e estruturas europeias de coprodução internacional.</p>
+            <a href="https://www.coe.int/en/web/eurimages/coproduction" target="_blank" rel="noopener noreferrer" aria-label="Consultar Eurimages — abre em nova aba">Consultar Eurimages ↗</a>
+          </section>
+
+          <section class="gi-europa-block" aria-labelledby="gi-europa-referencias-title">
+            <h3 id="gi-europa-referencias-title">MARCOS E REFERÊNCIAS</h3>
+            <article class="gi-europa-reference" aria-labelledby="gi-convencao-title">
+              <h4 id="gi-convencao-title">CONVENÇÃO EUROPEIA DE COPRODUÇÃO CINEMATOGRÁFICA</h4>
+              <p>Referência jurídica e institucional europeia para estruturas de coprodução cinematográfica. A página do Conselho da Europa apresenta a convenção e sua revisão.</p>
+              <a href="https://www.coe.int/en/web/culture-and-heritage/cinematographic-coproduction" target="_blank" rel="noopener noreferrer" aria-label="Consultar convenção — abre em nova aba">Consultar convenção ↗</a>
+            </article>
+            <article class="gi-europa-reference" aria-labelledby="gi-observatory-title">
+              <h4 id="gi-observatory-title">EUROPEAN AUDIOVISUAL OBSERVATORY</h4>
+              <p>Fonte de dados, legislação, mercado, políticas públicas e informação setorial audiovisual, vinculada ao Conselho da Europa.</p>
+              <a href="https://www.obs.coe.int/en/web/observatoire/about" target="_blank" rel="noopener noreferrer" aria-label="Consultar observatório — abre em nova aba">Consultar observatório ↗</a>
+            </article>
+          </section>
+
+          <section class="gi-europa-block" aria-labelledby="gi-portugal-title">
+            <h3 id="gi-portugal-title">PORTUGAL</h3>
+            <h4>ICA — Instituto do Cinema e do Audiovisual</h4>
+            <p>Autoridade pública nacional de referência para cinema e audiovisual em Portugal.</p>
+            <a href="https://www.ica-ip.pt/pt/o-ica/quem-somos/" target="_blank" rel="noopener noreferrer" aria-label="Consultar ICA — abre em nova aba">Consultar ICA ↗</a>
+            <p class="development-note">Acompanhamento em desenvolvimento: oportunidades, coproduções, legislação, instituições, circulação e parceiros.</p>
+          </section>
+
+          <section class="gi-europa-block" aria-labelledby="gi-alemanha-title">
+            <h3 id="gi-alemanha-title">ALEMANHA</h3>
+            <h4>FFA — Filmförderungsanstalt</h4>
+            <p>Organismo nacional de referência para financiamento e desenvolvimento do setor cinematográfico alemão.</p>
+            <a href="https://www.ffa.de/" target="_blank" rel="noopener noreferrer" aria-label="Consultar FFA — abre em nova aba">Consultar FFA ↗</a>
+            <p class="development-note">Acompanhamento em desenvolvimento: oportunidades, coproduções, legislação, circulação, instituições e parceiros.</p>
+          </section>
+
+          <section class="gi-europa-block" aria-labelledby="gi-europa-acompanhamento-title">
+            <h3 id="gi-europa-acompanhamento-title">EM ACOMPANHAMENTO</h3>
+            <p class="development-note">Área em desenvolvimento para acompanhamento do Gabinete.</p>
+            <ul class="gi-europa-tracking">
+              <li>Creative Europe MEDIA</li>
+              <li>Eurimages</li>
+              <li>Coproduções</li>
+              <li>Circulação</li>
+              <li>Portugal</li>
+              <li>Alemanha</li>
+              <li>Chamadas</li>
+              <li>Oportunidades</li>
+              <li>Legislação</li>
+            </ul>
+          </section>
+
+          <p class="legal-framework-disclaimer">
+            A presença de nomes, símbolos ou links institucionais nesta página tem caráter informativo e de referência.
+            Sua utilização não representa filiação, parceria, financiamento, apoio ou endosso institucional por parte das organizações apresentadas.
+          </p>
+        </section>
+        <section data-gi-view="seguros" aria-labelledby="gi-seguros-title" hidden>
+          <h2 id="gi-seguros-title" tabindex="-1">Seguros</h2>
+          <p class="gabinete-description">
+            Área dedicada ao levantamento, organização e acompanhamento das necessidades
+            de cobertura relacionadas à circulação, equipamentos, pessoas e operação do projeto.
+          </p>
+
+          <section aria-labelledby="gi-seguros-frentes-title">
+            <h3 id="gi-seguros-frentes-title">FRENTES DE ANÁLISE</h3>
+            <ul>
+              <li>PESSOAS E VIAGENS</li>
+              <li>EQUIPAMENTOS E MATERIAIS</li>
+              <li>RESPONSABILIDADE CIVIL</li>
+              <li>MONTAGEM E OPERAÇÃO</li>
+              <li>TRANSPORTE NACIONAL E INTERNACIONAL</li>
+              <li>EXIGÊNCIAS DE ESPAÇOS E PARCEIROS</li>
+            </ul>
+          </section>
+
+          <section aria-labelledby="gi-seguros-desenvolvimento-title">
+            <h3 id="gi-seguros-desenvolvimento-title">EM DESENVOLVIMENTO</h3>
+            <p>Pontos a pesquisar e incorporar ao projeto:</p>
+            <ul>
+              <li>Coberturas necessárias</li>
+              <li>Exigências por território</li>
+              <li>Estimativas de custo</li>
+              <li>Documentos requeridos</li>
+              <li>Responsabilidades contratuais</li>
+            </ul>
+          </section>
+
+          <p class="development-note"><small>Status: EM DESENVOLVIMENTO</small></p>
+        </section>
+        <section data-gi-view="importacao-exportacao" aria-labelledby="gi-importacao-exportacao-title" hidden>
+          <h2 id="gi-importacao-exportacao-title" tabindex="-1">Importação e Exportação</h2>
+          <p class="gabinete-description">Área operacional destinada ao levantamento, organização e acompanhamento da circulação internacional de equipamentos, instrumentos, cenografia, figurinos, materiais e demais bens vinculados ao projeto.</p>
+
+          <section class="gi-circulation-block" aria-labelledby="gi-fluxos-title">
+            <h3 id="gi-fluxos-title">FLUXOS DE CIRCULAÇÃO</h3>
+            <p>Estrutura de acompanhamento de origem e destino entre Brasil, Portugal e Alemanha. Os exemplos abaixo representam possibilidades a verificar, sem confirmação de realização.</p>
+            <ul class="gi-circulation-flows">
+              <li>Brasil → Portugal</li>
+              <li>Portugal → Alemanha</li>
+              <li>Alemanha → Brasil</li>
+            </ul>
+          </section>
+
+          <section class="gi-circulation-block" aria-labelledby="gi-bens-title">
+            <h3 id="gi-bens-title">CATEGORIAS DE BENS</h3>
+            <ul class="gi-circulation-categories">
+              <li><strong>EQUIPAMENTOS TÉCNICOS</strong><span>Áudio, vídeo, iluminação, informática e acessórios.</span></li>
+              <li><strong>INSTRUMENTOS MUSICAIS</strong></li>
+              <li><strong>CENOGRAFIA E MATERIAIS CÊNICOS</strong></li>
+              <li><strong>FIGURINOS E OBJETOS</strong></li>
+              <li><strong>ELETRÔNICA E PROTÓTIPOS</strong><span>Sensores, Arduino, componentes e dispositivos desenvolvidos para o projeto.</span></li>
+              <li><strong>MATERIAIS PROMOCIONAIS E DE APOIO</strong></li>
+              <li><strong>OUTROS BENS</strong></li>
+            </ul>
+          </section>
+
+          <section class="gi-circulation-block" aria-labelledby="gi-documentacao-title">
+            <h3 id="gi-documentacao-title">DOCUMENTAÇÃO</h3>
+            <p>Checklist de informações a levantar. Verificar conforme território e operação: nem todos os documentos se aplicam a todos os casos.</p>
+            <ul class="gi-circulation-checklist">
+              <li>Identificação do bem</li>
+              <li>Proprietário</li>
+              <li>Marca e modelo</li>
+              <li>Número de série, quando houver</li>
+              <li>Quantidade</li>
+              <li>Valor declarado</li>
+              <li>Origem</li>
+              <li>Destino</li>
+              <li>Finalidade da circulação</li>
+              <li>Responsável pelo transporte</li>
+              <li>Documento fiscal ou comprovação de propriedade, quando aplicável</li>
+              <li>Documento de transporte, quando aplicável</li>
+              <li>Documentação aduaneira, quando aplicável</li>
+            </ul>
+          </section>
+
+          <section class="gi-circulation-block" aria-labelledby="gi-forma-circulacao-title">
+            <h3 id="gi-forma-circulacao-title">FORMA DE CIRCULAÇÃO</h3>
+            <p>Possibilidades a verificar quanto ao transporte, ao regime e à situação do bem:</p>
+            <ul class="gi-circulation-checklist">
+              <li>Bagagem acompanhada</li>
+              <li>Transporte pessoal</li>
+              <li>Transportadora</li>
+              <li>Remessa</li>
+              <li>Exportação temporária</li>
+              <li>Importação temporária</li>
+              <li>Retorno ao país de origem</li>
+              <li>Bem alugado</li>
+              <li>Bem cedido por parceiro</li>
+              <li>Bem adquirido no exterior</li>
+            </ul>
+            <p>A definição da forma de circulação depende do caso concreto e das exigências aplicáveis a cada território e operação.</p>
+          </section>
+
+          <section class="gi-circulation-block" aria-labelledby="gi-inventario-title">
+            <h3 id="gi-inventario-title">INVENTÁRIO DE CIRCULAÇÃO</h3>
+            <!-- Estrutura conceitual para futura integração com uma base de inventário:
+                 item; categoria; proprietário; origem; destino; marca / modelo;
+                 número de série; valor; forma de circulação; responsável; status.
+                 Não preencher com itens demonstrativos. -->
+            <div id="gi-inventario-circulacao">
+              <p class="empty">Nenhum item registrado.</p>
+            </div>
+          </section>
+
+          <section class="gi-circulation-block" aria-labelledby="gi-circulacao-acompanhamento-title">
+            <h3 id="gi-circulacao-acompanhamento-title">EM ACOMPANHAMENTO</h3>
+            <ul class="gi-circulation-checklist">
+              <li>Exigências por território</li>
+              <li>Documentação</li>
+              <li>Prazos</li>
+              <li>Custos</li>
+              <li>Tributos e taxas</li>
+              <li>Transportadoras</li>
+              <li>Despachantes</li>
+              <li>Pendências operacionais</li>
+            </ul>
+          </section>
+
+          <section class="gi-circulation-block" aria-labelledby="gi-circulacao-referencias-title">
+            <h3 id="gi-circulacao-referencias-title">REFERÊNCIAS FUTURAS</h3>
+            <p>Temas a pesquisar e incorporar conforme as necessidades do projeto:</p>
+            <ul class="gi-circulation-checklist">
+              <li>Admissão temporária</li>
+              <li>Exportação temporária</li>
+              <li>Importação temporária</li>
+              <li>ATA Carnet</li>
+              <li>Procedimentos aduaneiros específicos</li>
+            </ul>
+          </section>
+
+          <section class="gi-circulation-block" aria-labelledby="gi-interface-tecnica-title">
+            <h3 id="gi-interface-tecnica-title">INTERFACE COM A DIRETORIA TÉCNICA</h3>
+            <p>A Diretoria Técnica identifica quais equipamentos, instrumentos e materiais precisam circular.</p>
+            <p>O Gabinete Internacional acompanha como esses bens poderão circular entre territórios e quais informações, documentos e procedimentos precisam ser levantados.</p>
+          </section>
+          <p class="development-note"><small>Status: EM DESENVOLVIMENTO</small></p>
+        </section>
+        <section data-gi-view="memorias" aria-labelledby="gi-memorias-title" hidden>
+          <h2 id="gi-memorias-title" tabindex="-1">Memórias e Artefatos</h2>
+          <div class="gi-memory-intro">
+            <p>Área dedicada à preservação do conhecimento produzido pelo trabalho do Gabinete Internacional e ao registro dos materiais e artefatos desenvolvidos ao longo do processo.</p>
+            <p>O objetivo é permitir que decisões, aprendizados e soluções construídas durante uma candidatura, negociação ou circulação possam ser consultadas e reaproveitadas em etapas futuras.</p>
+          </div>
+
+          <section class="gi-memory-block" aria-labelledby="gi-memorias-registros-title">
+            <h3 id="gi-memorias-registros-title">MEMÓRIAS</h3>
+            <p>Registros de conhecimento produzido durante o desenvolvimento das relações internacionais do projeto.</p>
+            <p>Memória é o conhecimento produzido pelo processo: decisões, aprendizados, sínteses, orientações, procedimentos, referências consolidadas e resultados de reuniões, negociações e articulações.</p>
+            <!-- Estrutura editorial das futuras entradas de memória, organizadas por data:
+                 título; data; território; assunto; síntese; origem / contexto;
+                 referência relacionada. Não inserir registros demonstrativos. -->
+            <div id="gi-memorias-registros">
+              <p class="empty">Nenhuma memória registrada.</p>
+            </div>
+          </section>
+
+          <section class="gi-memory-block" aria-labelledby="gi-artefatos-title">
+            <h3 id="gi-artefatos-title">ARTEFATOS</h3>
+            <p>Materiais produzidos para apoiar o desenvolvimento, organização e circulação internacional do projeto.</p>
+            <p>Artefato é um objeto, material ou resultado produzido durante o processo.</p>
+            <h4>Categorias iniciais</h4>
+            <ul class="gi-memory-categories">
+              <li>Modelos</li>
+              <li>Formulários</li>
+              <li>Checklists</li>
+              <li>Planilhas</li>
+              <li>Relatórios</li>
+              <li>Apresentações</li>
+              <li>Mapas</li>
+              <li>Dossiês</li>
+              <li>Materiais de apoio</li>
+              <li>Protótipos</li>
+              <li>Outros</li>
+            </ul>
+            <!-- Estrutura editorial dos futuros artefatos, organizados por data e categoria:
+                 nome; tipo; data; território; descrição; status; referência ou link.
+                 Não inserir itens demonstrativos nem duplicar documentos do Arquivo. -->
+            <div id="gi-artefatos-registros">
+              <p class="empty">Nenhum artefato registrado.</p>
+            </div>
+          </section>
+
+          <section class="gi-memory-block" aria-labelledby="gi-aprendizados-title">
+            <h3 id="gi-aprendizados-title">APRENDIZADOS</h3>
+            <p>Área para registrar conhecimentos que possam ser reaproveitados em outras etapas ou futuros projetos.</p>
+            <h4>Pontos para os futuros registros</h4>
+            <ul class="gi-memory-fields">
+              <li>O que foi aprendido</li>
+              <li>Em qual contexto</li>
+              <li>Território relacionado</li>
+              <li>Aplicação futura</li>
+            </ul>
+            <p class="development-note">Em desenvolvimento...</p>
+          </section>
+
+          <section class="gi-memory-block" aria-labelledby="gi-referencias-consolidadas-title">
+            <h3 id="gi-referencias-consolidadas-title">REFERÊNCIAS CONSOLIDADAS</h3>
+            <p>Área para reunir fontes, instituições, modelos e documentos de referência que já tenham demonstrado utilidade para o trabalho do Gabinete.</p>
+            <div id="gi-referencias-consolidadas">
+              <p class="development-note">Em desenvolvimento...</p>
+            </div>
+          </section>
+
+          <aside class="gi-memory-relations" aria-labelledby="gi-memorias-relacoes-title">
+            <h3 id="gi-memorias-relacoes-title">RELAÇÃO COM O ARQUIVO E O DIÁRIO</h3>
+            <p>Memórias e Artefatos registra conhecimento e materiais produzidos. A seção Arquivo é destinada à guarda, localização e consulta dos documentos e registros associados.</p>
+            <p>O Diário registra o andamento cotidiano do trabalho. Memórias e Artefatos preserva conteúdos que adquiriram valor de consulta, reutilização ou referência.</p>
+          </aside>
+          <p class="development-note"><small>Status: EM DESENVOLVIMENTO</small></p>
+        </section>
+          <section data-gi-view="arquivo" aria-labelledby="gi-arquivo-title" hidden>
+            <h2 id="gi-arquivo-title" tabindex="-1">Arquivo</h2>
+            <p>
+              Área destinada à organização, localização e consulta dos documentos
+              e registros vinculados ao trabalho do Gabinete Internacional.
+            </p>
+            <p>
+              O Arquivo deverá reunir, de forma estruturada, materiais produzidos
+              ou recebidos ao longo do desenvolvimento do projeto, permitindo sua
+              recuperação futura sem duplicar as funções do Diário, dos Inputs ou
+              de Memórias e Artefatos.
+            </p>
+            <p class="development-note"><small>Status: EM DESENVOLVIMENTO</small></p>
+            <nav class="category-tabs" aria-label="Registros do Arquivo">
+              <a href="#dashboard">Dashboard</a>
+              <a href="#diario">Diário de Produção</a>
+              <a href="#inputs">Inputs recebidos</a>
+            </nav>
       <section
         data-gabinete-view="dashboard"
+        hidden
         aria-labelledby="dashboard-title"
       >
 
         <h2 id="dashboard-title" tabindex="-1">
           Dashboard do Gabinete
         </h2>
-
-
-        <!-- =================================================
-             TERRITÓRIOS & MARCOS JURÍDICOS
-        ================================================== -->
-
-        <section
-          class="legal-territories"
-          aria-labelledby="legal-territories-title"
-        >
-
-          <header class="legal-territories-heading">
-
-            <p class="eyebrow">
-              Campo de atuação
-            </p>
-
-            <h3 id="legal-territories-title">
-              Territórios & Marcos Jurídicos
-            </h3>
-
-            <p>
-              Referências territoriais e institucionais utilizadas
-              pelo Gabinete Internacional para organização,
-              pesquisa e acompanhamento de processos.
-            </p>
-
-          </header>
-
-
-          <div class="legal-framework-grid">
-
-
-            <!-- MERCOSUL -->
-
-            <article
-              class="legal-framework-card"
-              data-framework="mercosul"
-            >
-
-              <div class="legal-framework-mark">
-
-                <img
-                  src="assets/mercosul.png"
-                  alt="Símbolo do MERCOSUL"
-                  loading="lazy"
-                >
-
-              </div>
-
-              <div class="legal-framework-content">
-
-                <p class="framework-region">
-                  América do Sul
-                </p>
-
-                <h4>MERCOSUL</h4>
-
-                <p>
-                  Marco institucional de referência para processos
-                  relacionados à atuação e circulação regional.
-                </p>
-
-                <div
-                  class="framework-tags"
-                  aria-label="Territórios relacionados"
-                >
-                  <span>Brasil</span>
-                  <span>Circulação regional</span>
-                </div>
-
-              </div>
-
-            </article>
-
-
-            <!-- CONEXÃO TRANSATLÂNTICA -->
-
-            <div
-              class="transatlantic-bridge"
-              aria-label="Conexão transatlântica"
-            >
-
-              <span class="bridge-line" aria-hidden="true"></span>
-
-              <div class="bridge-content">
-
-                <strong>TRANSATLÂNTICO</strong>
-
-                <span>
-                  MERCOSUL ⇄ UNIÃO EUROPEIA
-                </span>
-
-              </div>
-
-              <span class="bridge-line" aria-hidden="true"></span>
-
-            </div>
-
-
-            <!-- UNIÃO EUROPEIA -->
-
-            <article
-              class="legal-framework-card"
-              data-framework="eu"
-            >
-
-              <div class="legal-framework-mark">
-
-                <img
-                  src="assets/uniao-europeia.png"
-                  alt="Emblema da União Europeia"
-                  loading="lazy"
-                >
-
-              </div>
-
-              <div class="legal-framework-content">
-
-                <p class="framework-region">
-                  Europa
-                </p>
-
-                <h4>União Europeia</h4>
-
-                <p>
-                  Marco institucional de referência para processos
-                  relacionados à atuação e circulação no espaço europeu.
-                </p>
-
-                <div
-                  class="framework-tags"
-                  aria-label="Territórios relacionados"
-                >
-                  <span>Portugal</span>
-                  <span>Alemanha</span>
-                  <span>Circulação europeia</span>
-                </div>
-
-              </div>
-
-            </article>
-
-          </div>
-
-
-          <!-- NOTA DE INDEPENDÊNCIA -->
-
-          <p class="legal-framework-disclaimer">
-
-            Os símbolos apresentados nesta área identificam
-            referências territoriais e jurídico-institucionais de
-            interesse do Gabinete Internacional. Sua utilização não
-            representa filiação, parceria, financiamento, apoio ou
-            endosso institucional por parte das organizações
-            representadas.
-
-          </p>
-
-        </section>
 
 
         <!-- =================================================
@@ -930,6 +1135,10 @@
 
       </section>
 
+
+          </section>
+        </div>
+      </div>
     </main>
 
 
