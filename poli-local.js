@@ -15,7 +15,7 @@ window.poliLocalBootstrap = (session, scenario) => {
     areas: [
       { id: 'EXEC', name: 'Produção Executiva', status: 'ATIVO', dashboardActive: true },
       { id: 'ART', name: 'Departamento de Arte e Performance', status: 'ATIVO', dashboardActive: true },
-      { id: 'PROD', name: 'Direção de Produção', status: 'ATIVO', dashboardActive: false },
+      { id: 'PROD', name: 'Direção de Produção', status: 'ATIVO', dashboardActive: true },
       { id: 'TECH', name: 'Diretoria Técnica', status: 'ATIVO', dashboardActive: true },
       { id: 'MKT', name: 'Direção de Marketing', status: 'ATIVO', dashboardActive: false },
       { id: 'ADMIN', name: 'Diretoria Administrativa', status: 'ATIVO', dashboardActive: true },

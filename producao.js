@@ -147,6 +147,7 @@
   let permissionFeedback = '';
   const sectorRoutes = Object.fromEntries(Object.entries(productionAreas.ids).map(([area, id]) => [id, productionAreas.definitions[area].href]));
   sectorRoutes.ADMIN = 'producao.html#administrativa';
+  sectorRoutes.PROD = 'https://caioyabura-lgtm.github.io/production.department.oncalince/';
   const sectorLabels = new Map([...document.querySelectorAll('[data-area-id]')].map(button => [button.dataset.areaId, button.textContent]));
   function updateSectors() {
     $('#clear-demo-diary').hidden = !canClearDemo();
@@ -165,7 +166,7 @@
       const id = button.dataset.areaId;
       const area = data?.areas.find(item => item.id === id);
       // Divergência editorial pendente: manter Comunicação no shell e chave MKT.
-      button.textContent = id === 'MKT' ? sectorLabels.get(id) : (area?.name || sectorLabels.get(id) || id);
+      button.textContent = id === 'MKT' || id === 'PROD' ? sectorLabels.get(id) : (area?.name || sectorLabels.get(id) || id);
       const allowed = Boolean(sectorRoutes[id] && window.poliService.canReadArea(id));
       button.disabled = !allowed;
       button.setAttribute('aria-disabled', String(!allowed));
@@ -359,7 +360,7 @@
     if (!window.poliService.canReadArea(id) || !sectorRoutes[id]) { updateSectors(); return; }
     if (id === 'ADMIN') location.hash = 'administrativa';
     else if (id === 'EXEC') location.hash = 'executivo';
-    else if (id === 'TECH' || id === 'ART') window.open(sectorRoutes[id], '_blank', 'noopener,noreferrer');
+    else if (id === 'TECH' || id === 'ART' || id === 'PROD') window.open(sectorRoutes[id], '_blank', 'noopener,noreferrer');
     else location.assign(sectorRoutes[id]);
   });
   window.addEventListener('poli-access-change', updateSectors);

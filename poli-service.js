@@ -132,6 +132,9 @@ window.poliService = (() => {
         if (['local', 'hosted-demo'].includes(config?.mode) && session.access === 'caio') {
           data.permissions = data.permissions.filter(item => item.areaId !== 'ADMIN');
           data.permissions.push({ areaId: 'ADMIN', level: 'ADMIN', active: true });
+          if (!data.permissions.some(item => item.areaId === 'PROD' && item.active)) {
+            data.permissions.push({ areaId: 'PROD', level: 'READ', active: true });
+          }
         }
         if (['local', 'hosted-demo'].includes(config?.mode)) {
           if (session.access === 'sergio.henriques') {
@@ -144,7 +147,7 @@ window.poliService = (() => {
             // Permissao preparada; a interface ADMIN permanece inativa no catalogo.
             data.permissions = [{ areaId: 'ADMIN', level: 'WRITE', active: true }];
           } else if (['ricardo.almeida', 'flavia.ivar'].includes(session.access)) {
-            // Grants preparados; as interfaces PROD e ADMIN continuam inativas no catalogo.
+            // Grants existentes de PROD e ADMIN preservados.
             data.permissions = ['PROD', 'ADMIN'].map(areaId => ({ areaId, level: 'WRITE', active: true }));
           }
         }
