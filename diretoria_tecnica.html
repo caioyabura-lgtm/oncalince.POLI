@@ -7,6 +7,7 @@
   <title>Diretoria Técnica · Área interna</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:wght@400;700&amp;display=swap">
   <link rel="stylesheet" href="diretoria-tecnica.css">
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <script src="auth.js" defer></script>
   <script src="poli-config.js" defer></script>
   <script src="poli-local.js" defer></script>
@@ -27,18 +28,41 @@
     <main id="workspace" tabindex="-1">
       <p id="access-status" role="status">Verificando acesso…</p>
       <div id="technical-content" hidden>
-        <header class="section-heading">
+        <header class="section-heading technical-header">
+          <div class="technical-header-spacer" aria-hidden="true"></div>
           <div class="technical-heading-block">
           <h1 data-copy="title">DIRETORIA TÉCNICA</h1>
           <p class="technical-team"><a href="https://alexandre-furtado.com/?utm_source=ig&amp;utm_medium=social&amp;utm_content=link_in_bio&amp;fbclid=PAcGRvZgJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAafPoWyZqPjSlClsd2PYiVrER1A1xfa9qeWOD65ZT9NXZvMEuI-aAs-we_1-rQ_aem_0p7QADzoGcLevbL9hEny8w" target="_blank" rel="noopener noreferrer">ALEXANDRE FURTADO</a><span> · </span><a href="https://caioyabura-lgtm.github.io/portfolio/portfolio.html" target="_blank" rel="noopener noreferrer">CAIO RODRIGUES</a><span> · </span><a href="https://linktr.ee/shotbypmfs" target="_blank" rel="noopener noreferrer">PEDRO SEBASTIÃO</a></p>
           <p class="technical-context technical-application"><a href="https://www.goethe.de/en/kul/foe/int.html" target="_blank" rel="noopener noreferrer" data-copy="application">Candidatura International Coproduction Fund (IKF) · 2026</a></p>
           </div>
+          <figure class="technical-header-mascot"><img src="assets/bigcat_diretoria.técnica.svg" alt="Lince geométrico" data-alt="lynx"></figure>
         </header>
-        <div class="technical-composition">
+        <div class="technical-composition technical-composition--wide">
           <section class="technical-index" aria-label="Áreas técnicas" data-label="areas">
             <div id="technical-categories"></div>
           </section>
-          <figure class="technical-lynx"><img src="assets/bigcat_diretoria.técnica.svg" alt="Lince geométrico" data-alt="lynx"></figure>
+          <section class="technical-model" aria-label="Modelo 3D do Grande Auditório da ESML" data-label="modelLabel">
+            <div class="technical-model-frame">
+              <model-viewer
+                class="technical-model-viewer"
+                src="assets/grande_auditorio.glb"
+                alt="Modelo 3D do Grande Auditório da Escola Superior de Música de Lisboa"
+                data-alt="modelAlt"
+                loading="eager"
+                auto-rotate
+                auto-rotate-delay="0"
+                rotation-per-second="2.5deg"
+                camera-controls
+                disable-pan
+                touch-action="pan-y"
+                shadow-intensity="0.8"
+                exposure="1"
+                environment-image="neutral"
+                interaction-prompt="none">
+              </model-viewer>
+              <div class="technical-model-caption"><p data-copy="modelCaption">Grande Auditório · ESML</p></div>
+            </div>
+          </section>
         </div>
       </div>
     </main>

@@ -53,7 +53,7 @@ try:
         for link in tech.locator('.technical-team a').all():
             assert link.get_attribute('target') == '_blank'
             assert link.get_attribute('rel') == 'noopener noreferrer'
-        assert tech.locator('.technical-lynx img').evaluate('(img) => img.complete && img.naturalWidth > 0')
+        assert tech.locator('.technical-header-mascot img').evaluate('(img) => img.complete && img.naturalWidth > 0')
         assert 'International Coproduction Fund (IKF)' in tech.locator('.technical-context').inner_text()
         for width in [320,390,768,1440,1920]:
             tech.set_viewport_size({'width':width,'height':1000})
