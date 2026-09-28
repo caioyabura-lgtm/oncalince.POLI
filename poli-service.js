@@ -137,7 +137,7 @@ window.poliService = (() => {
           }
         }
         if (['local', 'hosted-demo'].includes(config?.mode)) {
-          if (session.access === 'sergio.henriques') {
+          if (['sergio.henriques', 'jose.padovani', 'rogerio'].includes(session.access)) {
             data.permissions = ['ART', 'TECH', 'INTL'].map(areaId => ({ areaId, level: 'WRITE', active: true }));
           } else if (['jaime.reis', 'mariana.vieira', 'nuno.lobo', 'marcelo.ribeiro', 'andre.simoes'].includes(session.access)) {
             data.permissions = [{ areaId: 'ART', level: 'WRITE', active: true }];
