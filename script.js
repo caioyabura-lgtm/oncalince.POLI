@@ -260,7 +260,7 @@ async function handleLogin(event) {
     await window.productionAuth.signIn(email, password);
     passwordInput.value = '';
     if (errorNode) errorNode.textContent = '';
-    window.location.assign('producao.html');
+    window.location.assign('producao.html#overview');
   } catch (error) {
     if (errorNode) errorNode.textContent = error.message;
   } finally { submit.disabled = false; }
